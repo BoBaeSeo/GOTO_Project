@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ include file="includes/header.jsp"%>
+<%@ include file="../includes/header.jsp"%>
     <!-- Hero Section Begin -->
     <section class="hero-section">
         <div class="hero-items owl-carousel">
@@ -135,29 +135,24 @@
                             예약하기
                         </div>
                     </div>
-                    <form action="c_HotelList" class="filter-form" method="post">
+                    <form action="#" class="filter-form">
                         <div class="first-row">
-                            <select name="ctname">
+                            <select>
                                 <option value="">지역</option>
-                                <option value="서울">서울</option>
-                                <option value="부산">부산</option>
-                                <option value="제주도">제주도</option>
                             </select>
-                            <input type="date" value="check in" name="bcheckin">
-                            <input type="date" value="check out" name="bcheckout">
-                            <select name="bperson">
+                            <select>
+                                <option value="">check in</option>
+                            </select>
+                            <select>
+                                <option value="">check out</option>
+                            </select>
+                            <select>
                                 <option value="">인원</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
                             </select>
                         </div>
                         <div class="second-row">
-                            <select name="bprice">
+                            <select>
                                 <option value="">가격</option>
-                                <option value="50000">50000이하</option>
-                                <option value="100000">100000이하</option>
-                                <option value="150000">150000이하</option>
                             </select>
                             <div class="price-range-wrap">
                                 <div class="price-text"></div>
@@ -165,7 +160,7 @@
                             <div class="room-size-range">
                                 <div class="price-text"></div>
                             </div>
-                            <button type="submit" class="search-btn">Search</button>
+                            <button type="button" class="search-btn">Search</button>
                         </div>
                     </form>
                 </div>
@@ -211,4 +206,4 @@
         </div>
     </section>
     <!-- How It Works Section End -->
-<%@ include file="includes/footer.jsp"%> 
+<%@ include file="../includes/footer.jsp"%> 

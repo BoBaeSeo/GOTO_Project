@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.Hotel.mapper.HotelMapper">
+	<select id="getHotelListCnt" resultType="int">
+		SELECT COUNT(*) FROM HOTEL
+	</select>
+
+	<select id="c_HotelListInCtname" parameterType="Map" resultMap="hotel">
+		 <choose>
+		 	<when test="bookingDTO.bperson != null">
+				SELECT DISTINCT HO_CTCODE, HOCODE, HONAME, HOPHOTO, HOADDR, HOSCORE, HOPUBLICIZE FROM (SELECT ROWNUM RN, HOTEL.* FROM HOTEL), CITY, BOOKING, ROOM
+				WHERE CTCODE = HO_CTCODE AND CTCODE = B_CTCODE AND HOCODE = B_HOCODE AND RO_HOCODE = HOCODE AND B_ROCODE = ROCODE AND BCHECKIN NOT BETWEEN #{bookingDTO.bcheckin,jdbcType=VARCHAR} AND #{bookingDTO.bcheckout,jdbcType=VARCHAR}	
+				AND CTNAME = #{ctname} AND ((#{bookingDTO.bprice,jdbcType=VARCHAR} IS NULL AND ROMAXPER &gt;= #{bookingDTO.bperson,jdbcType=VARCHAR} AND RN BETWEEN #{pageDTO.startrow} AND #{pageDTO.endrow}) 
+				OR (#{bookingDTO.bprice,jdbcType=VARCHAR} IS NOT NULL AND ROPRICE &lt;= #{bookingDTO.bprice,jdbcType=VARCHAR} AND ROMAXPER &gt;= #{bookingDTO.bperson,jdbcType=VARCHAR} AND RN BETWEEN #{pageDTO.startrow} AND #{pageDTO.endrow}))
+		 	</when>
+		 	<otherwise>
+		 		SELECT DISTINCT HO_CTCODE, HOCODE, HONAME, HOPHOTO, HOADDR, HOSCORE, HOPUBLICIZE FROM (SELECT ROWNUM RN, HOTEL.* FROM HOTEL), CITY, BOOKING, ROOM
+				WHERE CTCODE = HO_CTCODE AND CTCODE = B_CTCODE AND HOCODE = B_HOCODE AND RO_HOCODE = HOCODE AND B_ROCODE = ROCODE AND BCHECKIN NOT BETWEEN #{bookingDTO.bcheckin,jdbcType=VARCHAR} AND #{bookingDTO.bcheckout,jdbcType=VARCHAR}	
+				AND CTNAME = #{ctname} AND ((#{bookingDTO.bprice,jdbcType=VARCHAR} IS NULL AND RN BETWEEN #{pageDTO.startrow} AND #{pageDTO.endrow}) 
+				OR (#{bookingDTO.bpric,jdbcType=VARCHARe} IS NOT NULL AND ROPRICE &lt;= #{bookingDTO.bprice,jdbcType=VARCHAR} AND RN BETWEEN #{pageDTO.startrow} AND #{pageDTO.endrow}))
+		 	</otherwise>
+		 </choose>
+	</select>
+	
+	<select id="c_HotelListNotCtname" parameterType="Map" resultMap="hotel">
+		<choose>
+			<when test="bookingDTO.bperson != null">
+				SELECT DISTINCT HO_CTCODE, HOCODE, HONAME, HOPHOTO, HOADDR, HOSCORE, HOPUBLICIZE FROM (SELECT ROWNUM RN, HOTEL.* FROM HOTEL), BOOKING, ROOM
+				WHERE HOCODE = B_HOCODE AND RO_HOCODE = HOCODE AND B_ROCODE = ROCODE AND BCHECKIN NOT BETWEEN #{bookingDTO.bcheckin,jdbcType=VARCHAR} AND #{bookingDTO.bcheckout,jdbcType=VARCHAR}	
+				AND ((#{bookingDTO.bprice,jdbcType=VARCHAR} IS NULL AND ROMAXPER &gt;= #{bookingDTO.bperson,jdbcType=VARCHAR} AND RN BETWEEN #{pageDTO.startrow} AND #{pageDTO.endrow}) 
+				OR (#{bookingDTO.bprice,jdbcType=VARCHAR} IS NOT NULL AND ROPRICE &lt;= #{bookingDTO.bprice,jdbcType=VARCHAR} AND ROMAXPER &gt;= #{bookingDTO.bperson,jdbcType=VARCHAR} AND RN BETWEEN #{pageDTO.startrow} AND #{pageDTO.endrow}))
+			</when>
+			<otherwise>
+				SELECT DISTINCT HO_CTCODE, HOCODE, HONAME, HOPHOTO, HOADDR, HOSCORE, HOPUBLICIZE FROM (SELECT ROWNUM RN, HOTEL.* FROM HOTEL), BOOKING, ROOM
+				WHERE HOCODE = B_HOCODE AND RO_HOCODE = HOCODE AND B_ROCODE = ROCODE AND BCHECKIN NOT BETWEEN #{bookingDTO.bcheckin,jdbcType=VARCHAR} AND #{bookingDTO.bcheckout,jdbcType=VARCHAR}	
+				AND ((#{bookingDTO.bprice,jdbcType=VARCHAR} IS NULL AND RN BETWEEN #{pageDTO.startrow} AND #{pageDTO.endrow}) 
+				OR (#{bookingDTO.bprice,jdbcType=VARCHAR} IS NOT NULL AND ROPRICE &lt;= #{bookingDTO.bprice,jdbcType=VARCHAR} AND RN BETWEEN #{pageDTO.startrow} AND #{pageDTO.endrow}))
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="c_HotelList" resultMap="hotel">
+		SELECT * FROM (SELECT ROWNUM RN, HOTEL.* FROM HOTEL) WHERE RN BETWEEN #{pageDTO.startrow} AND #{pageDTO.endrow}
+	</select>
+	<resultMap type="com.Hotel.dto.HotelDTO" id="hotel">
+		<result property="ho_ctcode" column="HO_CTCODE" />
+		<result property="hocode" column="HOCODE" />
+		<result property="honame" column="HONAME" />
+		<result property="hophoto" column="HOPHOTO" />
+		<result property="hoaddr" column="HOADDR" />
+		<result property="hoscore" column="HOSCORE" />
+		<result property="hopublicize" column="HOPUBLICIZE" />
+	</resultMap>
+
+</mapper>
