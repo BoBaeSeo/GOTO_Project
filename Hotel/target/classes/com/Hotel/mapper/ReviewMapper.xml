@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.Hotel.mapper.ReviewMapper">
+
+	<select id="getReviewList" parameterType="String" resultMap="selectReview">
+		SELECT * FROM REVIEW WHERE V_HOCODE = #{hocode}
+	</select>
+	
+ 	<insert id="insertReview" parameterType="com.Hotel.dto.ReviewDTO">
+ 		INSERT INTO REVIEW(VCODE, V_HOCODE, VWRITER, VCONTENT, VSCORE, VDRAWUP) 
+ 		VALUES(#{vcode}, #{v_hocode}, #{vwriter}, #{vcontent}, #{vscore}, SYSDATE)
+ 	</insert>
+ 	
+ 	<select id="getvcode" resultType="String">
+ 		SELECT MAX(VCODE) FROM REVIEW
+ 	</select>
+ 	
+ 	<select id="getNewReview" parameterType="String" resultMap="selectReview">
+ 		SELECT * FROM REVIEW WHERE VCODE = #{vcode}
+ 	</select>
+ 	
+ 	<resultMap type="com.Hotel.dto.ReviewDTO" id="selectReview">
+		<result property="vcode" column="VCODE" />
+		<result property="v_hocode" column="V_HOCODE" />
+		<result property="vwriter" column="VWRITER" />
+		<result property="vcontent" column="VCONTENT" />
+		<result property="vscore" column="VSCORE" />
+		<result property="vdrawup" column="VDRAWUP" />
+		<result property="vphoto" column="VPHOTO" />
+	</resultMap>
+	
+	<select id="getReviewCnt" parameterType="String" resultType="int">
+		SELECT count(vcode) FROM REVIEW where v_hocode = #{hocode}
+	</select>
+	
+	<delete id="deleteReview" parameterType="String">
+		DELETE FROM REVIEW WHERE VCODE = #{vcode}
+	</delete>
+</mapper>

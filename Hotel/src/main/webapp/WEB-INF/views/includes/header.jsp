@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>GOTO</title>
-
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 
@@ -51,7 +51,7 @@
         </div>
         <nav class="main-menu">
             <ul>
-                <li><a href="./index.html">Home</a></li>
+                <li><a href="/">Home</a></li>
                 <li><a href="c_HotelList" >Hotel</a></li>
                 <li><a href="./about-us.html">Help</a></li>
             </ul>
@@ -92,9 +92,9 @@
                     <div class="col-lg-7">
                         <nav class="main-menu">
                             <ul>
-                            	<li><a href="./index.html"><img src="resources/img/logo.png" alt="" width="150px"></a><li>
-                                <li class="active"><a href="./index.html">Home</a></li>
-                                <li><a href="./property.html" >Hotel</a></li>
+                            	<li><a href="/"><img src="resources/img/logo.png" alt="" width="150px"></a><li>
+                                <li class="active"><a href="/">Home</a></li>
+                                <li><a href="c_HotelList" >Hotel</a></li>
                                 <li><a href="./about-us.html">Help</a></li>
                             </ul>
                         </nav>

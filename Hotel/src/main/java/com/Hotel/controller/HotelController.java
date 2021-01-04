@@ -24,14 +24,14 @@ public class HotelController {
 		mav = hotelService.c_HotelList(bookingDTO, ctname ,page);
 		return mav;
 	}
-//	페이징처리
-//	왼쪽 카테고리 바뀌면 호텔리스트도 바뀌도록
-//	호텔사진이랑 이름 클릭하면 룸리스트로 가도록
-//	지도대신 일본사진
 
-	
-	
-//	-- 룸리스트   
+	//	(고객페이지) 룸리스트  
+	@RequestMapping(value = "c_RoomList")
+	public ModelAndView c_RoomList(String hocode) {
+		System.out.println("c_RoomList");
+		mav = hotelService.c_RoomList(hocode);
+		return mav;
+	}
 //	호텔정보, 세부사항 불러오기
 //	호텔후기 등록,수정,삭제,좋아요
 //	방리스트 불러오기

@@ -138,13 +138,13 @@
                     <form action="c_HotelList" class="filter-form" method="post">
                         <div class="first-row">
                             <select name="ctname">
-                                <option value="">지역</option>
+                                <option value="null">지역</option>
                                 <option value="서울">서울</option>
                                 <option value="부산">부산</option>
                                 <option value="제주도">제주도</option>
                             </select>
-                            <input type="date" value="check in" name="bcheckin">
-                            <input type="date" value="check out" name="bcheckout">
+                            <input type="date" name="bcheckin">
+                            <input type="date" name="bcheckout">
                             <select name="bperson">
                                 <option value="">인원</option>
                                 <option value="1">1</option>
