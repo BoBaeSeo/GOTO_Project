@@ -32,11 +32,6 @@ public class HotelController {
 		mav = hotelService.c_RoomList(hocode);
 		return mav;
 	}
-//	호텔정보, 세부사항 불러오기
-//	호텔후기 등록,수정,삭제,좋아요
-//	방리스트 불러오기
-//	방리스트랑 호텔후기는 스크롤
-	
 	
 //	-- 호텔리스트(관리자)
 //	각자 자기 등록한 호텔만 보이게 sessionScope.loginId)

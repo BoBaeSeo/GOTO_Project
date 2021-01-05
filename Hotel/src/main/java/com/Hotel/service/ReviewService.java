@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.Hotel.dto.HistoryDTO;
 import com.Hotel.dto.ReviewDTO;
 import com.Hotel.mapper.HotelMapper;
 import com.Hotel.mapper.ReviewMapper;
@@ -20,10 +21,11 @@ public class ReviewService {
 	@Autowired
 	private HotelMapper hotelMapper;
 	
-	public Map<String, Object> writeReview(ReviewDTO reviewDTO, String hocode) {
+	public String writeReview(ReviewDTO reviewDTO, String hocode) {
 		// vcode 만들기
 		String getVcode = reviewMapper.getvcode();
 		String vcode;
+		System.out.println(hocode);
 		if(getVcode == null) {
 			vcode = "RV" + "001";
 		} else {
@@ -39,26 +41,23 @@ public class ReviewService {
 		reviewDTO.setVcode(vcode);
 		reviewDTO.setV_hocode(hocode);
 		
+		String data = "NO";
 		// review insert & hoscore update
 		int insertResult = reviewMapper.insertReview(reviewDTO);
 		if(insertResult > 0) {
-			int updateResult = hotelMapper.updateScore(reviewDTO);
+			int updateResult = hotelMapper.updateScore(hocode);
+			data = "OK";
 		}
-		// review 내용, 개수, hotel 별점 가져오기
-		ReviewDTO newReview = reviewMapper.getNewReview(vcode);
-		int reviewCnt = reviewMapper.getReviewCnt(hocode);
-		float hoscore = hotelMapper.getHoscroe(hocode);
-		Map<String, Object> data = new HashMap<String, Object>();
-		data.put("newReview", newReview);
-		data.put("reviewCnt", reviewCnt);
-		data.put("hoscore", hoscore);
 		return data;
 	}
 
 	public Map<String, Object> deleteReview(String vcode, String hocode) {
-		// review delete
+		// review delete & hoscore update
 		int deleteResult = reviewMapper.deleteReview(vcode);
-		System.out.println(deleteResult);
+		if(deleteResult > 0) {
+			int updateResult = hotelMapper.updateScore(hocode);
+		}
+		
 		// reviewList, 개수, hotel 별점 가져오기
 		ArrayList<ReviewDTO> reviewList = reviewMapper.getReviewList(hocode);
 		int reviewCnt = reviewMapper.getReviewCnt(hocode);
@@ -67,6 +66,54 @@ public class ReviewService {
 		data.put("reviewList", reviewList);
 		data.put("reviewCnt", reviewCnt);
 		data.put("hoscore", hoscore);
+		return data;
+	}
+
+	public Map<String, Object> modifyReview(ReviewDTO reviewDTO, String hocode) {
+		// review update & hoscore update
+		int updateRVResult = reviewMapper.modifyReview(reviewDTO);
+		if(updateRVResult > 0) {
+			int updateHOResult = hotelMapper.updateScore(hocode);
+		}
+		
+		// reviewList, 개수, hotel 별점 가져오기
+		ArrayList<ReviewDTO> reviewList = reviewMapper.getReviewList(hocode);
+		int reviewCnt = reviewMapper.getReviewCnt(hocode);
+		float hoscore = hotelMapper.getHoscroe(hocode);
+		Map<String, Object> data = new HashMap<String, Object>();
+		data.put("reviewList", reviewList);
+		data.put("reviewCnt", reviewCnt);
+		data.put("hoscore", hoscore);
+		return data;
+	}
+
+	public String likeProcess(String vcode, String loginId, String hocode) {
+		HistoryDTO history = new HistoryDTO();
+		loginId = "치킨";
+		history.setHi_vcode(vcode);
+		history.setHiid(loginId);
+		
+		// 좋아요 insert
+		int insertResult= reviewMapper.likeProcess(history);
+		String data = "NO";
+		if(insertResult > 0) {
+			data = "OK";
+		}
+		return data;
+	}
+
+	public String unlikeProcess(String vcode, String loginId, String hocode) {
+		HistoryDTO history = new HistoryDTO();
+		loginId = "치킨";
+		history.setHi_vcode(vcode);
+		history.setHiid(loginId);
+		
+		// 좋아요 delete
+		int deleteResult= reviewMapper.unlikeProcess(history);
+		String data = "NO";
+		if(deleteResult > 0) {
+			data = "OK";
+		}
 		return data;
 	}
 

@@ -5,4 +5,33 @@
   
 <mapper namespace="com.Hotel.mapper.MemberMapper">
 
+	<select id="bookingListCnt" parameterType="String" resultType="int">
+		SELECT COUNT(BCODE) FROM BOOKING, MEMBERS WHERE MCODE = B_MCODE AND MID = #{loginId}
+	</select>
+	
+	<select id="c_myBookingList" parameterType="map" resultMap="seleteBookingList">
+		SELECT * FROM(SELECT ROWNUM RN, BOOKING.*, HONAME, HOPHOTO, HOADDR, RONAME, MNAME, MPHONE 
+		FROM BOOKING, HOTEL, ROOM, MEMBERS WHERE HOCODE = RO_HOCODE AND HOCODE = B_HOCODE AND ROCODE = B_ROCODE 
+		AND MCODE = B_MCODE AND MID = #{loginId}) WHERE RN BETWEEN #{pageDTO.startrow} AND #{pageDTO.endrow}
+	</select>
+	
+	<resultMap type="map" id="seleteBookingList">
+		<result property="bcode" column="BCODE" />
+		<result property="b_mcode" column="B_MCODE" />
+		<result property="b_ctcode" column="B_CTCODE" />
+		<result property="b_hocode" column="B_HOCODE" />
+		<result property="b_rocode" column="B_ROCODE" />
+		<result property="bperson" column="BPERSON" />
+		<result property="bcheckin" column="BCHECKIN" />
+		<result property="bcheckout" column="BCHECKOUT" />
+		<result property="bdrawup" column="BDRAWUP" />
+		<result property="brequest" column="BREQUEST" />
+		<result property="bprice" column="BPRICE" />
+		<result property="honame" column="HONAME" />
+		<result property="hophotoName" column="HOPHOTO" />
+		<result property="hoaddr" column="HOADDR" />
+		<result property="roname" column="RONAME" />
+		<result property="mname" column="MNAME" />
+		<result property="mphone" column="MPHONE" />
+	</resultMap>
 </mapper>

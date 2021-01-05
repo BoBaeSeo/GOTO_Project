@@ -2,6 +2,7 @@ package com.Hotel.mapper;
 
 import java.util.ArrayList;
 
+import com.Hotel.dto.HistoryDTO;
 import com.Hotel.dto.ReviewDTO;
 
 public interface ReviewMapper {
@@ -17,6 +18,14 @@ public interface ReviewMapper {
 	int getReviewCnt(String hocode);
 
 	int deleteReview(String vcode);
+
+	int modifyReview(ReviewDTO reviewDTO);
+
+	ArrayList<HistoryDTO> getlikeList(String loginId);
+
+	int likeProcess(HistoryDTO history);
+
+	int unlikeProcess(HistoryDTO history);
 
 
 }

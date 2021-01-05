@@ -53,7 +53,7 @@
             <ul>
                 <li><a href="/">Home</a></li>
                 <li><a href="c_HotelList" >Hotel</a></li>
-                <li><a href="./about-us.html">Help</a></li>
+                <li><a href="c_myBookingList">Help</a></li>
             </ul>
         </nav>
         <div class="nav-logo-right">
@@ -85,17 +85,17 @@
     <!-- Offcanvas Menu Section End -->
 
     <!-- Header Section Begin -->
-    <header class="header-section">
-        <div class="top-nav" style="background-color: white;">
+    <header class="header-section header-normal">
+        <div class="top-nav nav-logo" style="background-color: white;">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-7">
                         <nav class="main-menu">
                             <ul>
                             	<li><a href="/"><img src="resources/img/logo.png" alt="" width="150px"></a><li>
-                                <li class="active"><a href="/">Home</a></li>
-                                <li><a href="c_HotelList" >Hotel</a></li>
-                                <li><a href="./about-us.html">Help</a></li>
+                                <li class="active" id="home"><a href="/">Home</a></li>
+                                <li id="hotel"><a href="c_HotelList" >Hotel</a></li>
+                                <li id="help"><a href="./about-us.html">Help</a></li>
                             </ul>
                         </nav>
                     </div>

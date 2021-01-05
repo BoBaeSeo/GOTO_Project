@@ -25,7 +25,7 @@ public interface HotelMapper {
 
 	HotelDTO gethotel(String hocode);
 
-	int updateScore(ReviewDTO reviewDTO);
+	int updateScore(String hocode);
 
 	float getHoscroe(String hocode);
 }

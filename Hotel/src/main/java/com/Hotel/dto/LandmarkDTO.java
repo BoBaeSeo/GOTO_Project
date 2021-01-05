@@ -1,5 +1,7 @@
 package com.Hotel.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 
 @Data
@@ -9,6 +11,7 @@ public class LandmarkDTO {
 	private String lacode;
 	private String laname;
 	private String laaddr;
-	private String laphoto;
+	private MultipartFile laphoto;
 	private String laintro;
+	private String laphotoname;
 }

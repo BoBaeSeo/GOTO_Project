@@ -21,6 +21,30 @@
  	<select id="getNewReview" parameterType="String" resultMap="selectReview">
  		SELECT * FROM REVIEW WHERE VCODE = #{vcode}
  	</select>
+	
+	<select id="getReviewCnt" parameterType="String" resultType="int">
+		SELECT count(vcode) FROM REVIEW where v_hocode = #{hocode}
+	</select>
+	
+	<delete id="deleteReview" parameterType="String">
+		DELETE FROM REVIEW WHERE VCODE = #{vcode}
+	</delete>
+ 	
+ 	<update id="modifyReview" parameterType="com.Hotel.dto.ReviewDTO">
+ 		UPDATE REVIEW SET VCONTENT = #{vcontent}, VSCORE = #{vscore} WHERE VCODE = #{vcode}
+ 	</update>
+ 	
+ 	<select id="getlikeList" parameterType="String" resultMap="selectHistory">
+ 		SELECT * FROM HISTORY WHERE HIID = #{loginId}
+ 	</select>
+ 	
+ 	<insert id="likeProcess" parameterType="com.Hotel.dto.HistoryDTO">
+ 		INSERT INTO HISTORY(HI_VCODE, HIID, HICHECKLIKE) VALUES(#{hi_vcode}, #{hiid}, 1)
+ 	</insert>
+ 	
+ 	<delete id="unlikeProcess" parameterType="com.Hotel.dto.HistoryDTO">
+ 		DELETE FROM HISTORY WHERE HI_VCODE = #{hi_vcode} AND HIID = #{hiid}
+ 	</delete>
  	
  	<resultMap type="com.Hotel.dto.ReviewDTO" id="selectReview">
 		<result property="vcode" column="VCODE" />
@@ -32,11 +56,10 @@
 		<result property="vphoto" column="VPHOTO" />
 	</resultMap>
 	
-	<select id="getReviewCnt" parameterType="String" resultType="int">
-		SELECT count(vcode) FROM REVIEW where v_hocode = #{hocode}
-	</select>
+	 <resultMap type="com.Hotel.dto.HistoryDTO" id="selectHistory">
+		<result property="hi_vcode" column="HI_VCODE" />
+		<result property="hiid" column="HIID" />
+		<result property="hichecklike" column="HICHECKLIKE" />
+	</resultMap>
 	
-	<delete id="deleteReview" parameterType="String">
-		DELETE FROM REVIEW WHERE VCODE = #{vcode}
-	</delete>
 </mapper>

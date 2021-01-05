@@ -102,7 +102,16 @@
                                 <c:if test="${sessionScope.MLoginId == null }">
                                 	<c:choose>
                                 		<c:when test="${sessionScope.MLoginId != vlist.vwriter }">
-                                			<a id="like${vlist.vcode }" class="comment-btn" onclick="likeProcess('${vlist.vcode}')">Like</a>
+                                		<c:forEach var="likeList" items="${likeList}">
+                                			<c:choose>
+                                				<c:when test="${vlist.vcode == likeList.hi_vcode && sessionScope.loginId != likeList.hiid}">
+                                					<a class="comment-btn like-btn" style="color: #ffffff;border: 1px solid #2cbdb8;" onclick="likeProcess('${vlist.vcode}')">unlike</a>
+                                				</c:when>
+                                				<c:otherwise>
+                                					<a class="comment-btn" onclick="likeProcess('${vlist.vcode}')">Like</a>
+                                				</c:otherwise>
+                                			</c:choose>
+                                		</c:forEach>
                                 		</c:when>
                                 		<c:otherwise><a id="modiBtn${vlist.vcode }" class="comment-btn" onclick="modifyReview('${vlist.vcode}', '${vlist.vcontent }')">수정</a> 
                                 		<a class="comment-btn" onclick="deleteReview('${vlist.vcode}')">삭제</a></c:otherwise>
@@ -131,7 +140,7 @@
 								<div class="col-md-4">
 									<div class="property-pic">
 										<a href="c_RoomList?hocode=${list.rocode }" style="text-decoration: none;"><img
-											src="img/properties/${list.roFileName }.jpg" alt=""></a>
+											src="img/properties/${list.rophoto }.jpg" alt=""></a>
 									</div>
 								</div>
 								<div class="col-md-8">
@@ -186,26 +195,9 @@
     
 <script>
 	$(document).ready(function(){
-		$("#home").removeClass('active');
-		$("#help").removeClass('active');
+		$(".active").removeClass('active');
 		$("#hotel").addClass('active');
-		checkLike();
 	})
-	
-	function checkLike(){
-		<c:forEach var="vlist" items="${reviewList}">
-		<c:forEach var="likeList" items="${likeList}">
-			var vcode = "${vlist.vcode}";
-			var hi_vcode = "${likeList.hi_vcode}";
-			var loginId = "${sessionScope.MLoginId}";
-			var hiid = "${likeList.hiid}";
-			if(vcode == hi_vcode && loginId != hiid){
-				$("#like"+vcode).html('unlike').css({'color': '#ffffff','border': '1px solid #2cbdb8'}).addClass('like-btn');
-			}
-		</c:forEach>
-		</c:forEach>
-	}
-	
 	function deleteReview(vcode){
 		var hocode = '${hotelDTO.hocode}';
 		$.ajax({
@@ -217,6 +209,7 @@
 			},
 			dataType: "json",
 			success: function(data){
+				console.log(data);
 				printReview(data);
 			},
 			error: function(){
@@ -224,7 +217,7 @@
 			}
 		})
 	}
-	
+
 	function printReview(data){
 		var output = '';
 		var reviewCnt = data.reviewCnt;
@@ -238,8 +231,8 @@
 			var vdrawup = vdate.getFullYear() + '-' +vdate.getMonth()+1 + '-' + vdate.getDate();
 			output += '<div class="single-comment-item" style="border-bottom: 1px solid gray; padding: 15px; margin: 0">';
 			output += '<div class="sc-text" style="width: 330px"><span>작성날짜: '+vdrawup+'</span><h5>작성자: '+vwriter+'</h5>';
-			output += '<p id="modiContent'+vcode+'">내용: '+vcontent+'</p><c:if test="${sessionScope.MLoginId == null }"><c:choose><c:when test="${sessionScope.MLoginId != '+vwriter+' }">';
-			output += '<a id="like${vlist.vcode }" class="comment-btn" onclick="likeProcess('+"'"+vcode+"'"+')">Like</a>';
+			output += '<p id="modiContent'+vcode+'">내용: '+vcontent+'</p><c:if test="${sessionScope.MLoginId == null }"><c:choose><c:when test="${sessionScope.MLoginId != vlist.vwriter }">';
+			output += '<a href="#" class="comment-btn">Like</a>';
 			output += '</c:when><c:otherwise><a id="modiBtn'+vcode+'" class="comment-btn" onclick="modifyReview('+"'"+vcode+"'"+','+"'"+vcontent+"'"+')">수정</a>';
 			output += '<a class="comment-btn" onclick="deleteReview('+"'"+vcode+"'"+')">삭제</a></c:otherwise></c:choose> </c:if> ';
 			output += '<div style="float: right" id="modiScore'+vcode+'"><div class="nice-select" tabindex="0"><span class="current">';
@@ -282,6 +275,7 @@
 				},
 				dataType: "json",
 				success: function(data){
+					console.log(data);
 					printReview(data);
 				},
 				error: function(){
@@ -291,53 +285,9 @@
 		}
 	}
 
-	function likeProcess(vcode){
-		var loginId = '${sessionScope.MLoginId}';
-		var hocode = '${hotelDTO.hocode}';
-		if($("#like"+vcode).html() == 'Like'){
-			$.ajax({
-				type: "post",
-				url: "likeProcess",
-				data: {
-					"hocode": hocode,
-					"vcode": vcode,
-					"loginId": loginId
-				},
-				dataType: "text",
-				success: function(data){
-					if(data == 'OK'){
-						$("#like"+vcode).html('unlike').css({'color': '#ffffff','border': '1px solid #2cbdb8'}).addClass('like-btn');
-					} else {
-						console.log('like insert 실패')
-					}
-				},
-				error: function(){
-					console.log('like 연결실패')
-				}
-			})
-		} else {
-			$.ajax({
-				type: "post",
-				url: "unlikeProcess",
-				data: {
-					"hocode": hocode,
-					"vcode": vcode,
-					"loginId": loginId
-				},
-				dataType: "text",
-				success: function(data){
-					if(data == 'OK'){
-						$("#like"+vcode).html('Like').removeClass('like-btn').removeAttr("style");
-					} else {
-						console.log('like delete 실패')
-					}
-				},
-				error: function(){
-					console.log('unlike 연결실패')
-				}
-			})
-		}
+	function(vcode){
+		var loginId = '${sessionScope.loginId}';
+		if()
 	}
-
 	</script>
 <%@ include file="../includes/footer.jsp"%>
