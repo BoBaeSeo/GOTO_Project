@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,9 @@ public class ReviewService {
 	
 	@Autowired
 	private HotelMapper hotelMapper;
+	
+	@Autowired
+	private HttpSession session;
 	
 	public String writeReview(ReviewDTO reviewDTO, String hocode) {
 		// vcode 만들기
@@ -89,7 +94,6 @@ public class ReviewService {
 
 	public String likeProcess(String vcode, String loginId, String hocode) {
 		HistoryDTO history = new HistoryDTO();
-		loginId = "치킨";
 		history.setHi_vcode(vcode);
 		history.setHiid(loginId);
 		
@@ -104,7 +108,6 @@ public class ReviewService {
 
 	public String unlikeProcess(String vcode, String loginId, String hocode) {
 		HistoryDTO history = new HistoryDTO();
-		loginId = "치킨";
 		history.setHi_vcode(vcode);
 		history.setHiid(loginId);
 		

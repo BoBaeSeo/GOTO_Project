@@ -35,7 +35,7 @@
  	</update>
  	
  	<select id="getlikeList" parameterType="String" resultMap="selectHistory">
- 		SELECT * FROM HISTORY WHERE HIID = #{loginId}
+ 		SELECT * FROM HISTORY 
  	</select>
  	
  	<insert id="likeProcess" parameterType="com.Hotel.dto.HistoryDTO">
@@ -53,7 +53,6 @@
 		<result property="vcontent" column="VCONTENT" />
 		<result property="vscore" column="VSCORE" />
 		<result property="vdrawup" column="VDRAWUP" />
-		<result property="vphoto" column="VPHOTO" />
 	</resultMap>
 	
 	 <resultMap type="com.Hotel.dto.HistoryDTO" id="selectHistory">

@@ -14,5 +14,6 @@ public class HotelDTO {
 	private String hoaddr;
 	private float hoscore;
 	private String hopublicize;
-	private String hophotoName;
+	private String hofileName;
+	private String ho_cid;
 }

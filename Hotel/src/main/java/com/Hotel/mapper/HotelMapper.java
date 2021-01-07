@@ -28,4 +28,12 @@ public interface HotelMapper {
 	int updateScore(String hocode);
 
 	float getHoscroe(String hocode);
+
+	ArrayList<HotelDTO> a_hotelList(String loginId);
+
+	String getPw(String loginId);
+
+	void deleteRoom(String hocode);
+
+	int deleteHotel(String hocode);
 }

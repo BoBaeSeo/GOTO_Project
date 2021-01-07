@@ -14,4 +14,7 @@ public class LandmarkDTO {
 	private MultipartFile laphoto;
 	private String laintro;
 	private String laphotoname;
+	private String laaddr_address;
+	private String laaddr_detailAddress;
+	private String laaddr_extraAddress;
 }

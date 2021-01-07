@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.Hotel.dto.BookingDTO;
@@ -19,6 +20,7 @@ import com.Hotel.dto.PageDTO;
 import com.Hotel.dto.ReviewDTO;
 import com.Hotel.dto.RoomDTO;
 import com.Hotel.mapper.HotelMapper;
+import com.Hotel.mapper.MemberMapper;
 import com.Hotel.mapper.ReviewMapper;
 
 @Service
@@ -98,7 +100,7 @@ public class HotelService {
 		int reviewCnt = reviewMapper.getReviewCnt(hocode);
 		
 		// 좋아요
-		String loginId = "치킨";
+		String loginId = (String) session.getAttribute("MLoginId");
 		ArrayList<HistoryDTO> likeList = reviewMapper.getlikeList(loginId);
 		mav.addObject("h_info", h_info);
 		mav.addObject("hotelDTO", hotelDTO);
@@ -106,8 +108,33 @@ public class HotelService {
 		mav.addObject("reviewList", reviewList);
 		mav.addObject("reviewCnt", reviewCnt);
 		mav.addObject("likeList", likeList);
-		mav.setViewName("hotel/c_RoomList");
+		mav.setViewName("room/c_RoomList");
 		return mav;
+	}
+
+	public ModelAndView a_hotelList() {
+		mav = new ModelAndView();
+		String loginId = (String) session.getAttribute("ALoginId");
+		// hotelList 불러오기
+		ArrayList<HotelDTO> hotelList = hotelMapper.a_hotelList(loginId);
+		String pw = hotelMapper.getPw(loginId);
+		System.out.println(hotelList);
+		mav.addObject("hotelList", hotelList);
+		mav.addObject("password", pw);
+		mav.setViewName("hotel/a_HotelList");
+		return mav;
+	}
+
+	@Transactional(rollbackFor = {Exception.class})
+	public String deleteHotel(String hocode) {
+		// room & hotel delete
+		hotelMapper.deleteRoom(hocode);
+		int deleteResult = hotelMapper.deleteHotel(hocode);
+		String result = "NO";
+		if(deleteResult > 0) {
+			result = "OK";
+		}
+		return result;
 	}
 
 }

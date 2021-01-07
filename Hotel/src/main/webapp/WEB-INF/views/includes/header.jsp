@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,7 +45,7 @@
         <div class="language-bar" style="padding: 20px 0">
             <div class="property-btn">
             	<a href="#" class="property-sub">회원가입</a>
-                <a href="#" class="property-sub">로그인</a>
+                <a href="MemberLoginForm" class="property-sub">로그인</a>
             </div>
         </div>
         <nav class="main-menu">
@@ -95,14 +94,14 @@
                             	<li><a href="/"><img src="resources/img/logo.png" alt="" width="150px"></a><li>
                                 <li class="active" id="home"><a href="/">Home</a></li>
                                 <li id="hotel"><a href="c_HotelList" >Hotel</a></li>
-                                <li id="help"><a href="./about-us.html">Help</a></li>
+                                <li id="help"><a href="a_memberList">Help</a></li>
                             </ul>
                         </nav>
                     </div>
                     <div class="col-lg-5">
                         <div class="top-right" style="margin: 25px 0;">
                         	<a href="#" class="property-sub"style="margin: 0 10px;">회원가입</a>
-                            <a href="#" class="property-sub">로그인</a>
+                            <a href="MemberLoginForm" class="property-sub">로그인</a>
                         </div>
                     </div>
                 </div>

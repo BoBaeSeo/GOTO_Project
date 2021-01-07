@@ -13,5 +13,4 @@ public class ReviewDTO {
 	private String vcontent;
 	private int vscore;
 	private Date vdrawup;
-	private String vphoto;
 }

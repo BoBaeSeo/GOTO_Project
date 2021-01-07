@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.Hotel.dto.BookingDTO;
@@ -17,7 +18,7 @@ public class HotelController {
 	@Autowired
 	private HotelService hotelService;
 	
-	//	(고객페이지) 호텔리스트
+	// (고객페이지) 호텔리스트
 	@RequestMapping(value="c_HotelList")
 	public ModelAndView c_HotelList(BookingDTO bookingDTO, String ctname ,@RequestParam(value="page", defaultValue = "1") int page) {
 		System.out.println("c_HotelList");
@@ -25,7 +26,7 @@ public class HotelController {
 		return mav;
 	}
 
-	//	(고객페이지) 룸리스트  
+	// (고객페이지) 룸리스트  
 	@RequestMapping(value = "c_RoomList")
 	public ModelAndView c_RoomList(String hocode) {
 		System.out.println("c_RoomList");
@@ -33,9 +34,22 @@ public class HotelController {
 		return mav;
 	}
 	
-//	-- 호텔리스트(관리자)
-//	각자 자기 등록한 호텔만 보이게 sessionScope.loginId)
-//	지역코드, 업체코드, 호텔코드, 호텔이름, 삭제
+
+	// 호텔리스트(관리자)
+	@RequestMapping(value = "a_hotelList")
+	public ModelAndView a_hotelList() {
+		System.out.println("a_hotelList");
+		mav = hotelService.a_hotelList();
+		return mav;
+	}
+
+	// 호텔 삭제
+	@RequestMapping(value = "deleteHotel")
+	public @ResponseBody String deleteHotel(String hocode) {
+		System.out.println("deleteHotel");
+		String result = hotelService.deleteHotel(hocode);
+		return result;
+	}
 
 
 }

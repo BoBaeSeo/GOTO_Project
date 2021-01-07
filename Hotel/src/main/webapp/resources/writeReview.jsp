@@ -49,7 +49,7 @@
 			<form action="/writeReview" method="post" id="reviewForm">
 				<div class="row">
 					<div class="col-lg-6">
-						<input type="text" id="vwriter" name="vwriter" value="${sessionScope.MloginId }">
+						<input type="text" id="vwriter" name="vwriter" value="${param.loginId }" readonly="readonly">
 					</div>
 				</div>
 				<textarea placeholder="Content" id="vcontent" name="vcontent" required="required"></textarea>

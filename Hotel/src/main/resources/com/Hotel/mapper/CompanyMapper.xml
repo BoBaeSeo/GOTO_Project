@@ -5,5 +5,26 @@
   
 <mapper namespace="com.Hotel.mapper.CompanyMapper">
 
+	<select id="a_approveJoin" resultMap="selectCompany">
+		SELECT * FROM COMPANY WHERE CMCHECK = 0
+	</select>
 
+	<update id="comDecline" parameterType="String">
+		UPDATE COMPANY SET CMCHECK = 0 WHERE CMCODE = #{cmcode}	
+	</update>
+
+	<update id="comApprove" parameterType="String">
+		UPDATE COMPANY SET CMCHECK = 1 WHERE CMCODE = #{cmcode}	
+	</update>
+	
+	<resultMap type="com.Hotel.dto.CompanyDTO" id="selectCompany">
+		<result property="cmcode" column="CMCODE"/>
+		<result property="cmid" column="CMID"/>
+		<result property="cmpassword" column="CMPASSWORD"/>
+		<result property="cmname" column="CMNAME"/>
+		<result property="cmphone" column="CMPHONE"/>
+		<result property="cmemail" column="CMEMAIL"/>
+		<result property="cmaddress" column="CMADDRESS"/>
+		<result property="cmcheck" column="CMCHECK"/>
+	</resultMap>
 </mapper>

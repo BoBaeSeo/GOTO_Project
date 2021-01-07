@@ -2,6 +2,23 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../includes/header.jsp"%>
+<style>
+	.div-Date {
+    font-size: 16px;
+    font-weight: normal;
+    color: #707079;
+    clear: none;
+    width: 100%;
+    margin-right: 30px;
+    height: 46px;
+    background: #F2F4F5;
+    border-radius: 0;
+    border: 1px solid #ebebeb;
+    line-height: 46px;
+    margin-bottom: 20px;
+    padding: 15px;
+}
+</style>
 	<!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section">
         <div class="container">
@@ -35,8 +52,8 @@
                                 <option value="부산">부산</option>
                                 <option value="제주도">제주도</option>
                             </select>
-                            <input type="date" value="${searchData.bcheckin }" name="bcheckin">
-                            <input type="date" value="${searchData.bcheckout }" name="bcheckout">
+                            <input type="date" class="div-Date" value="${searchData.bcheckin }" name="bcheckin">
+                            <input type="date" class="div-Date" value="${searchData.bcheckout }" name="bcheckout">
                             <select name="bperson">
                                 <option value="">인원</option>
                                 <option value="1">1</option>
@@ -64,7 +81,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="property-pic">
-                                        <a href="c_RoomList?hocode=${list.hocode }" style="text-decoration: none;"><img src="img/properties/${list.hophotoName }.jpg" alt=""></a>
+                                        <a href="c_RoomList?hocode=${list.hocode }" style="text-decoration: none;"><img src="img/properties/${list.hofileName }.jpg" alt=""></a>
                                     </div>
                                 </div>
                                 <div class="col-md-8">
@@ -83,8 +100,8 @@
                         </div>
                         </c:forEach>
                     </div>
-                    <c:forEach begin="${pageDTO.startpage }" end="${pageDTO.endpage }" step="1" var="pageNum">
                     <div class="property-pagination">
+                    <c:forEach begin="${pageDTO.startpage }" end="${pageDTO.endpage }" step="1" var="pageNum">
                     	<c:choose>
                     		<c:when test="${pageNum == pageDTO.page }">
 		                        <a href="#" class="active">${pageNum }</a>
@@ -93,8 +110,8 @@
 		                        <a href="c_HotelList?page=${pageNum }">${pageNum }</a>
                     		</c:otherwise>
                     	</c:choose>
-                    </div>
                     </c:forEach>
+                    </div>
                 </div>
             </div>
         </div>

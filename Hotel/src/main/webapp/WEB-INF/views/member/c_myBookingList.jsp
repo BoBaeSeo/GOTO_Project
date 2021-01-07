@@ -62,44 +62,40 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-3">
-                    <div class="property-sidebar">
-                        <h4>예약하기</h4>
-                        <form action="c_HotelList" class="sidebar-search" method="post">
-                            <div class="first-row">
-                            <select name="ctname">
-                                <option value="null">지역</option>
-                                <option value="서울">서울</option>
-                                <option value="부산">부산</option>
-                                <option value="제주도">제주도</option>
-                            </select>
-                            <input type="date" value="" name="bcheckin">
-                            <input type="date" value="" name="bcheckout">
-                            <select name="bperson">
-                                <option value="">인원</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                            </select>
-                       	 	</div>
-                        	<div class="second-row">
-                            <select name="bprice">
-                                <option value="">가격</option>
-                                <option value="50000">50000이하</option>
-                                <option value="100000">100000이하</option>
-                                <option value="150000">150000이하</option>
-                            </select>
-                            <button type="submit" class="search-btn">Search</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+            <div class="property-sidebar">
+               <div class="best-agents">
+                  <h4>Help</h4>
+                  <a href="c_questionList" class="ba-item">
+                     <div class="ba-text">
+                        <h5>1대1 문의 목록</h5>
+                        <span>Q&A</span>
+                     </div>
+                  </a> <a href="#" class="ba-item">
+                     <div class="ba-text">
+                        <h5>1대1 문의 작성</h5>
+                        <span>#</span>
+                     </div>
+                  </a> <a href="#" class="ba-item">
+                     <div class="ba-text">
+                        <h5>자주 묻는 질문</h5>
+                        <span>#</span>
+                     </div>
+                  </a>
+               </div>
+            </div>
+         </div>
                 
                 <!-- bookingList Start -->
                 <div class="col-lg-9">
                     <h4 class="property-title">숙소 예약내역</h4>
                     <div class="property-list">
+                    <c:if test="${bookingList[0].bcode == null }">
+                    <div class="breadcrumb-text">
+					<h5 style="padding: 150px">예약된 내역이 없습니다.</h5>
+					</div>
+                    </c:if>
                     <c:forEach var="list" items="${bookingList }">
-                        <div class="single-property-item">
+                        <div class="single-property-item" id="deldiv${list.bcode }">
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="property-pic">
@@ -119,15 +115,15 @@
                                             <span>결제 가격: </span>
                                             <h5>${list.bprice } </h5>
                                         </div>
-                                        <button type="button" class="site-btn review" onclick="writeReview('${list.b_hocode}')">리뷰 등록</button>
+                                        <button type="button" style="display: none;" id="review${list.bcode }" class="site-btn review" onclick="writeReview('${list.b_hocode}')">리뷰 등록</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         </c:forEach>
                     </div>
-                    <c:forEach begin="${pageDTO.startpage }" end="${pageDTO.endpage }" step="1" var="pageNum">
                     <div class="property-pagination">
+                    <c:forEach begin="${pageDTO.startpage }" end="${pageDTO.endpage }" step="1" var="pageNum">
                     	<c:choose>
                     		<c:when test="${pageNum == pageDTO.page }">
 		                        <a href="#" class="active">${pageNum }</a>
@@ -136,8 +132,8 @@
 		                        <a href="c_HotelList?page=${pageNum }">${pageNum }</a>
                     		</c:otherwise>
                     	</c:choose>
-                    </div>
                     </c:forEach>
+                    </div>
                 </div>
             </div>
         </div>
@@ -156,9 +152,9 @@
 		var checkin = new Date("${list.bcheckin}");
 		var checkout = new Date("${list.bcheckout}");
 		var nowDate = new Date();
-		console.log(nowDate > checkin)
 		if(nowDate > checkin){
 			$("#complete" + bcode).removeAttr('style')
+			$("#review" + bcode).removeAttr('style')
 		} else {
 			$("#cancel" + bcode).removeAttr('style')
 		}
@@ -166,12 +162,39 @@
 	}
 
 	function cancelBooking(bcode){
+		var loginId = '${sessionScope.MLoginId}';
+		var mpw = '${bookingList[0].mpassword}';
+		var inputPw = prompt('비밀번호를 입력하세요');
+		console.log(mpw)
+		console.log(inputPw)
+		if(mpw == inputPw){
+			$.ajax({
+				type: 'post',
+				url: 'deleteBooking',
+				data: {
+					'bcode' : bcode
+				},
+				dataType: 'text',
+				success: function(data){
+					if(data == 'OK'){
+						$("#deldiv"+bcode).remove();
+						alert('예매가 취소되었습니다.')
+					}
+				},
+				error: function(){
+					console.log('예매 취소 연결실패')
+				}
+			})
+
+		} else {
+			alert('비밀번호가 일치하지 않습니다.')
+		}
 		
 	}
 
 	function writeReview(hocode){
 		window.name = "bookingList";
-		var openWin = window.open("resources/writeReview.jsp?hocode="+hocode, "reviewPop", "width=700, height=500, left=100, top=50");
+		var openWin = window.open("resources/writeReview.jsp?hocode="+hocode+"&loginId=${sessionScope.MLoginId}", "reviewPop", "width=700, height=500, left=100, top=50");
 	}
 </script>
 <%@ include file="../includes/footer.jsp"%>

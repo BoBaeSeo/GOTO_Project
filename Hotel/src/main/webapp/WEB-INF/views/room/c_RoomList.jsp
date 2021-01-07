@@ -96,10 +96,10 @@
 				<c:forEach var="vlist" items="${reviewList}">
                         <div class="single-comment-item" style="border-bottom: 1px solid gray; padding: 15px; margin: 0">
                             <div class="sc-text" style="width: 330px" >
-                                <span>작성날짜: ${vlist.vdrawup }</span>
+                                <span>작성날짜: ${vlist.vdrawup }</span> <span style="float: right;" id="likeCnt${vlist.vcode }"></span>
                                 <h5>작성자: ${vlist.vwriter }</h5>
                                 <p id="modiContent${vlist.vcode }">내용: ${vlist.vcontent }</p>
-                                <c:if test="${sessionScope.MLoginId == null }">
+                                <c:if test="${sessionScope.MLoginId != null }">
                                 	<c:choose>
                                 		<c:when test="${sessionScope.MLoginId != vlist.vwriter }">
                                 			<a id="like${vlist.vcode }" class="comment-btn" onclick="likeProcess('${vlist.vcode}')">Like</a>
@@ -194,15 +194,20 @@
 	
 	function checkLike(){
 		<c:forEach var="vlist" items="${reviewList}">
+		var count = 0;
 		<c:forEach var="likeList" items="${likeList}">
 			var vcode = "${vlist.vcode}";
 			var hi_vcode = "${likeList.hi_vcode}";
 			var loginId = "${sessionScope.MLoginId}";
 			var hiid = "${likeList.hiid}";
-			if(vcode == hi_vcode && loginId != hiid){
+			if(vcode == hi_vcode && loginId == hiid){
 				$("#like"+vcode).html('unlike').css({'color': '#ffffff','border': '1px solid #2cbdb8'}).addClass('like-btn');
 			}
+			if(vcode == hi_vcode){
+			count++;
+			}
 		</c:forEach>
+		$("#likeCnt${vlist.vcode}").text("like " + count);
 		</c:forEach>
 	}
 	
@@ -238,10 +243,13 @@
 			var vdrawup = vdate.getFullYear() + '-' +vdate.getMonth()+1 + '-' + vdate.getDate();
 			output += '<div class="single-comment-item" style="border-bottom: 1px solid gray; padding: 15px; margin: 0">';
 			output += '<div class="sc-text" style="width: 330px"><span>작성날짜: '+vdrawup+'</span><h5>작성자: '+vwriter+'</h5>';
-			output += '<p id="modiContent'+vcode+'">내용: '+vcontent+'</p><c:if test="${sessionScope.MLoginId == null }"><c:choose><c:when test="${sessionScope.MLoginId != '+vwriter+' }">';
-			output += '<a id="like${vlist.vcode }" class="comment-btn" onclick="likeProcess('+"'"+vcode+"'"+')">Like</a>';
-			output += '</c:when><c:otherwise><a id="modiBtn'+vcode+'" class="comment-btn" onclick="modifyReview('+"'"+vcode+"'"+','+"'"+vcontent+"'"+')">수정</a>';
-			output += '<a class="comment-btn" onclick="deleteReview('+"'"+vcode+"'"+')">삭제</a></c:otherwise></c:choose> </c:if> ';
+			output += '<p id="modiContent'+vcode+'">내용: '+vcontent+'</p><c:if test="${sessionScope.MLoginId != null }">';
+			if('${sessionScope.MLoginId}' == vwriter){
+				output += '<a id="modiBtn'+vcode+'" class="comment-btn" onclick="modifyReview('+"'"+vcode+"'"+','+"'"+vcontent+"'"+')">수정</a>';
+				output += '<a class="comment-btn" onclick="deleteReview('+"'"+vcode+"'"+')">삭제</a></c:if> ';
+			}else{
+				output += '<a id="like${vlist.vcode }" class="comment-btn" onclick="likeProcess('+"'"+vcode+"'"+')">Like</a>';
+			}
 			output += '<div style="float: right" id="modiScore'+vcode+'"><div class="nice-select" tabindex="0"><span class="current">';
 			output += vscore+'</span><ul class="list"><li data-value="'+vscore+'" class="option selected">'+vscore+'</li></ul></div></div></div></div>';
 		}
@@ -307,6 +315,9 @@
 				success: function(data){
 					if(data == 'OK'){
 						$("#like"+vcode).html('unlike').css({'color': '#ffffff','border': '1px solid #2cbdb8'}).addClass('like-btn');
+						var likeCnt = $("#likeCnt"+vcode).text();
+						var likeDevide = likeCnt.split(' ');
+						$("#likeCnt"+vcode).text('like ' + (Number(likeDevide[1])+1));
 					} else {
 						console.log('like insert 실패')
 					}
@@ -328,6 +339,9 @@
 				success: function(data){
 					if(data == 'OK'){
 						$("#like"+vcode).html('Like').removeClass('like-btn').removeAttr("style");
+						var likeCnt = $("#likeCnt"+vcode).text();
+						var likeDevide = likeCnt.split(' ');
+						$("#likeCnt"+vcode).text('like ' + (Number(likeDevide[1])-1));
 					} else {
 						console.log('like delete 실패')
 					}

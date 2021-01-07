@@ -11,14 +11,14 @@
 	<select id="c_HotelListInCtname" parameterType="Map" resultMap="selectHotelList">
 		 <choose>
 		 	<when test="bookingDTO.bperson != null">
-				SELECT DISTINCT HO_CTCODE, HOCODE, HONAME, HOPHOTO, HOADDR, HOSCORE, HOPUBLICIZE, (SELECT MIN(ROPRICE)FROM ROOM WHERE RO_HOCODE = HOCODE) AS price FROM (SELECT ROWNUM RN, HOTEL.* FROM HOTEL), CITY, BOOKING, ROOM
+				SELECT DISTINCT HO_CTCODE, HOCODE, HONAME, HOFILENAME, HOADDR, HOSCORE, HOPUBLICIZE, (SELECT MIN(ROPRICE)FROM ROOM WHERE RO_HOCODE = HOCODE) AS price FROM (SELECT ROWNUM RN, HOTEL.* FROM HOTEL), CITY, BOOKING, ROOM
 				WHERE CTCODE = HO_CTCODE AND CTCODE = B_CTCODE AND HOCODE = B_HOCODE AND RO_HOCODE = HOCODE AND B_ROCODE = ROCODE AND (#{bookingDTO.bcheckin,jdbcType=VARCHAR} NOT BETWEEN BCHECKIN AND BCHECKOUT 
 				AND #{bookingDTO.bcheckout,jdbcType=VARCHAR} NOT BETWEEN BCHECKIN AND BCHECKOUT) AND CTNAME = #{ctname} AND ((#{bookingDTO.bprice,jdbcType=VARCHAR} IS NULL AND ROMAXPER &gt;= #{bookingDTO.bperson,jdbcType=VARCHAR} 
 				AND RN BETWEEN #{pageDTO.startrow} AND #{pageDTO.endrow}) OR (#{bookingDTO.bprice,jdbcType=VARCHAR} IS NOT NULL AND ROPRICE &lt;= #{bookingDTO.bprice,jdbcType=VARCHAR} AND ROMAXPER &gt;= #{bookingDTO.bperson,jdbcType=VARCHAR} 
 				AND RN BETWEEN #{pageDTO.startrow} AND #{pageDTO.endrow}))
 		 	</when>
 		 	<otherwise>
-		 		SELECT DISTINCT HO_CTCODE, HOCODE, HONAME, HOPHOTO, HOADDR, HOSCORE, HOPUBLICIZE, (SELECT MIN(ROPRICE)FROM ROOM WHERE RO_HOCODE = HOCODE) AS price FROM (SELECT ROWNUM RN, HOTEL.* FROM HOTEL), CITY, BOOKING, ROOM
+		 		SELECT DISTINCT HO_CTCODE, HOCODE, HONAME, HOFILENAME, HOADDR, HOSCORE, HOPUBLICIZE, (SELECT MIN(ROPRICE)FROM ROOM WHERE RO_HOCODE = HOCODE) AS price FROM (SELECT ROWNUM RN, HOTEL.* FROM HOTEL), CITY, BOOKING, ROOM
 				WHERE CTCODE = HO_CTCODE AND CTCODE = B_CTCODE AND HOCODE = B_HOCODE AND RO_HOCODE = HOCODE AND B_ROCODE = ROCODE AND (#{bookingDTO.bcheckin,jdbcType=VARCHAR} NOT BETWEEN BCHECKIN AND BCHECKOUT 
 				AND #{bookingDTO.bcheckout,jdbcType=VARCHAR} NOT BETWEEN BCHECKIN AND BCHECKOUT) AND CTNAME = #{ctname} 
 				AND ((#{bookingDTO.bprice,jdbcType=VARCHAR} IS NULL AND RN BETWEEN #{pageDTO.startrow} AND #{pageDTO.endrow}) 
@@ -30,14 +30,14 @@
 	<select id="c_HotelListNotCtname" parameterType="Map" resultMap="selectHotelList">
 		<choose>
 			<when test="bookingDTO.bperson != null">
-				SELECT DISTINCT HO_CTCODE, HOCODE, HONAME, HOPHOTO, HOADDR, HOSCORE, HOPUBLICIZE, (SELECT MIN(ROPRICE)FROM ROOM WHERE RO_HOCODE = HOCODE) AS price FROM (SELECT ROWNUM RN, HOTEL.* FROM HOTEL), BOOKING, ROOM
+				SELECT DISTINCT HO_CTCODE, HOCODE, HONAME, HOFILENAME, HOADDR, HOSCORE, HOPUBLICIZE, (SELECT MIN(ROPRICE)FROM ROOM WHERE RO_HOCODE = HOCODE) AS price FROM (SELECT ROWNUM RN, HOTEL.* FROM HOTEL), BOOKING, ROOM
 				WHERE HOCODE = B_HOCODE AND RO_HOCODE = HOCODE AND B_ROCODE = ROCODE AND (#{bookingDTO.bcheckin,jdbcType=VARCHAR} NOT BETWEEN BCHECKIN AND BCHECKOUT 
 				AND #{bookingDTO.bcheckout,jdbcType=VARCHAR} NOT BETWEEN BCHECKIN AND BCHECKOUT) AND ((#{bookingDTO.bprice,jdbcType=VARCHAR} IS NULL AND ROMAXPER &gt;= #{bookingDTO.bperson,jdbcType=VARCHAR} 
 				AND RN BETWEEN #{pageDTO.startrow} AND #{pageDTO.endrow}) OR (#{bookingDTO.bprice,jdbcType=VARCHAR} IS NOT NULL AND ROPRICE &lt;= #{bookingDTO.bprice,jdbcType=VARCHAR} 
 				AND ROMAXPER &gt;= #{bookingDTO.bperson,jdbcType=VARCHAR} AND RN BETWEEN #{pageDTO.startrow} AND #{pageDTO.endrow}))
 			</when>
 			<otherwise>
-				SELECT DISTINCT HO_CTCODE, HOCODE, HONAME, HOPHOTO, HOADDR, HOSCORE, HOPUBLICIZE, (SELECT MIN(ROPRICE)FROM ROOM WHERE RO_HOCODE = HOCODE) AS price FROM (SELECT ROWNUM RN, HOTEL.* FROM HOTEL), BOOKING, ROOM
+				SELECT DISTINCT HO_CTCODE, HOCODE, HONAME, HOFILENAME, HOADDR, HOSCORE, HOPUBLICIZE, (SELECT MIN(ROPRICE)FROM ROOM WHERE RO_HOCODE = HOCODE) AS price FROM (SELECT ROWNUM RN, HOTEL.* FROM HOTEL), BOOKING, ROOM
 				WHERE HOCODE = B_HOCODE AND RO_HOCODE = HOCODE AND B_ROCODE = ROCODE AND (#{bookingDTO.bcheckin,jdbcType=VARCHAR} NOT BETWEEN BCHECKIN AND BCHECKOUT 
 				AND #{bookingDTO.bcheckout,jdbcType=VARCHAR} NOT BETWEEN BCHECKIN AND BCHECKOUT) AND ((#{bookingDTO.bprice,jdbcType=VARCHAR} IS NULL AND RN BETWEEN #{pageDTO.startrow} AND #{pageDTO.endrow}) 
 				OR (#{bookingDTO.bprice,jdbcType=VARCHAR} IS NOT NULL AND ROPRICE &lt;= #{bookingDTO.bprice,jdbcType=VARCHAR} AND RN BETWEEN #{pageDTO.startrow} AND #{pageDTO.endrow}))
@@ -46,7 +46,7 @@
 	</select>
 
 	<select id="c_HotelList" resultMap="selectHotelList">
-		SELECT DISTINCT HO_CTCODE, HOCODE, HONAME, HOPHOTO, HOADDR, HOSCORE, HOPUBLICIZE, (SELECT MIN(ROPRICE)FROM ROOM WHERE RO_HOCODE = HOCODE) AS price 
+		SELECT DISTINCT HO_CTCODE, HOCODE, HONAME, HOFILENAME, HOADDR, HOSCORE, HOPUBLICIZE, (SELECT MIN(ROPRICE)FROM ROOM WHERE RO_HOCODE = HOCODE) AS price 
 		FROM (SELECT ROWNUM RN, HOTEL.* FROM HOTEL) WHERE RN BETWEEN #{pageDTO.startrow} AND #{pageDTO.endrow}
 	</select>
 	
@@ -70,15 +70,42 @@
 		SELECT HOSCORE FROM HOTEL WHERE HOCODE = #{hocode}
 	</select>
 	
+	<select id="a_hotelList" parameterType="String" resultMap="Hotel">
+		SELECT * FROM HOTEL WHERE HO_CID = #{loginId} ORDER BY HOCODE ASC
+	</select>
+	
+	<select id="getPw" parameterType="String" resultType="String">
+		SELECT CMPASSWORD FROM COMPANY WHERE CMID = #{cmid}
+	</select>
+	
+	<delete id="deleteRoom" parameterType="String">
+		DELETE FROM ROOM WHERE RO_HOCODE = #{hocode}
+	</delete>
+	
+	<delete id="deleteHotel">
+		DELETE FROM HOTEL WHERE HOCODE = #{hocode}
+	</delete>
+	
 	<resultMap type="map" id="selectHotelList">
 		<result property="ho_ctcode" column="HO_CTCODE" />
 		<result property="hocode" column="HOCODE" />
 		<result property="honame" column="HONAME" />
-		<result property="hophotoName" column="HOPHOTO" />
+		<result property="hofileName" column="HOFILENAME" />
 		<result property="hoaddr" column="HOADDR" />
 		<result property="hoscore" column="HOSCORE" />
 		<result property="hopublicize" column="HOPUBLICIZE" />
 		<result property="price" column="PRICE" />
+	</resultMap>
+	
+	<resultMap type="com.Hotel.dto.HotelDTO" id="Hotel">
+		<result property="ho_ctcode" column="HO_CTCODE" />
+		<result property="hocode" column="HOCODE" />
+		<result property="honame" column="HONAME" />
+		<result property="hofileName" column="HOFILENAME" />
+		<result property="hoaddr" column="HOADDR" />
+		<result property="hoscore" column="HOSCORE" />
+		<result property="hopublicize" column="HOPUBLICIZE" />
+		<result property="ho_cid" column="HO_CID" />
 	</resultMap>
 	
 	<resultMap type="com.Hotel.dto.H_InfoDTO" id="selectHotelInfo">
@@ -98,7 +125,7 @@
 		<result property="ro_hocode" column="RO_HOCODE" />
 		<result property="rocode" column="ROCODE" />
 		<result property="roname" column="RONAME" />
-		<result property="roFileName" column="ROPHOTO" />
+		<result property="roFileName" column="ROFILENAME" />
 		<result property="rodetail" column="RODETAIL" />
 		<result property="rominper" column="ROMINPER" />
 		<result property="romaxper" column="ROMAXPER" />

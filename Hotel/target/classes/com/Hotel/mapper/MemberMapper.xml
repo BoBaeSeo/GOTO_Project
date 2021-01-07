@@ -10,10 +10,65 @@
 	</select>
 	
 	<select id="c_myBookingList" parameterType="map" resultMap="seleteBookingList">
-		SELECT * FROM(SELECT ROWNUM RN, BOOKING.*, HONAME, HOPHOTO, HOADDR, RONAME, MNAME, MPHONE 
+		SELECT * FROM(SELECT ROWNUM RN, BOOKING.*, HONAME, HOFILENAME, HOADDR, RONAME, MNAME, MPHONE, MPASSWORD 
 		FROM BOOKING, HOTEL, ROOM, MEMBERS WHERE HOCODE = RO_HOCODE AND HOCODE = B_HOCODE AND ROCODE = B_ROCODE 
 		AND MCODE = B_MCODE AND MID = #{loginId}) WHERE RN BETWEEN #{pageDTO.startrow} AND #{pageDTO.endrow}
 	</select>
+	
+	<delete id="deleteBooking" parameterType="String">
+		DELETE FROM BOOKING WHERE BCODE = #{bcode}
+	</delete>
+	
+	<select id="a_memberList" resultMap="members">
+		SELECT * FROM MEMBERS ORDER BY MCODE ASC
+	</select>
+	
+	<delete id="a_memberDelete" parameterType="String">
+		DELETE FROM MEMBERS WHERE MCODE = #{mcode}
+	</delete>
+	
+	<delete id="a_delHistory" parameterType="com.Hotel.dto.MemberDTO">
+		DELETE FROM HISTORY WHERE HIID = #{mid}
+	</delete>
+	
+	<select id="getvcode" parameterType="com.Hotel.dto.MemberDTO" resultType="String">
+		SELECT VCODE FROM REVIEW WHERE VWRITER = #{mid}
+	</select>
+	
+	<delete id="a_delReview" parameterType="com.Hotel.dto.MemberDTO">
+		DELETE FROM REVIEW WHERE VWRITER = #{mid}
+	</delete>
+	
+	<delete id="a_delHistoryVcode" parameterType="String">
+		DELETE FROM HISTORY WHERE HI_VCODE = #{vcode}
+	</delete>
+	
+	<delete id="a_delBooking" parameterType="com.Hotel.dto.MemberDTO">
+		DELETE FROM BOOKING WHERE B_MCODE = #{mcode}
+	</delete>
+	
+	<delete id="a_delHeart" parameterType="com.Hotel.dto.MemberDTO">
+		DELETE FROM HEART WHERE HTID = #{mid}
+	</delete>
+	
+	<delete id="a_delHelp" parameterType="com.Hotel.dto.MemberDTO">
+		DELETE FROM HELP WHERE HE_MID = #{mid}
+	</delete>
+	
+	<select id="MemberLogin" resultType="String">
+		SELECT MID FROM MEMBERS
+		WHERE MID=#{mid} AND MPASSWORD=#{mpassword}
+	</select>
+
+	<resultMap type="com.Hotel.dto.MemberDTO" id="members">
+		<result property="mcode" column="MCODE" />
+		<result property="mid" column="MID" />
+		<result property="mpassword" column="MPASSWORD" />
+		<result property="mname" column="MNAME" />
+		<result property="mphone" column="MPHONE" />
+		<result property="mbirth" column="MBIRTH" />
+		<result property="memail" column="MEMAIL" />
+	</resultMap>
 	
 	<resultMap type="map" id="seleteBookingList">
 		<result property="bcode" column="BCODE" />
@@ -28,10 +83,11 @@
 		<result property="brequest" column="BREQUEST" />
 		<result property="bprice" column="BPRICE" />
 		<result property="honame" column="HONAME" />
-		<result property="hophotoName" column="HOPHOTO" />
+		<result property="hofileName" column="HOFILENAME" />
 		<result property="hoaddr" column="HOADDR" />
 		<result property="roname" column="RONAME" />
 		<result property="mname" column="MNAME" />
 		<result property="mphone" column="MPHONE" />
+		<result property="mpassword" column="MPASSWORD" />
 	</resultMap>
 </mapper>
