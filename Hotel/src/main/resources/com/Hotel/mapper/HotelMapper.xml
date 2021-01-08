@@ -82,8 +82,24 @@
 		DELETE FROM ROOM WHERE RO_HOCODE = #{hocode}
 	</delete>
 	
-	<delete id="deleteHotel">
+	<delete id="deleteHotel" parameterType="String">
 		DELETE FROM HOTEL WHERE HOCODE = #{hocode}
+	</delete>
+	
+	<select id="getHeartList" parameterType="String" resultMap="heart">
+		SELECT * FROM HEART WHERE HTID = #{loginId,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="getHtcode" parameterType="String" resultType="String">
+		SELECT MAX(HTCODE) FROM HEART
+	</select>
+	
+	<insert id="insertHeart" parameterType="com.Hotel.dto.HeartDTO">
+		INSERT INTO HEART (HTCODE, HT_HOCODE, HTID, HTCHECK) VALUES (#{htcode}, #{ht_hocode}, #{htid}, 1)
+	</insert>
+	
+	<delete id="deleteHeart" parameterType="com.Hotel.dto.HeartDTO">
+		DELETE FROM HEART WHERE HT_HOCODE = #{ht_hocode} AND HTID = #{htid}
 	</delete>
 	
 	<resultMap type="map" id="selectHotelList">
@@ -133,4 +149,10 @@
 		<result property="ronum" column="RONUM" />
 	</resultMap>
 	
+	<resultMap type="com.Hotel.dto.HeartDTO" id="heart">
+		<result property="htcode" column="HTCODE" />
+		<result property="ht_hocode" column="HT_HOCODE" />
+		<result property="htid" column="HTID" />
+		<result property="htcheck" column="HTCHECK" />
+	</resultMap>
 </mapper>

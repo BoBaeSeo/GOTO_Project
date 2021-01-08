@@ -17,7 +17,20 @@
     line-height: 46px;
     margin-bottom: 20px;
     padding: 15px;
-}
+	}
+	.comment-option ,.comment-option .single-comment-item{
+		margin-bottom: 0;
+	}
+	.comment-btn{
+		float: right;
+	}
+	.comment-option .single-comment-item .sc-text{
+	display: inline;
+	}
+	.like-btn{
+    background: #dc3545;
+    cursor: pointer;
+	}
 </style>
 	<!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section">
@@ -44,31 +57,37 @@
                 <div class="col-lg-3">
                     <div class="property-sidebar">
                         <h4>예약하기</h4>
-                        <form action="c_HotelList" class="sidebar-search" method="post">
+                        <form action="c_HotelList" class="sidebar-search" method="post" id="hotelListForm">
                             <div class="first-row">
-                            <select name="ctname">
+                            <div id="ctnameDiv">
+                            <select name="ctname" id="ctname">
                                 <option value="null">지역</option>
                                 <option value="서울">서울</option>
                                 <option value="부산">부산</option>
                                 <option value="제주도">제주도</option>
                             </select>
-                            <input type="date" class="div-Date" value="${searchData.bcheckin }" name="bcheckin">
-                            <input type="date" class="div-Date" value="${searchData.bcheckout }" name="bcheckout">
-                            <select name="bperson">
+                            </div>
+                            <p>체크인</p>
+                            <input type="date" id="checkin" class="div-Date" value="${searchData.bcheckin }" name="bcheckin">
+                            <p>체크아웃</p>
+                            <input type="date" id="checkout" class="div-Date" value="${searchData.bcheckout }" name="bcheckout">
+                            <div id="bpersonDiv">
+                            <select name="bperson" id="bperson">
                                 <option value="">인원</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
                             </select>
+                            </div>
                        	 	</div>
-                        	<div class="second-row">
-                            <select name="bprice">
+                        	<div id="bpriceDiv">
+                            <select name="bprice" id="bprice">
                                 <option value="">가격</option>
                                 <option value="50000">50000이하</option>
                                 <option value="100000">100000이하</option>
                                 <option value="150000">150000이하</option>
                             </select>
-                            <button type="submit" class="search-btn">Search</button>
+                            <button type="button" class="search-btn" onclick="searchHotel()" >Search</button>
                             </div>
                         </form>
                     </div>
@@ -84,15 +103,18 @@
                                         <a href="c_RoomList?hocode=${list.hocode }" style="text-decoration: none;"><img src="img/properties/${list.hofileName }.jpg" alt=""></a>
                                     </div>
                                 </div>
-                                <div class="col-md-8">
-                                    <div class="property-text">
+                                <div class="col-md-8 comment-option">
+                                    <div class="property-text single-comment-item">
                                         <div class="s-text">평점 : ${list.hoscore }</div>
                                         <h5 class="r-title"><a href="c_RoomList?hocode=${list.hocode }" style="text-decoration: none; color: black;">${list.honame }</a></h5>
                                         <div class="properties-location"><i class="icon_pin"></i>${list.hoaddr }</div>
                                         <p>${list.hopublicize }</p>
-                                        <div class="room-price">
+                                        <div class="room-price sc-text">
                                             <span>가격: </span>
                                             <h5>${list.price } ~</h5>
+                                            <c:if test="${sessionScope.MLoginId != null }">
+                                            <a id="heart${list.hocode }" class="comment-btn" onclick="heartProcess('${list.hocode }')">찜 등록</a>
+                                            </c:if>
                                         </div>
                                     </div>
                                 </div>
@@ -107,7 +129,7 @@
 		                        <a href="#" class="active">${pageNum }</a>
                     		</c:when>
                     		<c:otherwise>
-		                        <a href="c_HotelList?page=${pageNum }">${pageNum }</a>
+		                        <a onclick="c_HotelList(${pageNum })">${pageNum }</a>
                     		</c:otherwise>
                     	</c:choose>
                     </c:forEach>
@@ -118,9 +140,108 @@
     </section>
 <script>
 	$(document).ready(function(){
-		$(".active").removeClass('active');
+		$("#home").removeClass('active');
+		$("#help").removeClass('active');
 		$("#hotel").addClass('active');
+		var ctname = '${ctname}'
+		var bperson = '${searchData.bperson}';
+		var bprice = '${searchData.bprice}';
+		if(ctname != "null" && ctname != ""){
+			$("#ctnameDiv .current").text(ctname);
+			$("#ctname").val(ctname).prop("selected", true);
+			}
+		if(bperson != ""){
+			$("#bpersonDiv .current").text(bperson);
+			$("#bperson").val(bperson).prop("selected", true);
+			}
+		if(bprice != ""){
+			$("#bpriceDiv .current").text(bprice+"이하");
+			$("#bprice").val(bprice).prop("selected", true);
+			}
+		checkHeart();
 	})
+	
+	function searchHotel(){
+		if($("#checkin").val() == ""){
+			alert('체크인 날짜를 입력해주세요');
+			return;
+			}
+		if($("#checkout").val() == ""){
+			alert('체크아웃 날짜를 입력해주세요');
+			return;
+			}
+		hotelListForm.submit();
+		}
+	
+	function checkHeart(){
+		<c:forEach var="hlist" items="${hotelList}">
+		<c:forEach var="heartList" items="${heartList}">
+			var hocode = "${hlist.hocode}";
+			var ht_hocode = "${heartList.ht_hocode}";
+			var loginId = "${sessionScope.MLoginId}";
+			var htid = "${heartList.htid}";
+			if(hocode == ht_hocode && loginId == htid){
+				$("#heart"+hocode).html('찜 취소').css({'color': '#ffffff','border': '1px solid #dc3545'}).addClass('like-btn');
+			}
+		</c:forEach>
+		</c:forEach>
+	}
+	function heartProcess(hocode){
+		var loginId = '${sessionScope.MLoginId}';
+		if($("#heart"+hocode).html() == '찜 등록'){
+			$.ajax({
+				type: 'post',
+				url: 'insertHeart',
+				data: {
+						'ht_hocode': hocode,
+						'htid': loginId
+					},
+				dataType: 'text',
+				success: function(result){
+					if(result == 'OK'){
+						$("#heart"+hocode).html('찜 취소').css({'color': '#ffffff','border': '1px solid #dc3545'}).addClass('like-btn');
+					}
+					},
+				error: function(){
+					console.log('heart 등록 연결 실패');
+					}
+				});
+		} else {
+			$.ajax({
+				type: 'post',
+				url: 'deleteHeart',
+				data: {
+						'ht_hocode': hocode,
+						'htid': loginId
+					},
+				dataType: 'text',
+				success: function(result){
+					if(result == 'OK'){
+						$("#heart"+hocode).html('찜 등록').removeClass('like-btn').removeAttr("style");
+					}
+					},
+				error: function(){
+					console.log('heart 취소 연결 실패');
+					}
+				});			
+		}
+		}
+
+	function c_HotelList(page){
+		var url = "";
+		if($("#checkin").val() == ""){
+			url = "c_HotelList?page="+page;
+		} else {
+			var checkin = $("#checkin").val();
+			var checkout = $("#checkout").val();
+			var ctname = '${ctname}'
+			var bperson = '${searchData.bperson}';
+			var bprice = '${searchData.bprice}';
+			url = "c_HotelList?page="+page+"&bcheckin="+checkin+"&bcheckout="+checkout+"&ctname="+ctname+"&bperson="+bperson+"&bprice="+bprice
+		}
+		location.href= url;
+		}
+	
 </script>
     <!-- Property Section End -->
 <%@ include file="../includes/footer.jsp"%> 

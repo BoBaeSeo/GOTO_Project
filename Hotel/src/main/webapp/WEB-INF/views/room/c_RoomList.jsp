@@ -138,7 +138,7 @@
 									<div class="property-text">
 										<div class="s-text"></div>
 										<h5 class="r-title">
-											<a href="c_RoomList?hocode=${list.rocode }"
+											<a href="RoomDetail?rocode=${list.rocode }"
 												style="text-decoration: none; color: black;">${list.roname }</a>
 										</h5>
 										<div class="properties-location">
@@ -162,25 +162,33 @@
 </section>
 		<!-- Property Section End -->
 		<!-- Map Start -->
-		<div class="map">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2942.5524090066037!2d-71.10245469994108!3d42.47980730490846!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89e3748250c43a43%3A0xe1b9879a5e9b6657!2sWinter%20Street%20Public%20Parking%20Lot!5e0!3m2!1sen!2sbd!4v1577299251173!5m2!1sen!2sbd" height="500" style="border:0;" allowfullscreen=""></iframe>
-        <div class="icon-list">
-            <div class="icon icon-1">
-                1
-            </div>
-            <div class="icon icon-2">
-                2
-            </div>
-            <div class="icon icon-3">
-                3
-            </div>
-            <div class="icon icon-4">
-                4
-            </div>
-            <div class="icon icon-5">
-                5
-            </div>
-        </div>
+		<div class="map" id="map">
+        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=YourKey&libraries=services"></script>
+        <script type="text/javascript">
+        	var container = document.getElementById('map'); 
+			var mapOptions = { 
+				center: new kakao.maps.LatLng(33.450701, 126.570667), 
+				level: 3 
+			};
+			var map = new kakao.maps.Map(container, mapOptions);
+			var geocoder = new kakao.maps.services.Geocoder();
+			geocoder.addressSearch('${hotelDTO.hoaddr}', function(result, status){
+				if(status === kakao.maps.services.Status.OK){
+					var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+					var marker = new kakao.maps.Marker({
+						map: map,
+						position: coords
+						});
+					var iwContent = '<div style="text-align:center;padding:5px;">${hotelDTO.honame}<br><a href="https://map.kakao.com/link/map/${hotelDTO.honame},'+result[0].y+','+result[0].x+'" style="color:blue" target="_blank">큰지도보기</a>';
+					iwContent += ' <a href="https://map.kakao.com/link/to/${hotelDTO.honame},'+result[0].y+','+result[0].x+'" style="color:blue" target="_blank">길찾기</a></div>';
+					var infowindow = new kakao.maps.InfoWindow({
+						content: iwContent
+						});
+					infowindow.open(map, marker);
+					map.setCenter(coords);
+					}
+				})
+        </script>
     </div>
     <!-- Map End -->
     
@@ -191,7 +199,7 @@
 		$("#hotel").addClass('active');
 		checkLike();
 	})
-	
+		
 	function checkLike(){
 		<c:forEach var="vlist" items="${reviewList}">
 		var count = 0;
@@ -234,6 +242,7 @@
 		var output = '';
 		var reviewCnt = data.reviewCnt;
 		var hoscore = data.hoscore;
+		var loginId = '${sessionScope.MLoginId}';
 		for (var i in data.reviewList){
 			var vcode = data.reviewList[i].vcode;
 			var vwriter = data.reviewList[i].vwriter;
@@ -244,13 +253,13 @@
 			output += '<div class="single-comment-item" style="border-bottom: 1px solid gray; padding: 15px; margin: 0">';
 			output += '<div class="sc-text" style="width: 330px"><span>작성날짜: '+vdrawup+'</span><h5>작성자: '+vwriter+'</h5>';
 			output += '<p id="modiContent'+vcode+'">내용: '+vcontent+'</p><c:if test="${sessionScope.MLoginId != null }">';
-			if('${sessionScope.MLoginId}' == vwriter){
-				output += '<a id="modiBtn'+vcode+'" class="comment-btn" onclick="modifyReview('+"'"+vcode+"'"+','+"'"+vcontent+"'"+')">수정</a>';
-				output += '<a class="comment-btn" onclick="deleteReview('+"'"+vcode+"'"+')">삭제</a></c:if> ';
-			}else{
+			if(loginId == vwriter){
+				output += '<a id="modiBtn'+vcode+'" class="comment-btn" onclick="modifyReview('+"'"+vcode+"'"+','+"'"+vcontent+"'"+')">수정</a>'
+				output += '<a class="comment-btn" onclick="deleteReview('+"'"+vcode+"'"+')">삭제</a> '
+			} else {
 				output += '<a id="like${vlist.vcode }" class="comment-btn" onclick="likeProcess('+"'"+vcode+"'"+')">Like</a>';
 			}
-			output += '<div style="float: right" id="modiScore'+vcode+'"><div class="nice-select" tabindex="0"><span class="current">';
+			output += '</c:if><div style="float: right" id="modiScore'+vcode+'"><div class="nice-select" tabindex="0"><span class="current">';
 			output += vscore+'</span><ul class="list"><li data-value="'+vscore+'" class="option selected">'+vscore+'</li></ul></div></div></div></div>';
 		}
 		$("#reviewArea").html(output);

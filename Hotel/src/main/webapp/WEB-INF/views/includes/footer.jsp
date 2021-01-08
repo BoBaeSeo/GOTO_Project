@@ -19,7 +19,7 @@
                         <div class="footer-widget">
                             <h4>Trevel area</h4>
                             <ul>
-                                <li><i class="fa fa-caret-right"></i> <a href="#">서울</a></li>
+                                <li><i class="fa fa-caret-right"></i> <a href="c_HotelList?ctname=서울">서울</a></li>
                                 <li><i class="fa fa-caret-right"></i> <a href="#">경주</a></li>
                                 <li><i class="fa fa-caret-right"></i> <a href="#">전주</a></li>
                                	<li><i class="fa fa-caret-right"></i> <a href="#">부산</a></li>

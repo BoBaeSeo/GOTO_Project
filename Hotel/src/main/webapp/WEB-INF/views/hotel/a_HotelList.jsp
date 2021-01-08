@@ -36,6 +36,7 @@
 		</c:forEach>
 	</table>
 	<a href="a_approveJoin">업체 회원가입 승인</a>
+	<a href="test">test</a>
 </body>
 <script type="text/javascript">
 	function hotelDelete(hocode){

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.Hotel.dto.BookingDTO;
+import com.Hotel.dto.HeartDTO;
 import com.Hotel.service.HotelService;
 
 @Controller
@@ -48,6 +49,22 @@ public class HotelController {
 	public @ResponseBody String deleteHotel(String hocode) {
 		System.out.println("deleteHotel");
 		String result = hotelService.deleteHotel(hocode);
+		return result;
+	}
+	
+	// 찜 등록
+	@RequestMapping(value = "insertHeart")
+	public @ResponseBody String insertHeart(HeartDTO heartDTO) {
+		System.out.println("insertHeart");
+		String result = hotelService.insertHeart(heartDTO);
+		return result;
+	}
+	
+	// 찜 취소
+	@RequestMapping(value = "deleteHeart")
+	public @ResponseBody String deleteHeart(HeartDTO heartDTO) {
+		System.out.println("deleteHeart");
+		String result = hotelService.deleteHeart(heartDTO);
 		return result;
 	}
 

@@ -14,13 +14,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.Hotel.dto.BookingDTO;
 import com.Hotel.dto.H_InfoDTO;
+import com.Hotel.dto.HeartDTO;
 import com.Hotel.dto.HistoryDTO;
 import com.Hotel.dto.HotelDTO;
 import com.Hotel.dto.PageDTO;
 import com.Hotel.dto.ReviewDTO;
 import com.Hotel.dto.RoomDTO;
 import com.Hotel.mapper.HotelMapper;
-import com.Hotel.mapper.MemberMapper;
 import com.Hotel.mapper.ReviewMapper;
 
 @Service
@@ -77,6 +77,13 @@ public class HotelService {
 			hotelList = hotelMapper.c_HotelListInCtname(map);
 		}
 		System.out.println(hotelList);
+		
+		// 찜 리스트 가져오기
+		String loginId = (String) session.getAttribute("MLoginId");
+		ArrayList<HeartDTO> heartList = hotelMapper.getHeartList(loginId);
+		
+		mav.addObject("heartList", heartList);
+		mav.addObject("ctname", ctname);
 		mav.addObject("searchData", bookingDTO);
 		mav.addObject("hotelList", hotelList);
 		mav.addObject("pageDTO", pageDTO);
@@ -115,7 +122,8 @@ public class HotelService {
 	public ModelAndView a_hotelList() {
 		mav = new ModelAndView();
 		String loginId = (String) session.getAttribute("ALoginId");
-		// hotelList 불러오기
+		loginId = "AACM";
+		// 업체 hotelList 불러오기
 		ArrayList<HotelDTO> hotelList = hotelMapper.a_hotelList(loginId);
 		String pw = hotelMapper.getPw(loginId);
 		System.out.println(hotelList);
@@ -130,6 +138,38 @@ public class HotelService {
 		// room & hotel delete
 		hotelMapper.deleteRoom(hocode);
 		int deleteResult = hotelMapper.deleteHotel(hocode);
+		String result = "NO";
+		if(deleteResult > 0) {
+			result = "OK";
+		}
+		return result;
+	}
+
+	public String insertHeart(HeartDTO heartDTO) {
+		// htcode 만들기
+		String htcode = null;
+		String getHtcode = hotelMapper.getHtcode();
+		int htcodeNum = Integer.parseInt(getHtcode.substring(2,5)) + 1;
+		if(htcodeNum < 10) {
+			htcode = "HT00" + htcodeNum;
+		} else if(htcodeNum < 100) {
+			htcode = "HT0" + htcodeNum;
+		} else {
+			htcode = "HT" + htcodeNum;
+		}
+		heartDTO.setHtcode(htcode);
+		// heart insert
+		int insertResult = hotelMapper.insertHeart(heartDTO);
+		String result = "NO";
+		if(insertResult > 0) {
+			result = "OK";
+		}
+		return result;
+	}
+
+	public String deleteHeart(HeartDTO heartDTO) {
+		// heart delete
+		int deleteResult = hotelMapper.deleteHeart(heartDTO);
 		String result = "NO";
 		if(deleteResult > 0) {
 			result = "OK";

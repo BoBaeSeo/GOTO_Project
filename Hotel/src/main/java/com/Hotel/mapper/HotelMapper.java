@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.Hotel.dto.H_InfoDTO;
+import com.Hotel.dto.HeartDTO;
 import com.Hotel.dto.HotelDTO;
-import com.Hotel.dto.ReviewDTO;
 import com.Hotel.dto.RoomDTO;
 
 public interface HotelMapper {
@@ -36,4 +36,12 @@ public interface HotelMapper {
 	void deleteRoom(String hocode);
 
 	int deleteHotel(String hocode);
+
+	ArrayList<HeartDTO> getHeartList(String loginId);
+
+	String getHtcode();
+
+	int insertHeart(HeartDTO heartDTO);
+
+	int deleteHeart(HeartDTO heartDTO);
 }

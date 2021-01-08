@@ -16,4 +16,8 @@ public class HotelDTO {
 	private String hopublicize;
 	private String hofileName;
 	private String ho_cid;
+	private String hopost;   //우편번호
+	private String hoaddress;   //주소
+	private String hoexaddr;  //참고항목
+	private String hodetail; //상세주소
 }
