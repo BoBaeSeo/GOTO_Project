@@ -83,21 +83,22 @@ public class MemberService {
 		return mav;
 	}
 
-	@Transactional(rollbackFor = {Exception.class})
+	@Transactional(rollbackFor = {Exception.class}) // delete중 하나라도 오류가 날 시 rollback
 	public String a_memberDelete(MemberDTO memberDTO) {
 		// member에 연결된 테이블에서 정보 삭제
-		memberMapper.a_delHistory(memberDTO);
-		String vcode = memberMapper.getvcode(memberDTO);
-		memberMapper.a_delHistoryVcode(vcode);
-		memberMapper.a_delReview(memberDTO);
-		memberMapper.a_delBooking(memberDTO);
-		memberMapper.a_delHeart(memberDTO);
-		memberMapper.a_delHelp(memberDTO);
+		memberMapper.a_delHistory(memberDTO); // member가 review에 좋아요를 누른 내역 삭제
+		ArrayList<String> vcodeList = memberMapper.getvcode(memberDTO); // member가 작성한 모든 review의 vcode를 가져오기
+		for(String i : vcodeList) {
+			memberMapper.a_delHistoryVcode(i); //member가 작성한 review에 달려있는 좋아요 내역을 모두 삭제
+		}
+		memberMapper.a_delReview(memberDTO); //member가 작성한 review 삭제
+		memberMapper.a_delBooking(memberDTO); // member가 예약한 내역 삭제
+		memberMapper.a_delHeart(memberDTO); // member의 찜 목록 삭제
+		memberMapper.a_delHelp(memberDTO);	// member가 남긴 1대1문의 목록 삭제
 		
-		// member 삭제 
-		int deleteResult = memberMapper.a_memberDelete(memberDTO);
-		String result = "NO";
-		if(deleteResult > 0) {
+		int deleteResult = memberMapper.a_memberDelete(memberDTO); // member 삭제 
+		String result = "NO";	
+		if(deleteResult > 0) {	
 			result = "OK";
 		}
 		return result;

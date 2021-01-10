@@ -48,8 +48,19 @@ public class HotelService {
 		PageDTO pageDTO = new PageDTO();
 		pageDTO.setStartrow(startRow);
 		pageDTO.setEndrow(endRow);
-		int hotelListCnt = hotelMapper.getHotelListCnt();
+
+
+		// 호텔 리스트 가져오기
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("ctname", ctname);
+		map.put("bookingDTO", bookingDTO);
+		map.put("pageDTO", pageDTO);
+		List<Map<String, Object>> hotelList = hotelMapper.c_HotelList(map);
+		
+		// 페이징 처리
+		int hotelListCnt = hotelMapper.getHotelListCnt(map);
 		int maxPage = (int)(Math.ceil((double)hotelListCnt / pageLimit));
+		System.out.println(maxPage);
 		int startPage = ((int)(Math.ceil((double)page/pageNumLimit))-1) * pageNumLimit + 1;
 		int endPage = startPage + pageNumLimit - 1;
 		if(endPage > maxPage) {
@@ -59,24 +70,6 @@ public class HotelService {
 		pageDTO.setStartpage(startPage);
 		pageDTO.setEndpage(endPage);
 		pageDTO.setMaxpage(maxPage);
-
-		// 호텔 리스트 가져오기
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("ctname", ctname);
-		map.put("bookingDTO", bookingDTO);
-		map.put("pageDTO", pageDTO);
-		List<Map<String, Object>> hotelList;
-		if(bookingDTO.getBcheckin() == null) {
-			System.out.println("1");
-			hotelList = hotelMapper.c_HotelList(map);
-		} else if(ctname.equals("null")) {
-			System.out.println("2");
-			hotelList = hotelMapper.c_HotelListNotCtname(map);
-		} else {
-			System.out.println("3");
-			hotelList = hotelMapper.c_HotelListInCtname(map);
-		}
-		System.out.println(hotelList);
 		
 		// 찜 리스트 가져오기
 		String loginId = (String) session.getAttribute("MLoginId");
@@ -148,13 +141,13 @@ public class HotelService {
 	public String insertHeart(HeartDTO heartDTO) {
 		// htcode 만들기
 		String htcode = null;
-		String getHtcode = hotelMapper.getHtcode();
-		int htcodeNum = Integer.parseInt(getHtcode.substring(2,5)) + 1;
+		String getHtcode = hotelMapper.getHtcode(); //가장 큰 htcode 가져오기
+		int htcodeNum = Integer.parseInt(getHtcode.substring(2,5)) + 1; // htcode에서 숫자부분만 따로 뽑아서 1을 더해준다.
 		if(htcodeNum < 10) {
-			htcode = "HT00" + htcodeNum;
-		} else if(htcodeNum < 100) {
+			htcode = "HT00" + htcodeNum; // 더한 htcodeNum이 한자리 숫자면
+		} else if(htcodeNum < 100) { // 더한 htcodeNum이 두자리 숫자면
 			htcode = "HT0" + htcodeNum;
-		} else {
+		} else { // 더한 htcodeNum이 세자리 숫자면
 			htcode = "HT" + htcodeNum;
 		}
 		heartDTO.setHtcode(htcode);

@@ -20,7 +20,7 @@ public interface MemberMapper {
 
 	void a_delHistory(MemberDTO memberDTO);
 
-	String getvcode(MemberDTO memberDTO);
+	ArrayList<String> getvcode(MemberDTO memberDTO);
 
 	void a_delReview(MemberDTO memberDTO);
 

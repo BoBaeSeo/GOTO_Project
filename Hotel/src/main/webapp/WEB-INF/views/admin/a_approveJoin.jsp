@@ -41,6 +41,7 @@
 </body>
 <script type="text/javascript">
 
+	/* 업체 승인 버튼을 누를 경우 */
 	function comApprove(cmcode){
 			$.ajax({
 				type: 'post',
@@ -60,6 +61,7 @@
 			})
 	}
 	
+	/* 업체 거절 버튼을 누를 경우 */
 	function comDecline(cmcode){
 			$.ajax({
 				type: 'post',

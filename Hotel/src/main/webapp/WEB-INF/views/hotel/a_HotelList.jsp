@@ -42,7 +42,9 @@
 	function hotelDelete(hocode){
 		var cmPw = '${password}';
 		var newPw = prompt('비밀번호를 입력하세요');
+		/* 비밀번호 확인 작업 */
 		if(cmPw == newPw){
+			/* 비밀번호가 일치하다면 hotel delete */
 			$.ajax({
 				type: 'post',
 				url: 'deleteHotel',

@@ -50,7 +50,7 @@
     </section>
     <!-- Breadcrumb Section End -->
     
-    <!-- Property Section Begin -->
+    <!-- search Begin -->
     <section class="property-section spad">
         <div class="container">
             <div class="row">
@@ -61,7 +61,7 @@
                             <div class="first-row">
                             <div id="ctnameDiv">
                             <select name="ctname" id="ctname">
-                                <option value="null">지역</option>
+                                <option value="지역">지역</option>
                                 <option value="서울">서울</option>
                                 <option value="부산">부산</option>
                                 <option value="제주도">제주도</option>
@@ -92,6 +92,9 @@
                         </form>
                     </div>
                 </div>
+               	<!-- search end --> 
+               	
+               	<!-- hotelList start -->
                 <div class="col-lg-9">
                     <h4 class="property-title">HotelList</h4>
                     <div class="property-list">
@@ -122,6 +125,8 @@
                         </div>
                         </c:forEach>
                     </div>
+                    <!-- hotelList end -->
+                    <!-- page start -->
                     <div class="property-pagination">
                     <c:forEach begin="${pageDTO.startpage }" end="${pageDTO.endpage }" step="1" var="pageNum">
                     	<c:choose>
@@ -134,6 +139,7 @@
                     	</c:choose>
                     </c:forEach>
                     </div>
+                    <!-- page end -->
                 </div>
             </div>
         </div>
@@ -146,21 +152,25 @@
 		var ctname = '${ctname}'
 		var bperson = '${searchData.bperson}';
 		var bprice = '${searchData.bprice}';
+		/* 호텔 search할 때 도시를 선택한 경우 */
 		if(ctname != "null" && ctname != ""){
-			$("#ctnameDiv .current").text(ctname);
-			$("#ctname").val(ctname).prop("selected", true);
+			$("#ctnameDiv .current").text(ctname);	/* 호텔 select 박스에 선택한 도시 이름 띄우기 */
+			$("#ctname").val(ctname).prop("selected", true);	
 			}
+		/* 호텔 search할 때 인원수를 선택한 경우 */
 		if(bperson != ""){
-			$("#bpersonDiv .current").text(bperson);
+			$("#bpersonDiv .current").text(bperson);	/* 호텔 select 박스에 선택한 인원수 띄우기 */
 			$("#bperson").val(bperson).prop("selected", true);
 			}
+		/* 호텔 search할 때 가격을 선택한 경우 */
 		if(bprice != ""){
-			$("#bpriceDiv .current").text(bprice+"이하");
+			$("#bpriceDiv .current").text(bprice+"이하");	/* 호텔 select 박스에 선택한 가격 띄우기 */
 			$("#bprice").val(bprice).prop("selected", true);
 			}
 		checkHeart();
 	})
 	
+	/* search 할 때 체크인과 체크아웃 날짜를 입력하도록 하기 */
 	function searchHotel(){
 		if($("#checkin").val() == ""){
 			alert('체크인 날짜를 입력해주세요');
@@ -172,7 +182,8 @@
 			}
 		hotelListForm.submit();
 		}
-	
+
+	/* 로그인 된 아이디가 찜한 내역이 있는지 확인하기 */
 	function checkHeart(){
 		<c:forEach var="hlist" items="${hotelList}">
 		<c:forEach var="heartList" items="${heartList}">
@@ -180,15 +191,17 @@
 			var ht_hocode = "${heartList.ht_hocode}";
 			var loginId = "${sessionScope.MLoginId}";
 			var htid = "${heartList.htid}";
-			if(hocode == ht_hocode && loginId == htid){
+			if(hocode == ht_hocode && loginId == htid){	/* 호텔코드와 찜테이블에 있는 호텔코드가 같으면서 로그인 아이디와 찜테이블에 있는 로그인 아이디가 같다면 찜 취소 버튼으로 바꿈 */
 				$("#heart"+hocode).html('찜 취소').css({'color': '#ffffff','border': '1px solid #dc3545'}).addClass('like-btn');
 			}
 		</c:forEach>
 		</c:forEach>
 	}
+
+	/* 찜 등록, 찜 취소 */
 	function heartProcess(hocode){
 		var loginId = '${sessionScope.MLoginId}';
-		if($("#heart"+hocode).html() == '찜 등록'){
+		if($("#heart"+hocode).html() == '찜 등록'){ /* 찜 등록 버튼의 이름이 찜 등록이라면 찜 등록 내역 insert */
 			$.ajax({
 				type: 'post',
 				url: 'insertHeart',
@@ -198,7 +211,7 @@
 					},
 				dataType: 'text',
 				success: function(result){
-					if(result == 'OK'){
+					if(result == 'OK'){	/* 찜 등록 내역 insert에 성공하면 버튼을 찜 취소 버튼으로 바꾼다 */
 						$("#heart"+hocode).html('찜 취소').css({'color': '#ffffff','border': '1px solid #dc3545'}).addClass('like-btn');
 					}
 					},
@@ -206,7 +219,7 @@
 					console.log('heart 등록 연결 실패');
 					}
 				});
-		} else {
+		} else {  /* 찜 등록 버튼의 이름이 찜 취소라면 찜 등록 내역 삭제 */
 			$.ajax({
 				type: 'post',
 				url: 'deleteHeart',
@@ -216,7 +229,7 @@
 					},
 				dataType: 'text',
 				success: function(result){
-					if(result == 'OK'){
+					if(result == 'OK'){	/* 찜 등록 내역 delete에 성공하면 버튼을 찜 등록 버튼으로 바꾼다 */
 						$("#heart"+hocode).html('찜 등록').removeClass('like-btn').removeAttr("style");
 					}
 					},
@@ -227,9 +240,10 @@
 		}
 		}
 
+	/* 페이지 버튼을 누를시에 실행 */
 	function c_HotelList(page){
 		var url = "";
-		if($("#checkin").val() == ""){
+		if($("#checkin").val() == ""){	/* checkin input에 값이 비어 있다면 파라미터 값으로 page만 넘김 */
 			url = "c_HotelList?page="+page;
 		} else {
 			var checkin = $("#checkin").val();
@@ -237,6 +251,7 @@
 			var ctname = '${ctname}'
 			var bperson = '${searchData.bperson}';
 			var bprice = '${searchData.bprice}';
+			/* checkin input에 값이 존재한다면 파라미터로 모든 값을 넘김 */
 			url = "c_HotelList?page="+page+"&bcheckin="+checkin+"&bcheckout="+checkout+"&ctname="+ctname+"&bperson="+bperson+"&bprice="+bprice
 		}
 		location.href= url;

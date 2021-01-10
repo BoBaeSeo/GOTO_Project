@@ -4,50 +4,39 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.Hotel.mapper.HotelMapper">
+	
+	<!-- hotelList의 개수 selete -->
 	<select id="getHotelListCnt" resultType="int">
-		SELECT COUNT(*) FROM HOTEL
-	</select>
-
-	<select id="c_HotelListInCtname" parameterType="Map" resultMap="selectHotelList">
-		 <choose>
-		 	<when test="bookingDTO.bperson != null">
-				SELECT DISTINCT HO_CTCODE, HOCODE, HONAME, HOFILENAME, HOADDR, HOSCORE, HOPUBLICIZE, (SELECT MIN(ROPRICE)FROM ROOM WHERE RO_HOCODE = HOCODE) AS price FROM (SELECT ROWNUM RN, HOTEL.* FROM HOTEL), CITY, BOOKING, ROOM
-				WHERE CTCODE = HO_CTCODE AND CTCODE = B_CTCODE AND HOCODE = B_HOCODE AND RO_HOCODE = HOCODE AND B_ROCODE = ROCODE AND (#{bookingDTO.bcheckin,jdbcType=VARCHAR} NOT BETWEEN BCHECKIN AND BCHECKOUT 
-				AND #{bookingDTO.bcheckout,jdbcType=VARCHAR} NOT BETWEEN BCHECKIN AND BCHECKOUT) AND CTNAME = #{ctname} AND ((#{bookingDTO.bprice,jdbcType=VARCHAR} IS NULL AND ROMAXPER &gt;= #{bookingDTO.bperson,jdbcType=VARCHAR} 
-				AND RN BETWEEN #{pageDTO.startrow} AND #{pageDTO.endrow}) OR (#{bookingDTO.bprice,jdbcType=VARCHAR} IS NOT NULL AND ROPRICE &lt;= #{bookingDTO.bprice,jdbcType=VARCHAR} AND ROMAXPER &gt;= #{bookingDTO.bperson,jdbcType=VARCHAR} 
-				AND RN BETWEEN #{pageDTO.startrow} AND #{pageDTO.endrow}))
-		 	</when>
-		 	<otherwise>
-		 		SELECT DISTINCT HO_CTCODE, HOCODE, HONAME, HOFILENAME, HOADDR, HOSCORE, HOPUBLICIZE, (SELECT MIN(ROPRICE)FROM ROOM WHERE RO_HOCODE = HOCODE) AS price FROM (SELECT ROWNUM RN, HOTEL.* FROM HOTEL), CITY, BOOKING, ROOM
-				WHERE CTCODE = HO_CTCODE AND CTCODE = B_CTCODE AND HOCODE = B_HOCODE AND RO_HOCODE = HOCODE AND B_ROCODE = ROCODE AND (#{bookingDTO.bcheckin,jdbcType=VARCHAR} NOT BETWEEN BCHECKIN AND BCHECKOUT 
-				AND #{bookingDTO.bcheckout,jdbcType=VARCHAR} NOT BETWEEN BCHECKIN AND BCHECKOUT) AND CTNAME = #{ctname} 
-				AND ((#{bookingDTO.bprice,jdbcType=VARCHAR} IS NULL AND RN BETWEEN #{pageDTO.startrow} AND #{pageDTO.endrow}) 
-				OR (#{bookingDTO.bprice,jdbcType=VARCHAR} IS NOT NULL AND ROPRICE &lt;= #{bookingDTO.bprice,jdbcType=VARCHAR} AND RN BETWEEN #{pageDTO.startrow} AND #{pageDTO.endrow}))
-		 	</otherwise>
-		 </choose>
+		SELECT COUNT(DISTINCT HOCODE) FROM (SELECT ROWNUM RN, HOTEL.*, ROCODE, ROPRICE FROM HOTEL INNER JOIN ROOM ON HOCODE = RO_HOCODE 
+		<where>
+			<if test="bookingDTO.bprice != null">AND ROPRICE &lt;= #{bookingDTO.bprice,jdbcType=VARCHAR}</if>
+			<if test="bookingDTO.bperson != null">AND ROMAXPER &gt;= #{bookingDTO.bperson,jdbcType=VARCHAR}</if>
+		</where>
+		)
+		<if test="ctname != null and ctname != '지역'">INNER JOIN (SELECT * FROM CITY WHERE CTNAME = #{ctname}) ON CTCODE = HO_CTCODE</if>
+		<where>
+			<if test="bookingDTO.bcheckin != null">
+			ROCODE NOT IN (SELECT B_ROCODE FROM BOOKING WHERE (#{bookingDTO.bcheckin,jdbcType=VARCHAR} BETWEEN BCHECKIN AND BCHECKOUT OR #{bookingDTO.bcheckout,jdbcType=VARCHAR} BETWEEN BCHECKIN AND BCHECKOUT 
+			OR BCHECKIN BETWEEN #{bookingDTO.bcheckin,jdbcType=VARCHAR} AND #{bookingDTO.bcheckout,jdbcType=VARCHAR} OR BCHECKOUT BETWEEN #{bookingDTO.bcheckin,jdbcType=VARCHAR} AND #{bookingDTO.bcheckout,jdbcType=VARCHAR}))
+			</if>
+		</where>
 	</select>
 	
-	<select id="c_HotelListNotCtname" parameterType="Map" resultMap="selectHotelList">
-		<choose>
-			<when test="bookingDTO.bperson != null">
-				SELECT DISTINCT HO_CTCODE, HOCODE, HONAME, HOFILENAME, HOADDR, HOSCORE, HOPUBLICIZE, (SELECT MIN(ROPRICE)FROM ROOM WHERE RO_HOCODE = HOCODE) AS price FROM (SELECT ROWNUM RN, HOTEL.* FROM HOTEL), BOOKING, ROOM
-				WHERE HOCODE = B_HOCODE AND RO_HOCODE = HOCODE AND B_ROCODE = ROCODE AND (#{bookingDTO.bcheckin,jdbcType=VARCHAR} NOT BETWEEN BCHECKIN AND BCHECKOUT 
-				AND #{bookingDTO.bcheckout,jdbcType=VARCHAR} NOT BETWEEN BCHECKIN AND BCHECKOUT) AND ((#{bookingDTO.bprice,jdbcType=VARCHAR} IS NULL AND ROMAXPER &gt;= #{bookingDTO.bperson,jdbcType=VARCHAR} 
-				AND RN BETWEEN #{pageDTO.startrow} AND #{pageDTO.endrow}) OR (#{bookingDTO.bprice,jdbcType=VARCHAR} IS NOT NULL AND ROPRICE &lt;= #{bookingDTO.bprice,jdbcType=VARCHAR} 
-				AND ROMAXPER &gt;= #{bookingDTO.bperson,jdbcType=VARCHAR} AND RN BETWEEN #{pageDTO.startrow} AND #{pageDTO.endrow}))
-			</when>
-			<otherwise>
-				SELECT DISTINCT HO_CTCODE, HOCODE, HONAME, HOFILENAME, HOADDR, HOSCORE, HOPUBLICIZE, (SELECT MIN(ROPRICE)FROM ROOM WHERE RO_HOCODE = HOCODE) AS price FROM (SELECT ROWNUM RN, HOTEL.* FROM HOTEL), BOOKING, ROOM
-				WHERE HOCODE = B_HOCODE AND RO_HOCODE = HOCODE AND B_ROCODE = ROCODE AND (#{bookingDTO.bcheckin,jdbcType=VARCHAR} NOT BETWEEN BCHECKIN AND BCHECKOUT 
-				AND #{bookingDTO.bcheckout,jdbcType=VARCHAR} NOT BETWEEN BCHECKIN AND BCHECKOUT) AND ((#{bookingDTO.bprice,jdbcType=VARCHAR} IS NULL AND RN BETWEEN #{pageDTO.startrow} AND #{pageDTO.endrow}) 
-				OR (#{bookingDTO.bprice,jdbcType=VARCHAR} IS NOT NULL AND ROPRICE &lt;= #{bookingDTO.bprice,jdbcType=VARCHAR} AND RN BETWEEN #{pageDTO.startrow} AND #{pageDTO.endrow}))
-			</otherwise>
-		</choose>
-	</select>
-
-	<select id="c_HotelList" resultMap="selectHotelList">
+	<select id="c_HotelList" parameterType="Map" resultMap="selectHotelList">
 		SELECT DISTINCT HO_CTCODE, HOCODE, HONAME, HOFILENAME, HOADDR, HOSCORE, HOPUBLICIZE, (SELECT MIN(ROPRICE)FROM ROOM WHERE RO_HOCODE = HOCODE) AS price 
-		FROM (SELECT ROWNUM RN, HOTEL.* FROM HOTEL) WHERE RN BETWEEN #{pageDTO.startrow} AND #{pageDTO.endrow}
+		FROM (SELECT ROWNUM RN, HOTEL.*, ROCODE, ROPRICE FROM HOTEL INNER JOIN ROOM ON HOCODE = RO_HOCODE
+		<where>
+			<if test="bookingDTO.bprice != null">AND ROPRICE &lt;= #{bookingDTO.bprice,jdbcType=VARCHAR}</if>
+			<if test="bookingDTO.bperson != null">AND ROMAXPER &gt;= #{bookingDTO.bperson,jdbcType=VARCHAR}</if>
+		</where>
+		)
+		<if test="ctname != null and ctname != '지역'">INNER JOIN (SELECT * FROM CITY WHERE CTNAME = #{ctname}) ON CTCODE = HO_CTCODE</if>
+		<where>
+			<if test="bookingDTO.bcheckin != null">
+			ROCODE NOT IN (SELECT B_ROCODE FROM BOOKING WHERE (#{bookingDTO.bcheckin,jdbcType=VARCHAR} BETWEEN BCHECKIN AND BCHECKOUT OR #{bookingDTO.bcheckout,jdbcType=VARCHAR} BETWEEN BCHECKIN AND BCHECKOUT 
+			OR BCHECKIN BETWEEN #{bookingDTO.bcheckin,jdbcType=VARCHAR} AND #{bookingDTO.bcheckout,jdbcType=VARCHAR} OR BCHECKOUT BETWEEN #{bookingDTO.bcheckin,jdbcType=VARCHAR} AND #{bookingDTO.bcheckout,jdbcType=VARCHAR}))
+			</if>
+		</where>
 	</select>
 	
 	<select id="getHotelInfo" parameterType="String" resultMap="selectHotelInfo">

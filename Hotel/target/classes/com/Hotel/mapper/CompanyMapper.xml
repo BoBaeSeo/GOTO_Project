@@ -4,15 +4,17 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.Hotel.mapper.CompanyMapper">
-
+	<!-- 승인이 되지 않은 company 모두 selete -->
 	<select id="a_approveJoin" resultMap="selectCompany">
 		SELECT * FROM COMPANY WHERE CMCHECK = 0
 	</select>
 
+	<!-- 거절을 누르면 cmcheck를 0로 update -->
 	<update id="comDecline" parameterType="String">
 		UPDATE COMPANY SET CMCHECK = 0 WHERE CMCODE = #{cmcode}	
 	</update>
 
+	<!-- 승인을 누르면 cmcheck를 1로 update -->
 	<update id="comApprove" parameterType="String">
 		UPDATE COMPANY SET CMCHECK = 1 WHERE CMCODE = #{cmcode}	
 	</update>

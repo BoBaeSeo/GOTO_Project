@@ -11,11 +11,7 @@ import com.Hotel.dto.RoomDTO;
 
 public interface HotelMapper {
 
-	int getHotelListCnt();
-
-	List<Map<String, Object>> c_HotelListNotCtname(Map map);
-	
-	List<Map<String, Object>> c_HotelListInCtname(Map map);
+	int getHotelListCnt(Map<String, Object> map);
 
 	List<Map<String, Object>> c_HotelList(Map map);
 
@@ -44,4 +40,6 @@ public interface HotelMapper {
 	int insertHeart(HeartDTO heartDTO);
 
 	int deleteHeart(HeartDTO heartDTO);
+
+
 }
