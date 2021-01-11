@@ -39,4 +39,5 @@ public class CompanyController {
 		String result = companyService.comApprove(cmcode);
 		return result;
 	}
+	
 }

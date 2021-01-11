@@ -31,6 +31,11 @@
     background: #dc3545;
     cursor: pointer;
 	}
+	.property-list .single-property-item .property-pic img{
+		min-width: 80%;
+		width: 230px;
+		height: 230px;
+	}
 </style>
 	<!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section">
@@ -103,7 +108,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="property-pic">
-                                        <a href="c_RoomList?hocode=${list.hocode }" style="text-decoration: none;"><img src="img/properties/${list.hofileName }.jpg" alt=""></a>
+                                        <a href="c_RoomList?hocode=${list.hocode }" style="text-decoration: none;"><img src="/resources/img/properties/property-4.jpg" alt=""></a>
                                     </div>
                                 </div>
                                 <div class="col-md-8 comment-option">

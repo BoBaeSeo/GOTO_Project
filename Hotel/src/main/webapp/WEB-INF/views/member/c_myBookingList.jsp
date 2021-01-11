@@ -39,6 +39,15 @@
 		font-weight: bold;
 		font-size: 17px;
 	}
+	.property-list .single-property-item .property-pic img{
+		min-width: 80%;
+		width: 230px;
+		height: 230px;
+		padding-top: 25px;
+	}
+	.property-list .single-property-item{
+		padding: 0;
+	}
 </style>
 <!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-section">
@@ -64,21 +73,27 @@
                 <div class="col-lg-3">
             <div class="property-sidebar">
                <div class="best-agents">
-                  <h4>Help</h4>
+                  <h4>My page</h4>
                   <a href="c_questionList" class="ba-item">
                      <div class="ba-text">
-                        <h5>1대1 문의 목록</h5>
-                        <span>Q&A</span>
+                        <h5>회원정보보기</h5>
+                        <span>MemberView</span>
+                     </div>
+                  </a> <a href="c_myBookingList" class="ba-item">
+                     <div class="ba-text">
+                        <h5>내가 예약한 목록</h5>
+                        <span>My BookingList</span>
                      </div>
                   </a> <a href="#" class="ba-item">
                      <div class="ba-text">
-                        <h5>1대1 문의 작성</h5>
-                        <span>#</span>
+                        <h5>찜 목록</h5>
+                        <span>HeartList</span>
                      </div>
-                  </a> <a href="#" class="ba-item">
+                  </a>
+                  <a href="#" class="ba-item">
                      <div class="ba-text">
-                        <h5>자주 묻는 질문</h5>
-                        <span>#</span>
+                        <h5>나의 후기</h5>
+                        <span>My Review</span>
                      </div>
                   </a>
                </div>
@@ -114,8 +129,8 @@
                                         <div class="room-price">
                                             <span>결제 가격: </span>
                                             <h5>${list.bprice } </h5>
-                                        </div>
                                         <button type="button" style="display: none;" id="review${list.bcode }" class="site-btn review" onclick="writeReview('${list.b_hocode}')">리뷰 등록</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -146,28 +161,29 @@
 		$("#help").addClass('active');
 		checkDate();
 	})
+	/* 예약날짜를 현재시간과 비교하여 버튼 다르게 뜨게하기 */
 	function checkDate(){
 		<c:forEach var="list" items="${bookingList}">
 		var bcode = "${list.bcode}";
 		var checkin = new Date("${list.bcheckin}");
 		var checkout = new Date("${list.bcheckout}");
 		var nowDate = new Date();
-		if(nowDate > checkin){
+		if(nowDate > checkin){	/* 예약날짜가 현재시간과 비교하여 과거일 경우 예약완료, 후기 버튼이 존재하도록 */
 			$("#complete" + bcode).removeAttr('style')
 			$("#review" + bcode).removeAttr('style')
-		} else {
+		} else {	/* 예약날짜가 현재시간과 비교하여 미래일 경우 예약취소 버튼만 존재하도록 */
 			$("#cancel" + bcode).removeAttr('style')
 		}
 		</c:forEach>
 	}
-
+	/* 예약 취소 */
 	function cancelBooking(bcode){
 		var loginId = '${sessionScope.MLoginId}';
 		var mpw = '${bookingList[0].mpassword}';
 		var inputPw = prompt('비밀번호를 입력하세요');
 		console.log(mpw)
 		console.log(inputPw)
-		if(mpw == inputPw){
+		if(mpw == inputPw){	/* 비밀번호 확인 */
 			$.ajax({
 				type: 'post',
 				url: 'deleteBooking',
@@ -191,7 +207,7 @@
 		}
 		
 	}
-
+	/* 리뷰 작성 창 */
 	function writeReview(hocode){
 		window.name = "bookingList";
 		var openWin = window.open("resources/writeReview.jsp?hocode="+hocode+"&loginId=${sessionScope.MLoginId}", "reviewPop", "width=700, height=500, left=100, top=50");

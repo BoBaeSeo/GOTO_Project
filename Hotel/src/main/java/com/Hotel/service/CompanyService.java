@@ -2,6 +2,8 @@ package com.Hotel.service;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,6 +18,9 @@ public class CompanyService {
 	
 	@Autowired
 	private CompanyMapper companyMapper;
+	
+	@Autowired
+	HttpSession session;
 	
 	public ModelAndView a_approveJoin() {
 		mav = new ModelAndView();
