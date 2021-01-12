@@ -5,7 +5,7 @@
   
 <mapper namespace="com.Hotel.mapper.CompanyMapper">
 	<!-- 승인이 되지 않은 company 모두 selete -->
-	<select id="a_approveJoin" resultMap="selectCompany">
+	<select id="a_approveJoin" resultMap="company">
 		SELECT * FROM COMPANY WHERE CMCHECK = 0
 	</select>
 
@@ -19,7 +19,11 @@
 		UPDATE COMPANY SET CMCHECK = 1 WHERE CMCODE = #{cmcode}	
 	</update>
 	
-	<resultMap type="com.Hotel.dto.CompanyDTO" id="selectCompany">
+	<select id="AdminLogin" resultType="String">
+		SELECT CMID FROM COMPANY WHERE CMID=#{cmid} AND CMPASSWORD=#{cmpassword}
+	</select>
+	
+	<resultMap type="com.Hotel.dto.CompanyDTO" id="company">
 		<result property="cmcode" column="CMCODE"/>
 		<result property="cmid" column="CMID"/>
 		<result property="cmpassword" column="CMPASSWORD"/>

@@ -5,7 +5,7 @@
   
 <mapper namespace="com.Hotel.mapper.HotelMapper">
 	
-	<!-- hotelList의 개수 selete -->
+	<!-- hotelList의 개수 select -->
 	<select id="getHotelListCnt" resultType="int">
 		SELECT COUNT(DISTINCT HOCODE) FROM (SELECT ROWNUM RN, HOTEL.*, ROCODE, ROPRICE FROM HOTEL INNER JOIN ROOM ON HOCODE = RO_HOCODE 
 		<where>

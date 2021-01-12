@@ -1,5 +1,7 @@
 package com.Hotel.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +19,8 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private HttpSession session;
 	//	(고객페이지) 내가 예약한 목록
 	@RequestMapping(value = "c_myBookingList")
 	public ModelAndView c_myBookingList(@RequestParam(value="page", defaultValue = "1")int page) {
@@ -55,7 +59,8 @@ public class MemberController {
 		System.out.println("회원로그인 폼!!");
 		return "member/MemberLoginForm";
 	}
-	
+
+
 	// 회원로그인부분
 	@RequestMapping(value = "/MemberLogin")
 	public ModelAndView MemberLogin(MemberDTO memberDTO) {
@@ -64,6 +69,14 @@ public class MemberController {
 		mav = memberService.MemberLogin(memberDTO);
 		System.out.println(memberDTO);
 		return mav;
+
 	}
+	
+	//로그아웃
+		@RequestMapping(value = "/Logout")
+		public String Logout() {
+			session.invalidate();
+			return "home";
+		}
 
 }

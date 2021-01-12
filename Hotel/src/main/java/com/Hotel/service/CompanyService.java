@@ -22,6 +22,53 @@ public class CompanyService {
 	@Autowired
 	HttpSession session;
 	
+	//관리자로그인부분 세션값 ALoginId
+	public ModelAndView AdminLogin(CompanyDTO companyDTO) {
+		mav = new ModelAndView();
+		
+		String ALoginId = companyMapper.AdminLogin(companyDTO);
+		System.out.println("ALoginId:::"+ALoginId);
+		session.setAttribute("ALoginId", ALoginId);
+		
+		if (ALoginId!=null) {
+			mav.setViewName("redirect:/");
+		}else {
+			mav.setViewName("company/AdminLoginForm");
+		}
+		mav.addObject("companyDTO", companyDTO);
+		return mav;
+	}
+
+	//업체정보 상세보기
+	public ModelAndView cpInfoView(String cmcode) {
+		mav = new ModelAndView();
+		CompanyDTO companyDTO = companyMapper.cpInfoView(cmcode);
+		mav.addObject("companyDTO",companyDTO);
+		mav.setViewName("company/cpInfoView");
+		return mav;
+	}
+
+	//업체정보수정 폼
+	public ModelAndView CompanyModify(String cmcode) {
+		mav = new ModelAndView();
+		CompanyDTO companyDTO = companyMapper.cpInfoView(cmcode);
+		mav.addObject("companyDTO", companyDTO);
+		mav.setViewName("company/CompanyModifyForm");
+		
+		return mav;
+	}
+
+	//업체정보수정 부분
+	public ModelAndView CompanyModifyProcess(CompanyDTO companyDTO) {
+		mav = new ModelAndView();
+		int UpdateResult = companyMapper.CompanyModifyProcess(companyDTO);
+		System.out.println("cmcode ::"+ companyDTO.getCmcode());
+		System.out.println("UpdateResult::"+UpdateResult);
+		mav.setViewName("redirect:/cpInfoView?cmcode="+companyDTO.getCmcode());
+		
+		return mav;
+	}
+	
 	public ModelAndView a_approveJoin() {
 		mav = new ModelAndView();
 		// 업체리스트 select
