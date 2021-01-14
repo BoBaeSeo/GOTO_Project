@@ -1,6 +1,10 @@
 package com.Hotel.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -97,6 +101,29 @@ public class CompanyService {
 			result = "OK";
 		}
 		return result;
+	}
+
+	// 추가
+	public ModelAndView companySales() {
+		mav = new ModelAndView();
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		String loginId = (String) session.getAttribute("ALoginId");
+		loginId = "AACM";
+		Calendar firstDate = Calendar.getInstance();
+		firstDate.set(firstDate.get(Calendar.YEAR), Calendar.JANUARY, 1);
+		Calendar lastDate = Calendar.getInstance();
+		lastDate.set(lastDate.get(Calendar.YEAR), Calendar.DECEMBER, 31);
+		
+		String firstDateFormat = format.format(firstDate.getTime());
+		String lastDateFormat = format.format(lastDate.getTime());
+		
+		List<Map<String, Object>> salesList = companyMapper.salesList(firstDateFormat, lastDateFormat, loginId);
+		System.out.println(salesList);
+		
+		
+		
+		mav.addObject("salesList", salesList);
+		return null;
 	}
 
 }

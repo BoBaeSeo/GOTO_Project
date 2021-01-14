@@ -53,6 +53,7 @@
                 <li><a href="/">Home</a></li>
                 <li><a href="c_HotelList" >Hotel</a></li>
                 <li><a href="c_myBookingList">Help</a></li>
+                <li><a href="companySales">companySales</a></li>
             </ul>
         </nav>
         <div class="nav-logo-right">

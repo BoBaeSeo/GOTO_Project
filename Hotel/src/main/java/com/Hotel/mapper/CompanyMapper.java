@@ -1,7 +1,10 @@
 package com.Hotel.mapper;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -23,5 +26,8 @@ public interface CompanyMapper {
 	public CompanyDTO CompanyModify(String cmcode);
 	@Update("UPDATE COMPANY SET CMNAME=#{cmname}, CMEMAIL=#{cmemail},CMPHONE=#{cmphone},CMADDRESS=#{cmaddress} WHERE CMCODE=#{cmcode}")
 	public int CompanyModifyProcess(CompanyDTO companyDTO);
+
+	//추가
+	List<Map<String, Object>> salesList(@Param("firstDateFormat") String firstDateFormat, @Param("lastDateFormat") String lastDateFormat, @Param("loginId") String loginId);
 
 }

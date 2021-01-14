@@ -93,5 +93,14 @@ public class CompanyController {
 			String result = companyService.comApprove(cmcode);
 			return result;
 		}
+		
+		// 추가
+		// 업체 매출 확인
+		@RequestMapping(value = "companySales")
+		public ModelAndView companySales() {
+			System.out.println("companySales");
+			mav = companyService.companySales();
+			return mav;
+		}
 	
 }

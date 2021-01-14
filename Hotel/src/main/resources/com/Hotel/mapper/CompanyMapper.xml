@@ -23,6 +23,27 @@
 		SELECT CMID FROM COMPANY WHERE CMID=#{cmid} AND CMPASSWORD=#{cmpassword}
 	</select>
 	
+	<!-- 추가 -->
+	<select id="salesList" resultMap="date" parameterType="String">
+		SELECT TO_CHAR(B.DT, 'YYYY-MM') AS BDRAWUP
+				, NVL(SUM(BPRICE),0) BPRICE
+		FROM (SELECT TO_CHAR(BDRAWUP, 'YYYY-MM-DD') AS
+				BDRAWUP, SUM(BPRICE) BPRICE
+				FROM BOOKING, HOTEL
+				WHERE HOCODE = B_HOCODE 
+				AND BDRAWUP BETWEEN TO_DATE(#{firstDateFormat}, 'YYYY-MM-DD')
+				AND TO_DATE(#{lastDateFormat}, 'YYYY-MM-DD')
+				AND HO_CID = #{loginId}
+				GROUP BY BDRAWUP) A
+			, (SELECT TO_DATE(#{firstDateFormat},'YYYY-MM-DD') + LEVEL -1 AS DT
+				FROM DUAL
+				CONNECT BY LEVEL &lt;= (TO_DATE(#{lastDateFormat},'YYYY-MM-DD')- TO_DATE(#{firstDateFormat},'YYYY-MM-DD') + 1)
+				)B
+		WHERE B.DT = A.BDRAWUP(+)
+		GROUP BY TO_CHAR(B.DT, 'YYYY-MM')
+		ORDER BY TO_CHAR(B.DT, 'YYYY-MM')
+	</select>
+	
 	<resultMap type="com.Hotel.dto.CompanyDTO" id="company">
 		<result property="cmcode" column="CMCODE"/>
 		<result property="cmid" column="CMID"/>
@@ -32,5 +53,10 @@
 		<result property="cmemail" column="CMEMAIL"/>
 		<result property="cmaddress" column="CMADDRESS"/>
 		<result property="cmcheck" column="CMCHECK"/>
+	</resultMap>
+	
+	<resultMap type="map" id="date">
+		<result property="bprice" column="BPRICE"/>
+		<result property="cnt" column="CNT"/>
 	</resultMap>
 </mapper>
