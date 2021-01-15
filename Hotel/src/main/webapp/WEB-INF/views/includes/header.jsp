@@ -54,6 +54,7 @@
                 <li><a href="c_HotelList" >Hotel</a></li>
                 <li><a href="c_myBookingList">Help</a></li>
                 <li><a href="companySales">companySales</a></li>
+                <li><a href="test">test</a></li>
             </ul>
         </nav>
         <div class="nav-logo-right">

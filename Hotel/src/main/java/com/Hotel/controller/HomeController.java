@@ -30,7 +30,7 @@ public class HomeController {
 	
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	public String test() {
-		return "company/test";
+		return "company/c_questionList";
 	}
 	
 }

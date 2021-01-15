@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -97,9 +98,9 @@ public class CompanyController {
 		// 추가
 		// 업체 매출 확인
 		@RequestMapping(value = "companySales")
-		public ModelAndView companySales() {
+		public ModelAndView companySales(@RequestParam(value = "year", defaultValue = "0") int year) {
 			System.out.println("companySales");
-			mav = companyService.companySales();
+			mav = companyService.companySales(year);
 			return mav;
 		}
 	

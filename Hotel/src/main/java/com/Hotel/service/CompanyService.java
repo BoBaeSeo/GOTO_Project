@@ -104,7 +104,7 @@ public class CompanyService {
 	}
 
 	// 추가
-	public ModelAndView companySales() {
+	public ModelAndView companySales(int year) {
 		mav = new ModelAndView();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		String loginId = (String) session.getAttribute("ALoginId");
@@ -113,6 +113,10 @@ public class CompanyService {
 		firstDate.set(firstDate.get(Calendar.YEAR), Calendar.JANUARY, 1);
 		Calendar lastDate = Calendar.getInstance();
 		lastDate.set(lastDate.get(Calendar.YEAR), Calendar.DECEMBER, 31);
+		if(year != 0) {
+			firstDate.set(year, Calendar.JANUARY, 1);
+			lastDate.set(year, Calendar.JANUARY, 1);
+		}
 		
 		String firstDateFormat = format.format(firstDate.getTime());
 		String lastDateFormat = format.format(lastDate.getTime());
