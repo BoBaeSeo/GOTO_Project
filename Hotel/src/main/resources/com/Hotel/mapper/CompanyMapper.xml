@@ -24,11 +24,11 @@
 	</select>
 	
 	<!-- 추가 -->
-	<select id="salesList" resultMap="date" parameterType="String">
+	<select id="salesList" resultMap="sales" parameterType="String">
 		SELECT TO_CHAR(B.DT, 'YYYY-MM') AS BDRAWUP
-				, NVL(SUM(BPRICE),0) BPRICE
+				, NVL(SUM(BPRICE),0) BPRICE, NVL(SUM(BCODE),0) COUNT
 		FROM (SELECT TO_CHAR(BDRAWUP, 'YYYY-MM-DD') AS
-				BDRAWUP, SUM(BPRICE) BPRICE
+				BDRAWUP, SUM(BPRICE) BPRICE, COUNT(BCODE) BCODE
 				FROM BOOKING, HOTEL
 				WHERE HOCODE = B_HOCODE 
 				AND BDRAWUP BETWEEN TO_DATE(#{firstDateFormat}, 'YYYY-MM-DD')
@@ -44,6 +44,10 @@
 		ORDER BY TO_CHAR(B.DT, 'YYYY-MM')
 	</select>
 	
+	<select id="yearList" parameterType="String" resultMap="sales">
+		SELECT DISTINCT TO_CHAR(BDRAWUP , 'YYYY') AS YEAR FROM BOOKING, HOTEL WHERE HOCODE = B_HOCODE AND HO_CID = #{loginId} ORDER BY YEAR
+	</select>
+	
 	<resultMap type="com.Hotel.dto.CompanyDTO" id="company">
 		<result property="cmcode" column="CMCODE"/>
 		<result property="cmid" column="CMID"/>
@@ -55,8 +59,10 @@
 		<result property="cmcheck" column="CMCHECK"/>
 	</resultMap>
 	
-	<resultMap type="map" id="date">
+	<resultMap type="map" id="sales">
 		<result property="bprice" column="BPRICE"/>
-		<result property="cnt" column="CNT"/>
+		<result property="bdrawup" column="BDRAWUP"/>
+		<result property="cnt" column="COUNT"/>
+		<result property="year" column="YEAR"/>
 	</resultMap>
 </mapper>

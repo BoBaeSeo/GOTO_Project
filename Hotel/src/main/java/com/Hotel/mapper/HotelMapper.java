@@ -41,5 +41,11 @@ public interface HotelMapper {
 
 	int deleteHeart(HeartDTO heartDTO);
 
+	int updateHitZero();
+
+	int updateHit(String hocode);
+
+	ArrayList<HotelDTO> gethitList(String loginId);
+
 
 }

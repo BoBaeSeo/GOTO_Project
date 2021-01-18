@@ -68,5 +68,10 @@ public class HotelController {
 		return result;
 	}
 
-
+	@RequestMapping(value = "updateHit")
+	public @ResponseBody String updateHit(String hocode) {
+		System.out.println("updateHit");
+		String result = hotelService.updateHit(hocode);
+		return result;
+	}
 }

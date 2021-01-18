@@ -30,4 +30,6 @@ public interface CompanyMapper {
 	//추가
 	List<Map<String, Object>> salesList(@Param("firstDateFormat") String firstDateFormat, @Param("lastDateFormat") String lastDateFormat, @Param("loginId") String loginId);
 
+	ArrayList<Integer> yearList(String loginId);
+
 }

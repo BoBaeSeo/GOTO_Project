@@ -91,6 +91,18 @@
 		DELETE FROM HEART WHERE HT_HOCODE = #{ht_hocode} AND HTID = #{htid}
 	</delete>
 	
+	<update id="updateHitZero">
+		UPDATE HOTEL SET HOHIT = 0
+	</update>
+	
+	<update id="updateHit" parameterType="String">
+		UPDATE HOTEL SET HOHIT = HOHIT + 1, HOTOTALHIT = HOTOTALHIT + 1 WHERE HOCODE = #{hocode}
+	</update>
+	
+	<select id="gethitList" parameterType="String" resultMap="Hotel">
+		SELECT HOCODE, HONAME, HOHIT, HOTOTALHIT FROM HOTEL WHERE HO_CID = #{loginId}
+	</select>
+	
 	<resultMap type="map" id="selectHotelList">
 		<result property="ho_ctcode" column="HO_CTCODE" />
 		<result property="hocode" column="HOCODE" />
@@ -111,6 +123,8 @@
 		<result property="hoscore" column="HOSCORE" />
 		<result property="hopublicize" column="HOPUBLICIZE" />
 		<result property="ho_cid" column="HO_CID" />
+		<result property="hohit" column="HOHIT" />
+		<result property="hototalhit" column="HOTOTALHIT" />
 	</resultMap>
 	
 	<resultMap type="com.Hotel.dto.H_InfoDTO" id="selectHotelInfo">

@@ -13,7 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.Hotel.dto.CompanyDTO;
+import com.Hotel.dto.HotelDTO;
 import com.Hotel.mapper.CompanyMapper;
+import com.Hotel.mapper.HotelMapper;
 
 @Service
 public class CompanyService {
@@ -22,6 +24,9 @@ public class CompanyService {
 	
 	@Autowired
 	private CompanyMapper companyMapper;
+	
+	@Autowired
+	private HotelMapper hotelMapper;
 	
 	@Autowired
 	HttpSession session;
@@ -114,8 +119,11 @@ public class CompanyService {
 		Calendar lastDate = Calendar.getInstance();
 		lastDate.set(lastDate.get(Calendar.YEAR), Calendar.DECEMBER, 31);
 		if(year != 0) {
-			firstDate.set(year, Calendar.JANUARY, 1);
-			lastDate.set(year, Calendar.JANUARY, 1);
+			firstDate.set(Calendar.YEAR, year);
+			lastDate.set(Calendar.YEAR, year);
+			mav.setViewName("company/a_companySalesYear");
+		} else {
+			mav.setViewName("company/a_companySales");
 		}
 		
 		String firstDateFormat = format.format(firstDate.getTime());
@@ -124,10 +132,17 @@ public class CompanyService {
 		List<Map<String, Object>> salesList = companyMapper.salesList(firstDateFormat, lastDateFormat, loginId);
 		System.out.println(salesList);
 		
+		ArrayList<HotelDTO> hotelHitList = hotelMapper.gethitList(loginId);
+		System.out.println(hotelHitList);
 		
+		ArrayList<Integer> yearList = companyMapper.yearList(loginId);
+		System.out.println(yearList);
 		
 		mav.addObject("salesList", salesList);
-		return null;
+		mav.addObject("hotelHitList", hotelHitList);
+		mav.addObject("yearList", yearList);
+		
+		return mav;
 	}
 
 }

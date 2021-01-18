@@ -108,13 +108,13 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="property-pic">
-                                        <a href="c_RoomList?hocode=${list.hocode }" style="text-decoration: none;"><img src="/resources/img/properties/property-4.jpg" alt=""></a>
+                                        <a onclick="updateHit('${list.hocode}')" style="text-decoration: none;"><img src="/resources/img/properties/property-4.jpg" alt=""></a>
                                     </div>
                                 </div>
                                 <div class="col-md-8 comment-option">
                                     <div class="property-text single-comment-item">
                                         <div class="s-text">평점 : ${list.hoscore }</div>
-                                        <h5 class="r-title"><a href="c_RoomList?hocode=${list.hocode }" style="text-decoration: none; color: black;">${list.honame }</a></h5>
+                                        <h5 class="r-title"><a onclick="updateHit('${list.hocode}')" style="text-decoration: none; color: black;">${list.honame }</a></h5>
                                         <div class="properties-location"><i class="icon_pin"></i>${list.hoaddr }</div>
                                         <p>${list.hopublicize }</p>
                                         <div class="room-price sc-text">
@@ -261,7 +261,25 @@
 		}
 		location.href= url;
 		}
-	
+
+	function updateHit(hocode){
+		$.ajax({
+			type: 'post',
+			url: 'updateHit',
+			data: {
+					'hocode': hocode,
+				},
+			dataType: 'text',
+			success: function(result){
+				if(result == 'OK'){	
+					location.href="c_RoomList?hocode="+hocode;
+				}
+				},
+			error: function(){
+				console.log('updateHit 연결 실패');
+				}
+			});
+		}
 </script>
     <!-- Property Section End -->
 <%@ include file="../includes/footer.jsp"%> 

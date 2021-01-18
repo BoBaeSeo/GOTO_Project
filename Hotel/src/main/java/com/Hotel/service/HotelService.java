@@ -170,4 +170,11 @@ public class HotelService {
 		return result;
 	}
 
+	public String updateHit(String hocode) {
+		int updateResult = hotelMapper.updateHit(hocode);
+		String result = "NO";
+		if(updateResult > 0) result = "OK";
+		return result;
+	}
+
 }

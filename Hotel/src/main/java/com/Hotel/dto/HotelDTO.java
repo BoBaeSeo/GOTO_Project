@@ -20,4 +20,6 @@ public class HotelDTO {
 	private String hoaddress;   //주소
 	private String hoexaddr;  //참고항목
 	private String hodetail; //상세주소
+	private int hohit;
+	private int hototalhit;
 }
