@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.Hotel.dto.CityDTO;
 import com.Hotel.dto.H_InfoDTO;
 import com.Hotel.dto.HeartDTO;
 import com.Hotel.dto.HotelDTO;
@@ -40,12 +41,35 @@ public interface HotelMapper {
 	int insertHeart(HeartDTO heartDTO);
 
 	int deleteHeart(HeartDTO heartDTO);
+	
+	public HotelDTO bookingCheck(String hocode);
 
+	List<Map<String, Object>> searchHotel(Map<String, Object> map);
+
+	int getHotelCount(String search);
+
+	public String ctMaxNum();
+
+	public int hotelInfoForm(Map<String, Object> map);
+
+	public String hoMaxNum();
+
+	public String inMaxNum();
+
+	public HotelDTO hotelView(String hocode);
+
+	public H_InfoDTO h_infoView(String hocode);
+
+	public int updateIndetail(H_InfoDTO h_infoDTO);
+
+	public ArrayList<String> getCtborough(CityDTO cityDTO);
+
+	
 	int updateHitZero();
 
 	int updateHit(String hocode);
 
 	ArrayList<HotelDTO> gethitList(String loginId);
 
-
+	
 }

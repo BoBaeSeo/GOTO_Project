@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.Hotel.mapper.RestaurantMapper">
+
+<select id="restaurantList" parameterType="com.Hotel.dto.PageDTO" resultMap="restaurant">
+		SELECT * FROM (SELECT ROWNUM RN, RESTAURANT.* FROM RESTAURANT ORDER BY RECODE) WHERE RN BETWEEN #{startrow} AND #{endrow}
+</select>
+
+<select id="getrestaurantListCnt" resultType="int">
+	SELECT COUNT(*) FROM RESTAURANT
+</select>
+
+<select id="searchingRestaurant" resultMap="restaurant" parameterType="String">
+		SELECT * FROM RESTAURANT WHERE RE_CTCODE = #{re_ctcode}
+</select>
+
+<select id="adminRestaurantList" resultMap="restaurant">
+	SELECT * FROM RESTAURANT
+</select>
+
+<update id="restaurantModify" parameterType="com.Hotel.dto.RestaurantDTO">
+	UPDATE RESTAURANT SET RE_NAME = #{rename}, READDR = #{readdr}, REFILENAME = #{refilename}, REINTRO = #{reintro} WHERE RE_CTCODE = #{re_ctcode} AND RECODE = #{recode}
+</update>
+
+<select id="getRephotoname" parameterType="String" resultType="String">
+	SELECT REFILENAME FROM RESTAURANT WHERE RECODE = #{recode}
+</select>
+
+<delete id="restaurantDelete" parameterType="String">
+	DELETE RESTAURANT WHERE RECODE = #{recode}
+</delete>
+
+<select id="restaurantModifyForm" parameterType="String" resultType="com.Hotel.dto.RestaurantDTO">
+	SELECT * FROM RESTAURANT WHERE RECODE = #{recode}
+</select>
+	
+<resultMap type="com.Hotel.dto.RestaurantDTO" id="restaurant">
+		<result property="re_ctcode" column="RE_CTCODE" />
+		<result property="recode" column="RECODE" />
+		<result property="rename" column="RE_NAME" />
+		<result property="readdr" column="READDR" />
+		<result property="refilename" column="REFILENAME" />
+		<result property="reintro" column="REINTRO" />
+	</resultMap>
+
+</mapper>

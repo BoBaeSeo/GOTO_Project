@@ -1,6 +1,10 @@
 package com.Hotel.mapper;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
 
 import com.Hotel.dto.HistoryDTO;
 import com.Hotel.dto.ReviewDTO;
@@ -27,5 +31,17 @@ public interface ReviewMapper {
 
 	int unlikeProcess(HistoryDTO history);
 
+	public ArrayList<ReviewDTO> reviewList(String MloginId);
+	
+	public int reviewDelete(String vcode);
 
+	public int historyDelete(String vcode);
+
+	public ArrayList<ReviewDTO> reviewPage( @Param("startRow") int startRow,  @Param("endRow") int endRow, @Param("MloginId") String MloginId);
+
+	public int getReviewListCnt();
+
+	List<Map<String,Object>> selectReviewList();
+	
+	int deleteHistory(String vcode);
 }

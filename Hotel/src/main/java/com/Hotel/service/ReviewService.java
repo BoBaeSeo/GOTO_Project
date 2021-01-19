@@ -2,14 +2,18 @@ package com.Hotel.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.Hotel.dto.HistoryDTO;
+import com.Hotel.dto.PageDTO;
 import com.Hotel.dto.ReviewDTO;
 import com.Hotel.mapper.HotelMapper;
 import com.Hotel.mapper.ReviewMapper;
@@ -26,19 +30,25 @@ public class ReviewService {
 	@Autowired
 	private HttpSession session;
 
-	public String writeReview(ReviewDTO reviewDTO, String hocode) {
+	private ModelAndView mav;
+
+	public String writeReview(ReviewDTO reviewDTO, String hocode, String v_bcode) {
 		// vcode 만들기
 		String getVcode = reviewMapper.getvcode(); // 가장 큰 vcode 가져오기
 		String vcode;
 		System.out.println(hocode);
-		int vcodeNum = Integer.parseInt(getVcode.substring(2, 5)) + 1; // htcode에서 숫자부분만 따로 뽑아서 1을 더해준다.
+		int vcodeNum = 0;
+		if(getVcode == null) vcode = "RV001";
+		else vcodeNum = Integer.parseInt(getVcode.substring(2, 5)) + 1; // htcode에서 숫자부분만 따로 뽑아서 1을 더해준다.
 		if (vcodeNum < 10) {
-			vcode = "RV" + "00" + vcodeNum;	// 더한 htcodeNum이 한자리 숫자면
-		} else if (vcodeNum < 100) {	// 더한 htcodeNum이 두자리 숫자면
+			vcode = "RV" + "00" + vcodeNum; // 더한 htcodeNum이 한자리 숫자면
+		} else if (vcodeNum < 100) { // 더한 htcodeNum이 두자리 숫자면
 			vcode = "RV" + "0" + vcodeNum;
 		} else { // 더한 htcodeNum이 세자리 숫자면
 			vcode = "RV" + vcodeNum;
 		}
+		System.out.println(v_bcode);
+		reviewDTO.setV_bcode(v_bcode);
 		reviewDTO.setVcode(vcode);
 		reviewDTO.setV_hocode(hocode);
 
@@ -114,6 +124,87 @@ public class ReviewService {
 			data = "OK";
 		}
 		return data;
+	}
+
+	// 나의 리뷰 리스트
+	public ModelAndView reviewList(int page) {
+		mav = new ModelAndView();
+		System.out.println("asd");
+		String MloginId = (String) session.getAttribute("MLoginId");
+		ArrayList<ReviewDTO> reviewList = reviewMapper.reviewList(MloginId);
+		System.out.println("reviewList:" + reviewList);
+		mav.addObject("reviewList", reviewList);
+		mav.setViewName("member/reviewList");
+		return mav;
+	}
+
+	// 나의 리뷰 삭제
+	public ModelAndView reviewDelete(String vcode) {
+		mav = new ModelAndView();
+
+		int historyDelete = reviewMapper.historyDelete(vcode);
+
+		int reviewDelete = reviewMapper.reviewDelete(vcode);
+		System.out.println("delete");
+		mav.setViewName("redirect: /reviewList");
+		return mav;
+	}
+
+	public ModelAndView reviewPage(int page) {
+		mav = new ModelAndView();
+		String MloginId = (String) session.getAttribute("MLoginId");
+		int pageLimit = 5;
+		int pageNumLimit = 3;
+
+		int startRow = (page - 1) * pageLimit + 1;
+		int endRow = page * pageLimit;
+
+		PageDTO pageDTO = new PageDTO();
+		pageDTO.setStartrow(startRow);
+		pageDTO.setEndrow(endRow);
+
+		ArrayList<ReviewDTO> reviewList = reviewMapper.reviewPage(startRow, endRow, MloginId);
+		System.out.println(page);
+
+		int reviewListCnt = reviewMapper.getReviewListCnt();
+		int maxPage = (int) (Math.ceil((double) reviewListCnt / pageLimit));
+		int startPage = ((int) (Math.ceil((double) page / pageNumLimit)) - 1) * pageNumLimit + 1;
+		int endPage = startPage + pageNumLimit - 1;
+
+		if (endPage > maxPage) {
+			endPage = maxPage;
+		}
+		pageDTO.setPage(page);
+		pageDTO.setStartpage(startPage);
+		pageDTO.setEndpage(endPage);
+		pageDTO.setMaxpage(maxPage);
+
+		mav.addObject("reviewList", reviewList);
+		mav.addObject("pageDTO", pageDTO);
+		mav.setViewName("member/reviewPage");
+		return mav;
+	}
+
+	// 관리자
+	// 후기리스트
+	public ModelAndView a_selectReviewList() {
+		mav = new ModelAndView();
+		List<Map<String, Object>> reviewList = reviewMapper.selectReviewList();
+		mav.addObject("reviewList", reviewList);
+		mav.setViewName("admin/a_reviewList");
+		return mav;
+	}
+	
+	//후기리스트삭제 
+	@Transactional(rollbackFor = Exception.class)
+	public ModelAndView reviewListDel(String vcode) {
+		mav = new ModelAndView();
+		int HistoryDel = reviewMapper.historyDelete(vcode);
+		int ReviewDel = reviewMapper.deleteReview(vcode);
+		System.out.println("HistoryDel::" + HistoryDel);
+		System.out.println("ReviewDel::" + ReviewDel);
+		mav.setViewName("redirect:/a_reviewList");
+		return mav;
 	}
 
 }

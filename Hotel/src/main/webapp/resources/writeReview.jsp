@@ -52,6 +52,7 @@
 						<input type="text" id="vwriter" name="vwriter" value="${param.loginId }" readonly="readonly">
 					</div>
 				</div>
+				<input type="hidden" value="${param.v_bcode }" id="v_bcode" name="v_bcode">
 				<textarea placeholder="Content" id="vcontent" name="vcontent" required="required"></textarea>
 				<input type="hidden" value="${param.hocode }" id="hocode" name="hocode">
 				<select id="vscore" name="vscore">
@@ -84,13 +85,15 @@
 		var vcontent = $("#vcontent").val();
 		var hocode = $("#hocode").val();
 		var vscore = $("#vscore").val();
+		var v_bcode = $("#v_bcode").val();
 		$.ajax({
 			url : '<c:url value='/writeReview' />',
 			data : {
 				"vwriter": vwriter,
 				"vcontent": vcontent,
 				"hocode": hocode,
-				"vscore": vscore
+				"vscore": vscore,
+				"v_bcode" : v_bcode
 				},
 			success : function(data){									
 				window.close();

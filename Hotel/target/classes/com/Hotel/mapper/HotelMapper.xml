@@ -5,7 +5,7 @@
   
 <mapper namespace="com.Hotel.mapper.HotelMapper">
 	
-	<!-- hotelList의 개수 select -->
+	<!-- hotelList의 개수 selete -->
 	<select id="getHotelListCnt" resultType="int">
 		SELECT COUNT(DISTINCT HOCODE) FROM (SELECT ROWNUM RN, HOTEL.*, ROCODE, ROPRICE FROM HOTEL INNER JOIN ROOM ON HOCODE = RO_HOCODE 
 		<where>
@@ -91,6 +91,76 @@
 		DELETE FROM HEART WHERE HT_HOCODE = #{ht_hocode} AND HTID = #{htid}
 	</delete>
 	
+	<select id="bookingCheck" parameterType="String" resultType="com.Hotel.dto.HotelDTO">
+	SELECT * FROM HOTEL WHERE HOCODE = #{hocode}
+	</select>
+	
+	<select id="getHotelCount" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM HOTEL WHERE HONAME LIKE '%'|| #{search} || '%'
+	</select>
+
+	<select id="searchHotel" parameterType="map" resultMap="searchHotelDTO">
+		SELECT * 
+		FROM (SELECT ROWNUM RN, HOTEL.*, ROPRICE FROM HOTEL INNER JOIN ROOM ON HOCODE = RO_HOCODE WHERE HONAME LIKE '%'|| #{search} || '%')
+		WHERE RN BETWEEN #{startrow} AND #{endrow}
+	</select>
+	
+	
+	<!-- city 코드 -->
+  <select id="ctMaxNum" resultType="String">
+ 	SELECT MAX(CTCODE) FROM CITY
+  </select>
+  
+  
+  <!-- hotel 코드 -->
+  <select id="hoMaxNum" resultType="String">
+ 	SELECT MAX(HOCODE) FROM HOTEL
+  </select>
+  
+  
+  <!-- h_info 코드 -->
+  <select id="inMaxNum" resultType="String">
+ 	SELECT MAX(INCODE) FROM H_INFO
+  </select>
+  
+  
+  <!-- 호텔정보 등록 --><!-- 다중으로 받아올때 hashMap -->
+  <insert id="hotelInfoForm" parameterType="map">
+  	INSERT ALL
+	INTO CITY (CTCODE, CTNAME, CTDIVIDE,CTBOROUGH) 
+	VALUES(#{cityDTO.ctcode},#{cityDTO.ctname},#{cityDTO.ctdivide},#{cityDTO.ctborough})
+
+	INTO HOTEL (HO_CTCODE, HOCODE, HONAME, HOFILENAME, HOADDR, HOSCORE, HOPUBLICIZE, HO_CID, HOHIT, HOTOTALHIT) 
+	VALUES(#{cityDTO.ctcode},#{hotelDTO.hocode},#{hotelDTO.honame},#{hotelDTO.hofilename},#{hotelDTO.hoaddr},#{hotelDTO.hoscore},#{hotelDTO.hopublicize},#{hotelDTO.ho_cid},0,0)
+
+	INTO H_INFO (IN_HOCODE , INCODE, INWIFI,INBREAK,INPARKING,INCIN_EARLY,INCOUT_LATE,INCIN,INCOUT,INDETAIL) 
+	VALUES(#{hotelDTO.hocode},#{h_infoDTO.incode},#{h_infoDTO.inwifi},#{h_infoDTO.inbreak},#{h_infoDTO.inparking},#{h_infoDTO.incin_early},#{h_infoDTO.incout_late},#{h_infoDTO.incin},#{h_infoDTO.incout},#{h_infoDTO.indetail})
+	
+	SELECT * FROM DUAL
+  </insert>
+  
+  
+  <!-- 호텔 상세보기 -->
+  <select id="hotelView" parameterType="String" resultMap="Hotel">
+  	SELECT * FROM HOTEL WHERE HOCODE = #{hocode}
+  </select>
+  
+  <select id="h_infoView" parameterType="String" resultMap="selectHotelInfo">
+  	SELECT * FROM H_INFO WHERE IN_HOCODE = #{hocode}
+  </select>
+  
+  
+  <!-- 호텔수정 -->
+  <update id="updateIndetail" parameterType="com.Hotel.dto.H_InfoDTO">
+  	UPDATE H_INFO SET INDETAIL=#{indetail} WHERE IN_HOCODE=#{in_hocode}
+  </update>
+  
+  
+  <!-- 호텔지역 -->
+  <select id="getCtborough" parameterType="com.Hotel.dto.CityDTO" resultType="String">
+  	SELECT CTBOROUGH FROM CITY WHERE CTNAME=#{ctname} AND CTDIVIDE=#{ctdivide}
+  </select>
+	
 	<update id="updateHitZero">
 		UPDATE HOTEL SET HOHIT = 0
 	</update>
@@ -103,6 +173,19 @@
 		SELECT HOCODE, HONAME, HOHIT, HOTOTALHIT FROM HOTEL WHERE HO_CID = #{loginId}
 	</select>
 	
+	<resultMap type="map" id="searchHotelDTO">
+		<result property="ho_ctcode" column="HO_CTCODE" />
+		<result property="hocode" column="HOCODE" />
+		<result property="honame" column="HONAME" />
+		<result property="hofileName" column="HOFILENAME" />
+		<result property="hoaddr" column="HOADDR" />
+		<result property="hoscore" column="HOSCORE" />
+		<result property="hopublicize" column="HOPUBLICIZE" />
+		<result property="ho_cid" column="HO_CID" />
+		<result property="roprice" column="ROPRICE"/>
+	</resultMap>
+	
+	
 	<resultMap type="map" id="selectHotelList">
 		<result property="ho_ctcode" column="HO_CTCODE" />
 		<result property="hocode" column="HOCODE" />
@@ -111,7 +194,7 @@
 		<result property="hoaddr" column="HOADDR" />
 		<result property="hoscore" column="HOSCORE" />
 		<result property="hopublicize" column="HOPUBLICIZE" />
-		<result property="price" column="PRICE" />
+		<result property="roprice" column="ROPRICE" />
 	</resultMap>
 	
 	<resultMap type="com.Hotel.dto.HotelDTO" id="Hotel">
@@ -144,7 +227,7 @@
 		<result property="ro_hocode" column="RO_HOCODE" />
 		<result property="rocode" column="ROCODE" />
 		<result property="roname" column="RONAME" />
-		<result property="roFileName" column="ROFILENAME" />
+		<result property="rofilename" column="ROFILENAME" />
 		<result property="rodetail" column="RODETAIL" />
 		<result property="rominper" column="ROMINPER" />
 		<result property="romaxper" column="ROMAXPER" />

@@ -5,8 +5,12 @@ import java.util.List;
 import java.util.Map;
 
 import com.Hotel.dto.MemberDTO;
+import com.Hotel.dto.PageDTO;
+import com.Hotel.dto.ReviewDTO;
 
 public interface MemberMapper {
+
+	public String MemberLogin(MemberDTO memberDTO);
 
 	int bookingListCnt(String loginId);
 
@@ -31,7 +35,48 @@ public interface MemberMapper {
 	void a_delHeart(MemberDTO memberDTO);
 
 	void a_delHelp(MemberDTO memberDTO);
-	
-	public String MemberLogin(MemberDTO memberDTO);
 
+	public MemberDTO bookingCheck(String mcode);
+
+	public int joinMember(MemberDTO memberDTO);
+
+	public String idCheck(String mid);
+
+	public String getMcode();
+
+//	회원정보 가져오기
+	MemberDTO selectMembers(String loginId);
+
+//	회원정보 수정
+	int updateMembers(Map<String, Object> memberMap);
+
+	int c_memberDelete(MemberDTO memberDTO);
+
+	void c_delHistory(MemberDTO memberDTO);
+
+	void c_delReview(MemberDTO memberDTO);
+
+	void c_delHistoryVcode(String vcode);
+
+	void c_delBooking(MemberDTO memberDTO);
+
+	void c_delHeart(MemberDTO memberDTO);
+
+	void c_delHelp(MemberDTO memberDTO);
+
+	// 찜목록 출력
+	public List<Map<String, Object>> heartList(Map<String, Object> map);
+
+	// 찜삭제
+	public int heartDelete(String htcode);
+
+	// 찜목록 페이징
+	public int getHeartListCnt(String htid);
+
+	
+	public String findLogin(MemberDTO memberDTO);
+
+	public String findPassword(MemberDTO memberDTO);
+
+	public ArrayList<String> getReviewList(String loginId);
 }

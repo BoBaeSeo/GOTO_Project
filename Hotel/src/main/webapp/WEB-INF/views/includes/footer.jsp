@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
     <!-- Footer Section Begin -->
     <footer class="footer-section set-bg" data-setbg="resources/img/footer-bg.jpg">
         <div class="container">
@@ -9,8 +16,8 @@
                     <div class="col-lg-3">
                         <div class="footer-logo">
                             <p>찾고싶은 숙소를 검색하세요.</p>
-                            <form action="#" class="newslatter-form">
-                                <input type="text" placeholder="search">
+                            <form action="searchHotel" class="newslatter-form">
+                                <input type="text" name="search" placeholder="호텔이름으로 검색">
                                 <button type="submit"><i class="fa fa-location-arrow"></i></button>
                             </form>
                         </div>
@@ -19,11 +26,11 @@
                         <div class="footer-widget">
                             <h4>Trevel area</h4>
                             <ul>
-                                <li><i class="fa fa-caret-right"></i> <a href="c_HotelList?ctname=서울">서울</a></li>
-                                <li><i class="fa fa-caret-right"></i> <a href="#">경주</a></li>
-                                <li><i class="fa fa-caret-right"></i> <a href="#">전주</a></li>
-                               	<li><i class="fa fa-caret-right"></i> <a href="#">부산</a></li>
-                                <li><i class="fa fa-caret-right"></i> <a href="#">제주</a></li>
+                                <li><i class="fa fa-caret-right"></i> <a href="/c_HotelList?ctname=서울">서울</a></li>
+                                <li><i class="fa fa-caret-right"></i> <a href="/c_HotelList?ctname=경주">경주</a></li>
+                                <li><i class="fa fa-caret-right"></i> <a href="/c_HotelList?ctname=전주">전주</a></li>
+                               	<li><i class="fa fa-caret-right"></i> <a href="/c_HotelList?ctname=부산">부산</a></li>
+                                <li><i class="fa fa-caret-right"></i> <a href="/c_HotelList?ctname=제주">제주</a></li>
                             </ul>
                         </div>
                     </div>

@@ -1,5 +1,8 @@
 package com.Hotel.controller;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,7 +11,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.Hotel.dto.BookingDTO;
+import com.Hotel.dto.CityDTO;
+import com.Hotel.dto.H_InfoDTO;
 import com.Hotel.dto.HeartDTO;
+import com.Hotel.dto.HotelDTO;
 import com.Hotel.service.HotelService;
 
 @Controller
@@ -68,10 +74,75 @@ public class HotelController {
 		return result;
 	}
 
+//	호텔검색
+	@RequestMapping(value="/searchHotel")
+	public ModelAndView searchHotel(@RequestParam(value = "page",defaultValue = "1") int page, String search) {
+		System.out.println("/searchHotel");
+		System.out.println("호텔 검색 결과 가져오는 중");
+		mav = hotelService.searchHotel(page, search);
+		return mav;
+	}
+	
+/* 호텔상세보기, 호텔등록 */
+
+	
+	//호텔상세보기 페이지
+	@RequestMapping(value = "/a_hotelView")
+	public ModelAndView hotelView(String hocode) {
+		System.out.println("/hotelView");
+		
+		mav = hotelService.hotelView(hocode);
+		return mav;
+	}
+	
+	
+	//호텔등록 페이지
+	@RequestMapping(value = "/a_hotelInfoForm")
+	public String a_hotelInfoForm() {
+		return "company/a_hotelInfoForm";
+	}
+	
+	
+	//호텔등록
+	@RequestMapping(value = "/hotelInfoForm")
+	public ModelAndView hotelInfoForm(CityDTO cityDTO, HotelDTO hotelDTO, H_InfoDTO h_infoDTO) throws IllegalStateException, IOException {
+		System.out.println("/hotelInfoForm");
+		System.out.println(cityDTO + "::" + hotelDTO + "::" + h_infoDTO);
+		
+		mav = hotelService.hotelInfoForm(cityDTO,hotelDTO,h_infoDTO);
+		return mav;
+	}
+	
+	
+	//호텔수정
+	@RequestMapping(value = "/updateIndetail")
+	public @ResponseBody String updateIndetail(H_InfoDTO h_infoDTO) {
+		System.out.println("/updateIndetail");
+		System.out.println(h_infoDTO);
+		
+		String updateIndetail = hotelService.updateIndetail(h_infoDTO);
+		return updateIndetail;
+	}
+	
+	
+	//호텔지역
+	@RequestMapping(value = "/getCtborough")
+	public @ResponseBody ArrayList<String> getCtborough(CityDTO cityDTO){
+		System.out.println("/getCtborough");
+		System.out.println(cityDTO);
+		
+		ArrayList<String> cityList = hotelService.getCtborough(cityDTO);
+		
+		return cityList;
+	}
+	
+	//호텔조회수
 	@RequestMapping(value = "updateHit")
 	public @ResponseBody String updateHit(String hocode) {
 		System.out.println("updateHit");
 		String result = hotelService.updateHit(hocode);
 		return result;
 	}
+	
+
 }

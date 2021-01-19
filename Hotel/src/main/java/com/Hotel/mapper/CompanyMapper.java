@@ -9,8 +9,20 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.Hotel.dto.CompanyDTO;
+import com.Hotel.dto.HelpDTO;
+import com.Hotel.dto.RestaurantDTO;
 
 public interface CompanyMapper {
+
+	public String AdminLogin(CompanyDTO companyDTO);
+	
+	@Select("SELECT * FROM COMPANY WHERE CMID=#{loginId}")
+	public CompanyDTO cpInfoView(@Param("cmid") String cmid,@Param("loginId") String loginId);
+
+	public CompanyDTO CompanyModify(String cmcode);
+	
+	@Update("UPDATE COMPANY SET CMNAME=#{cmname}, CMEMAIL=#{cmemail},CMPHONE=#{cmphone},CMADDRESS=#{cmaddress} WHERE CMCODE=#{cmcode}")
+	public int CompanyModifyProcess(CompanyDTO companyDTO);
 
 	ArrayList<CompanyDTO> a_approveJoin();
 
@@ -18,18 +30,27 @@ public interface CompanyMapper {
 
 	int comApprove(String cmcode);
 	
-	public String AdminLogin(CompanyDTO companyDTO);
+	public ArrayList<HelpDTO> a_questionList();
+
+	public int JoinRestaurant(RestaurantDTO restaurantDTO);
+
+	public String getRecode();
 	
-	@Select("SELECT * FROM COMPANY WHERE CMCODE=#{cmcode}")
-	public CompanyDTO cpInfoView(String cmcode);
 
-	public CompanyDTO CompanyModify(String cmcode);
-	@Update("UPDATE COMPANY SET CMNAME=#{cmname}, CMEMAIL=#{cmemail},CMPHONE=#{cmphone},CMADDRESS=#{cmaddress} WHERE CMCODE=#{cmcode}")
-	public int CompanyModifyProcess(CompanyDTO companyDTO);
+	public String cmidCheck(String cmid);
 
-	//추가
+	public int companyJoin(CompanyDTO comdto);
+
+	public String getMaxNum();
+
+	public ArrayList<CompanyDTO> companyList();
+
+	public int companyDelete(String cmid);
+
+	
 	List<Map<String, Object>> salesList(@Param("firstDateFormat") String firstDateFormat, @Param("lastDateFormat") String lastDateFormat, @Param("loginId") String loginId);
 
 	ArrayList<Integer> yearList(String loginId);
+
 
 }

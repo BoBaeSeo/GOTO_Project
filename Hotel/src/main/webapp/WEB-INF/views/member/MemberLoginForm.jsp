@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../includes/header.jsp"%>
- <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-    <script>
-        //SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
-        Kakao.init('f44d30742b412fa8aa76a02e17bcfa29');
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script>
+	//SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
+	Kakao.init('f44d30742b412fa8aa76a02e17bcfa29');
 
-        // SDK 초기화 여부를 판단합니다.
-        console.log(Kakao.isInitialized());
-    </script>
+	// SDK 초기화 여부를 판단합니다.
+	console.log(Kakao.isInitialized());
+</script>
 
 <!-- 안되는부분~~~~~~~~
  로그인창이 db랑비교해서 맞으면 성공 틀리면 실패...안됨 -->
@@ -49,14 +49,14 @@
 
 </section>
 <form action="kakaoLogin">
-<a id="kakao-login-btn"></a>
+	<a id="kakao-login-btn"></a>
 </form>
 <script type="text/javascript">
 	function MLoginBtn() {
 		var mid = $("#mid").val();
 		var mpassword = $("#mpassword").val();
-		var DBmid = '${sessionScope.MLoginId}';
-		console.log(mid + ":::" + mpassword + ":::" + DBmid);
+		var MLoginId = '${sessionScope.MLoginId}';
+		console.log(mid + ":::" + mpassword + ":::" + MLoginId);
 
 		if (mid == '') {
 			alert("아이디를 입력해야 합니다.");
@@ -69,32 +69,33 @@
 			return;
 		}
 		memberLogin.submit();
-
+		
+		
 	};
 </script>
 
 
+
+
 <script type="text/javascript">
-  Kakao.Auth.createLoginButton({
-    container: '#kakao-login-btn',
-    success: function(authObj) {
-      Kakao.API.request({
-        url: '/v2/user/me',
-        success: function(res) {
-          alert(JSON.stringify(res))
-        },
-        fail: function(error) {
-          alert(
-            'login success, but failed to request user information: ' +
-              JSON.stringify(error)
-          )
-        },
-      })
-    },
-    fail: function(err) {
-      alert('failed to login: ' + JSON.stringify(err))
-    },
-  })
+	Kakao.Auth.createLoginButton({
+				container : '#kakao-login-btn',
+				success : function(authObj) {
+					Kakao.API.request({
+								url : '/v2/user/me',
+								success : function(res) {
+									alert(JSON.stringify(res))
+								},
+								fail : function(error) {
+									alert('login success, but failed to request user information: '
+											+ JSON.stringify(error))
+								},
+							})
+				},
+				fail : function(err) {
+					alert('failed to login: ' + JSON.stringify(err))
+				},
+			})
 </script>
 
 

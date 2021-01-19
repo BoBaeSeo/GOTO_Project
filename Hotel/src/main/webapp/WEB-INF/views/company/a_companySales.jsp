@@ -15,7 +15,7 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="breadcrumb-text">
-					<h2>관리페이지</h2>
+					<h2>호텔 매출 현황 페이지</h2>
 					<div class="breadcrumb-option">
 						<span>a_companySales</span><br>
 					</div>
@@ -24,7 +24,6 @@
 		</div>
 	</section>
 	<!-- main top 끝 -->
-
 
 	<!-- main container 시작 -->
 	<section class="property-section spad">
@@ -139,7 +138,6 @@
 			};
 
 		var chart = new google.charts.Bar(document.getElementById('charContainer'));
-
 		chart.draw(data, google.charts.Bar.convertOptions(options));
 		}
 

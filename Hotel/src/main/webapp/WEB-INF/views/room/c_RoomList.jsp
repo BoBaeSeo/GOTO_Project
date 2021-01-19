@@ -149,7 +149,7 @@
 								<div class="col-md-4">
 									<div class="property-pic">
 										<a href="c_RoomList?hocode=${list.rocode }" style="text-decoration: none;"><img
-											src="resources/img/properties/${list.roFileName }.jpg" alt=""></a>
+											src="resources/img/roomFile/${list.rofilename }" alt=""></a>
 									</div>
 								</div>
 								<div class="col-md-8">

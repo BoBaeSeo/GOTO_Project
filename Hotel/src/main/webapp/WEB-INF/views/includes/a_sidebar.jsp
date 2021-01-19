@@ -99,9 +99,8 @@ table, th, td {
 h5 {
 	margin: 10px 0;
 }
-.sidenav .sideActive{
-	color: #f1f1f1;
-}
+
+
 </style>
 </head>
 
@@ -116,29 +115,29 @@ h5 {
 		<div class="sidenav">
 			<div class="sidenavTop">
 				<h5>${sessionScope.ALoginId }님</h5>
-				<a href="/" class="property-sub">로그아웃</a>
+				<a href="Logout" class="property-sub">로그아웃</a>
 			</div>
 			<c:choose>
-				<c:when test="${sessionScope.ALoginId=='ADMIN' }">
+				<c:when test="${sessionScope.ALoginId == 'ADMIN' }">
+					<a href="a_memberList">회원리스트</a> 
+					<a href="a_companyList">업체리스트</a> 
+					<a href="a_approveJoin">업체 회원가입 승인</a> 
+					<a href="a_reviewList">고객 후기리스트</a> 
+					<a href="restaurantForm">맛집등록</a> 
+					<a href="adminRestaurantList">맛집리스트</a> 
+					<a href="LandmarkInsertForm">관광지등록</a> 
+					<a href="adminLandmarkList">관광지리스트</a> 
+					<a href="a_questionList">1대1문의 리스트</a> 
+					<a href="a_faqWriteForm">자주묻는 질문 작성 폼</a>
+					<a href="FaqList">자주묻는질문 리스트</a>
 				</c:when>
 				<c:otherwise>
-					<a href="a_memberList" id="a_memberList">회원리스트</a> 
-					<a href="#services">업체리스트</a> 
-					<a href="a_approveJoin" id="a_approveJoin">업체 회원가입 승인</a> 
-					<a href="#clients">맛집등록</a> 
-					<a href="#about">맛집리스트</a> 
-					<a href="#contact">관광지등록</a> 
-					<a href="#about">관광지리스트</a> 
-					<a href="#contact">1대1문의 리스트</a> 
-					<a href="#about">고객 후기리스트</a> 
-					<a href="#about">자주묻는질문 리스트</a>
-					
-					<a href="a_companySales">업체 매출 현황</a> 
-					<a href="#about">호텔등록</a> 
-					<a href="a_hotelList" id="a_hotelList">호텔리스트</a>
-					<a href="#clients">룸등록</a> 
-					<a href="#contact">룸리스트</a> 
-					<a href="#contact">업체정보수정</a>
+					<a href="a_hotelInfoForm">호텔등록</a> 
+					<a href="a_hotelList">호텔리스트</a>
+					<a href="RoomWriteForm">룸등록</a> 
+					<a href="RoomList">룸리스트</a> 
+					<a href="cpInfoView">업체정보수정</a>
+					<a href="companySales">호텔매출현황</a>
 				</c:otherwise> 
 			</c:choose>
 		</div>
