@@ -33,14 +33,14 @@ public class HelpController {
 	
 	// 1대1문의 작성부분
 	@RequestMapping(value = "/HelpWrite")
-	public ModelAndView HelpWrite(HelpDTO helpDTO) {
+	public @ResponseBody String HelpWrite(HelpDTO helpDTO) {
 		System.out.println("/HelpWrite");
 		System.out.println("1대1문의 작성 폼");
 		
 		System.out.println(helpDTO);
-		mav = helpService.HelpWrite(helpDTO);
+		String result = helpService.HelpWrite(helpDTO);
 		
-		return mav;
+		return result;
 	}
 	
 	// 자주묻는리스트 부분

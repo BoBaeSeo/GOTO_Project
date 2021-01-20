@@ -67,11 +67,15 @@ public class MemberService {
 		session.setAttribute("MLoginId", MLoginId);
 
 		// 회원아이디 값이 null이 아니면 메인으로
+		String result;
 		if (MLoginId != null) {
-			mav.setViewName("redirect:/");
+			mav.setViewName("index");
+			result = "OK";
 		} else {
 			mav.setViewName("member/MemberLoginForm");
+			result = "NO";
 		}
+		mav.addObject("loginResult",result);
 		return mav;
 	}
 
@@ -206,8 +210,13 @@ public class MemberService {
 		mav = new ModelAndView();
 
 		int checkResult = bookingMapper.bookingCheck(bookingDTO);
-
-		mav.setViewName("redirect:/");
+		
+		if(checkResult > 0) {
+			String result = "OK";
+			mav.addObject("bookingesult",result);
+		}
+		
+		mav.setViewName("index");
 
 		return mav;
 	}
@@ -260,7 +269,8 @@ public class MemberService {
 		// 회원가입 되고 홈으로(메인으로 넘어가는 것)
 		int insertResult = memberMapper.joinMember(memberDTO);
 		if (insertResult > 0) {
-			ra.addFlashAttribute("msg", memberDTO.getMid() + " 님 가입되었습니다.");
+			String msg = memberDTO.getMid() + " 님 가입되었습니다.";
+			mav.addObject("msg", msg);
 		}
 
 		System.out.println("insertResult::" + insertResult);
@@ -281,19 +291,18 @@ public class MemberService {
 	}
 	
 //	회원정보 수정
-	public ModelAndView updateMembers(MemberDTO memberdto) {
+	public String updateMembers(MemberDTO memberdto) {
 		mav = new ModelAndView();
 		String loginId = (String) session.getAttribute("MLoginId");
 		Map<String, Object> memberMap = new HashMap<String, Object>();
 		memberMap.put("memberdto", memberdto);
 		memberMap.put("loginId", loginId);
 		int result = memberMapper.updateMembers(memberMap);
+		String modifyResult = "NO";
 		if(result > 0) {
-		mav.setViewName("redirect:/c_mypage");
-		}else {
-			mav.setViewName("redirect:/");
+			modifyResult = "OK";
 		}
-		return mav;
+		return modifyResult;
 	}
 
 //	회원 탈퇴

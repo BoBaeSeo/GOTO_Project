@@ -26,6 +26,10 @@
 		UPDATE ROOM SET RONAME=#{roname}, ROFILENAME=#{rofilename}, RODETAIL=#{rodetail}, ROMINPER=#{rominper}, ROMAXPER=#{romaxper}, ROPRICE=#{roprice}, RONUM=#{ronum} WHERE ROCODE=#{rocode}
 	</update>
 	
+	<select id="getrocode" resultType="String">
+		SELECT MAX(ROCODE) FROM ROOM
+	</select>
+	
 	<resultMap type="map" id="room">
 		<result property="ro_hocode" column="RO_HOCODE" />
 		<result property="rocode" column="ROCODE" />

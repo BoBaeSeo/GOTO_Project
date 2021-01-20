@@ -36,11 +36,6 @@
 										</select><br> <br>
 										<table class="table table-bordered" cellspacing="0">
 											<tr>
-												<td>룸코드</td>
-												<td><input type="text" value="RO" placeholder="룸 코드"
-													name="rocode"></td>
-											</tr>
-											<tr>
 												<td>룸이름</td>
 												<td><input type="text" placeholder="룸 이름" name="roname"></td>
 											</tr>

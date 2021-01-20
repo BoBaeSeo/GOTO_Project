@@ -25,4 +25,6 @@ public interface RoomMapper {
 	public HotelDTO getHotelName(String rocode);
 	
 	int RoomModify(RoomDTO roomDTO);
+
+	public String getrocode();
 }

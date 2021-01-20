@@ -132,7 +132,14 @@
 		var rocode = "${roomDTO.rocode }";
 		var checkin = $("#checkin").val();
 		var checkout = $("#checkout").val();
-
+		if(checkin == ""){
+			alert('체크인 날짜를 입력해주세요');
+			return;
+			}
+		if(checkin == ""){
+			alert('체크아웃 날짜를 입력해주세요');
+			return;
+			}
 		location.href = "bookingCheckForm?b_rocode=" + rocode + "&bcheckin="
 				+ checkin + "&bcheckout=" + checkout;
 

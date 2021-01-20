@@ -15,7 +15,7 @@
                             <h4 style="text-align: center;">관리자 로그인</h4><br>
                             <div class="row">
                                 <div class="col-lg-6 offset-lg-1" style="margin-left: 250px;">
-                                    <form action="AdminLogin" id="adminLogin" class="agent-contact-form">
+                                    <form action="AdminLogin" id="adminLogin" class="agent-contact-form" method="post">
                                         <input type="text" name="cmid" id="cmid" placeholder="아이디">
                                         <input type="text" name="cmpassword" id="cmpassword" placeholder="비밀번호">
                                         
@@ -50,6 +50,12 @@
 	}
 	adminLogin.submit();
 	};
+	$(document).ready(function(){
+		var loginResult = "${loginResult}";
+		if(loginResult == "NO"){
+			alert('아이디 비밀번호가 일치하지 않습니다.')
+			}
+		})
     </script>
     
 

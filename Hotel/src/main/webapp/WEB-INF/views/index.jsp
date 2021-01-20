@@ -227,6 +227,23 @@
     	}
 
     }
+    $(document).ready(function(){
+        var bookingesult = "${bookingesult}";
+		if(bookingesult == "OK"){
+			alert('예약이 완료되었습니다.')
+			}
+
+		var msg = "${msg}";
+		console.log(msg);
+		if(msg != ""){
+			alert(msg);
+			}
+		var loginResult = "${loginResult}";
+		if(loginResult == "OK"){
+			alert('로그인 되었습니다.')
+			}
+        });
+    
     </script>
 </body>
 </html>

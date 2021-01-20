@@ -131,7 +131,7 @@
 	VALUES(#{cityDTO.ctcode},#{cityDTO.ctname},#{cityDTO.ctdivide},#{cityDTO.ctborough})
 
 	INTO HOTEL (HO_CTCODE, HOCODE, HONAME, HOFILENAME, HOADDR, HOSCORE, HOPUBLICIZE, HO_CID, HOHIT, HOTOTALHIT) 
-	VALUES(#{cityDTO.ctcode},#{hotelDTO.hocode},#{hotelDTO.honame},#{hotelDTO.hofilename},#{hotelDTO.hoaddr},#{hotelDTO.hoscore},#{hotelDTO.hopublicize},#{hotelDTO.ho_cid},0,0)
+	VALUES(#{cityDTO.ctcode},#{hotelDTO.hocode},#{hotelDTO.honame},#{hotelDTO.hofileName},#{hotelDTO.hoaddr},#{hotelDTO.hoscore},#{hotelDTO.hopublicize},#{hotelDTO.ho_cid},0,0)
 
 	INTO H_INFO (IN_HOCODE , INCODE, INWIFI,INBREAK,INPARKING,INCIN_EARLY,INCOUT_LATE,INCIN,INCOUT,INDETAIL) 
 	VALUES(#{hotelDTO.hocode},#{h_infoDTO.incode},#{h_infoDTO.inwifi},#{h_infoDTO.inbreak},#{h_infoDTO.inparking},#{h_infoDTO.incin_early},#{h_infoDTO.incout_late},#{h_infoDTO.incin},#{h_infoDTO.incout},#{h_infoDTO.indetail})

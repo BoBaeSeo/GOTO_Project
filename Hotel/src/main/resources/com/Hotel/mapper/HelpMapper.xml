@@ -43,6 +43,9 @@
   	VALUES(#{faqcode},#{faq_qccode},#{faqtitle},#{faqcontent})
   </insert>
 
+	<select id="gethecode" resultType="String">
+		SELECT MAX(HECODE) FROM HELP
+	</select>
 
 	<resultMap type="map" id="FaqAndQcategoryDTO">
 		<id property="qccode" column="QCCODE" />

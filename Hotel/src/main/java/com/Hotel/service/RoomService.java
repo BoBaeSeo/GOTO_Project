@@ -26,125 +26,140 @@ public class RoomService {
 
 	@Autowired
 	private BookingMapper bookingMapper;
-	
+
 	@Autowired
 	private HttpSession session;
-	
+
 	private ModelAndView mav;
 
-	//룸등록 insert부분
+	// 룸등록 insert부분
 	public ModelAndView RoomWrite(RoomDTO roomDTO) throws IllegalStateException, IOException {
 		mav = new ModelAndView();
-		
+
+		// rocode 만들기
+		String getRocode = roomMapper.getrocode(); // 가장 큰 rocode 가져오기
+		String rocode;
+		int rocodeNum = 0;
+		if (getRocode == null) rocode = "RO001";
+		else rocodeNum = Integer.parseInt(getRocode.substring(2, 5)) + 1; // rocode에서 숫자부분만 따로 뽑아서 1을 더해준다.
+		if (rocodeNum < 10) {
+			rocode = "RO" + "00" + rocodeNum; // 더한 rocodeNum이 한자리 숫자면
+		} else if (rocodeNum < 100) { // 더한 rocodeNum이 두자리 숫자면
+			rocode = "RO" + "0" + rocodeNum;
+		} else { // 더한 rocodeNum이 세자리 숫자면
+			rocode = "RO" + rocodeNum;
+		}
+		roomDTO.setRocode(rocode);
+
 		// 파일이름을 랜덤으로 생성하는부분
 		UUID uuid = UUID.randomUUID();
 		System.out.println(uuid.toString());
-		
+
 		MultipartFile rophoto = roomDTO.getRophoto();
-		String rofilename = uuid.toString()+"_"+rophoto.getOriginalFilename();
-		System.out.println("rofilename::"+rofilename);
-		
+		String rofilename = uuid.toString() + "_" + rophoto.getOriginalFilename();
+		System.out.println("rofilename::" + rofilename);
+
 		roomDTO.setRofilename(rofilename);
-		
-		//경로값
+
+		// 경로값
 		String savePath = "C:\\Users\\seeth\\git\\Hotel\\Hotel\\src\\main\\webapp\\resources\\img\\roomFile\\";
-		
-		//rophoto가 비어있지 않으면 새로운파일 적용가능한 조건문 
+
+		// rophoto가 비어있지 않으면 새로운파일 적용가능한 조건문
 		if (!rophoto.isEmpty()) {
-			rophoto.transferTo(new File(savePath+rofilename));
+			rophoto.transferTo(new File(savePath + rofilename));
 		}
-		
-		//룸등록 insert부분
+
+		// 룸등록 insert부분
 		int insertResult = roomMapper.RoomWrite(roomDTO);
 		System.out.println(roomDTO);
-		if (insertResult>0) {
+		if (insertResult > 0) {
 			System.out.println("룸등록성공!");
-		}else {
+		} else {
 			System.out.println("룸등록실패!");
 		}
 		mav.setViewName("redirect:/RoomList");
 		return mav;
 	}
 
-	//룸리스트 ArrayList로 불러오는 부분
+	// 룸리스트 ArrayList로 불러오는 부분
 	public ModelAndView RoomList(RoomDTO roomDTO) {
 		mav = new ModelAndView();
 		String ALoginId = (String) session.getAttribute("ALoginId");
-		
+
 		ArrayList<RoomDTO> RoomList = roomMapper.RoomList(ALoginId);
-		System.out.println("RoomList:::"+RoomList);
-		
+		System.out.println("RoomList:::" + RoomList);
+
 		mav.addObject("RoomList", RoomList);
 		mav.setViewName("room/RoomListForm");
 		return mav;
 	}
-	
-	//룸리스트 rocode로 삭제
+
+	// 룸리스트 rocode로 삭제
 	@Transactional(rollbackFor = Exception.class)
 	public ModelAndView RoomListDel(String rocode, String b_rocode) {
 		mav = new ModelAndView();
-		//부킹 룸코드삭제
+		// 부킹 룸코드삭제
 		int BookingDel = bookingMapper.BookingDel(b_rocode);
-		//룸코드 삭제
+		// 룸코드 삭제
 		int RoomListDel = roomMapper.RoomListDel(rocode);
-		System.out.println("RoomListDel::"+RoomListDel);
-		System.out.println("BookingDel::"+BookingDel);
+		System.out.println("RoomListDel::" + RoomListDel);
+		System.out.println("BookingDel::" + BookingDel);
 		mav.setViewName("redirect:/RoomList");
 		return mav;
 	}
 
-	//룸디테일 select부분
+	// 룸디테일 select부분
 	public ModelAndView RoomDetail(String rocode) {
 		mav = new ModelAndView();
 		RoomDTO roomDTO = roomMapper.RoomDetail(rocode);
 		HotelDTO hotelDTO = roomMapper.getHotelName(rocode);
-		
-		mav.addObject("roomDTO",roomDTO);
+
+		mav.addObject("roomDTO", roomDTO);
 		mav.addObject("hotelDTO", hotelDTO);
 		mav.setViewName("room/RoomDetail");
 		return mav;
 	}
-	
+
 //	관리자 룸 디테일 select
 	public ModelAndView SelectRoom(String rocode) {
-	mav = new ModelAndView();
-	RoomDTO roomDTO = roomMapper.RoomDetail(rocode);
-	System.out.println(roomDTO);
-	mav.addObject("roomDTO", roomDTO);
-	mav.setViewName("admin/a_roomDetail");
-	return mav;
-}
+		mav = new ModelAndView();
+		RoomDTO roomDTO = roomMapper.RoomDetail(rocode);
+		System.out.println(roomDTO);
+		mav.addObject("roomDTO", roomDTO);
+		mav.setViewName("admin/a_roomDetail");
+		return mav;
+	}
 
 //	룸 수정
 	public String RoomModify(RoomDTO roomDTO) throws IllegalStateException, IOException {
-		
+
 		// 파일이름을 랜덤으로 생성하는부분
 		UUID uuid = UUID.randomUUID();
 		System.out.println(uuid.toString());
-		
+
 		MultipartFile rophoto = roomDTO.getRophoto();
-		String rofilename = uuid.toString()+"_"+rophoto.getOriginalFilename();
-		System.out.println("rofilename::"+rofilename);
-		
+		String rofilename = uuid.toString() + "_" + rophoto.getOriginalFilename();
+		System.out.println("rofilename::" + rofilename);
+
 		roomDTO.setRofilename(rofilename);
-		
-		//경로값
+
+		// 경로값
 		String savePath = "C:\\Users\\user\\Documents\\workspace-spring-tool-suite-4-4.8.1.RELEASE\\Hotel\\src\\main\\webapp\\resources\\roomFile\\";
-		
-		//rophoto가 비어있지 않으면 새로운파일 적용가능한 조건문 
+
+		// rophoto가 비어있지 않으면 새로운파일 적용가능한 조건문
 		if (!rophoto.isEmpty()) {
-			rophoto.transferTo(new File(savePath+rofilename));
+			rophoto.transferTo(new File(savePath + rofilename));
 		}
-		
-	int result = roomMapper.RoomModify(roomDTO);
-	String resultSet;
-	if(result > 0) {
-		resultSet = "redirect:/RoomList";
-	}else {
-		System.out.println("룸 수정 실패");
-		resultSet = "redirect:/RoomList";
+
+		int result = roomMapper.RoomModify(roomDTO);
+		String resultSet;
+		if (result > 0) {
+			resultSet = "redirect:/RoomList";
+		} else {
+			System.out.println("룸 수정 실패");
+			resultSet = "redirect:/RoomList";
+		}
+		return resultSet;
 	}
-	return resultSet;
-}
 
 }

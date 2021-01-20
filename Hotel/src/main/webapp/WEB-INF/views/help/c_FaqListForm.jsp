@@ -122,6 +122,7 @@ a:link {
 				<div class="property-sidebar">
 					<div class="best-agents">
 						<h4>Help</h4>
+						<c:if test="${sessionScope.MLoginId != null }">
 						<a href="questionList" class="ba-item">
 							<div class="ba-text">
 								<h5>1대1 문의 목록</h5>
@@ -132,6 +133,7 @@ a:link {
 								<h5>1대1 문의 작성</h5>
 								<span>#</span>
 							</div>
+							</c:if>
 						</a> <a href="/c_FAQList" class="ba-item">
 							<div class="ba-text">
 								<h5>자주 묻는 질문</h5>

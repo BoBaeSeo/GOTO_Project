@@ -18,12 +18,13 @@ public interface HelpMapper {
 	
 	int updateAnswer(Map<String, Object> map);
 	
-	
 	public ArrayList<HelpDTO> questionList(String loginId);
 
 	public int faqWriteForm(FaqDTO faqDTO);
 
 	public String maxFaqNum();
+
+	public String gethecode();
 	
 
 }

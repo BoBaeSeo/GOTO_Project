@@ -121,7 +121,7 @@
                                           <th>
                                              <div class="col-lg-12">
                                                 <div class="loadmore">
-                                                   <a href="#" class="primary-btn">호텔등록</a>
+                                                   <a href="a_hotelInfoForm" class="primary-btn">호텔등록</a>
                                                 </div>
                                              </div>
                                           </th>

@@ -41,7 +41,6 @@ public class CompanyController {
 		System.out.println("/AdminLogin");
 		System.out.println("관리자로그인 넘어가는..");
 		mav = companyService.AdminLogin(companyDTO);
-		System.out.println(companyDTO);
 		return mav;
 	}
 

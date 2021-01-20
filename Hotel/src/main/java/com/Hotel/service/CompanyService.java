@@ -55,12 +55,15 @@ public class CompanyService {
 		System.out.println("ALoginId:::"+ALoginId);
 		session.setAttribute("ALoginId", ALoginId);
 		
+		String result;
 		if (ALoginId!=null) {
 			mav.setViewName("company/companyMain");
+			result = "OK";
 		}else {
 			mav.setViewName("company/a_LoginForm");
+			result = "NO";
 		}
-		mav.addObject("companyDTO", companyDTO);
+		mav.addObject("loginResult",result);
 		return mav;
 	}
 
@@ -490,6 +493,11 @@ public class CompanyService {
 			comdto.setCmcode(cmcode);
 			
 			int companyJoin = companyMapper.companyJoin(comdto);
+			if (companyJoin > 0) {
+				String msg = comdto.getCmid() + " 님 가입되었습니다.";
+				mav.addObject("msg", msg);
+			}
+			
 			System.out.println("companyJoin :: "+ companyJoin);
 			
 			mav.setViewName("index");

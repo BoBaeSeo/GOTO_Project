@@ -47,20 +47,12 @@
 								<h5>찜 목록</h5>
 								<span>#</span>
 							</div>
-						</a> <a href="reviewList" class="ba-item">
+						</a> <a href="reviewPage" class="ba-item">
 							<div class="ba-text">
 								<h5>나의 후기</h5>
 								<span>#</span>
 							</div>
 						</a>
-						<button
-							onclick="delMember('${memberDTO.mcode }','${memberDTO.mid }')"
-							class="ba-item btn-none">
-							<div class="ba-text">
-								<h5>회원 탈퇴</h5>
-								<span>#</span>
-							</div>
-						</button>
 					</div>
 				</div>
 			</div>
@@ -138,6 +130,7 @@
 			}
 			})
 		}
+
 </script>
 
 

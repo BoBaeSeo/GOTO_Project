@@ -66,13 +66,6 @@ public class ReviewController {
 			return "member/reviewList";
 		}
 		
-		//나의 후기 리스트
-		@RequestMapping(value = "/reviewList")
-		public ModelAndView reviewList(@RequestParam(value = "page", defaultValue = "1") int page) {
-			System.out.println("/reviewList");
-			mav = reviewService.reviewList(page);
-			return mav;
-		}
 		//나의 후기 삭제
 		@RequestMapping(value = "/reviewDelete")
 		public ModelAndView reviewDelete(String vcode) {

@@ -149,11 +149,11 @@ public class MemberController {
 
 //		회원수정
 		@RequestMapping(value="/memberModify")
-		public ModelAndView modify(MemberDTO memberDTO) {
+		public @ResponseBody String modify(MemberDTO memberDTO) {
 			System.out.println("/memberModify");
 			System.out.println("회원 정보 수정하는 중");
-			mav = memberService.updateMembers(memberDTO);
-			return mav;
+			String result = memberService.updateMembers(memberDTO);
+			return result;
 		}
 //		회원탈퇴
 		@RequestMapping(value="/memberDelete")

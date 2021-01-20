@@ -114,10 +114,10 @@
 					</div>
 					<div class="col-lg-5">
 						<div class="top-right" style="margin: 25px 0;">
-						<a href="joinSelect" class="property-sub"style="margin: 0 10px;">회원가입</a>
 							<!-- 로그인이 되면 보여줄 메뉴 -->
 							<c:choose>
 								<c:when test="${sessionScope.MLoginId eq null }">
+									<a href="joinSelect" class="property-sub"style="margin: 0 10px;">회원가입</a>
 									<a href="MemberLoginForm" class="property-sub">회원 로그인</a>
 									<a href="AdminLoginForm" class="property-sub">업체 로그인</a>
 								</c:when>

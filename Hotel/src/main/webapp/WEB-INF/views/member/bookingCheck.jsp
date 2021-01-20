@@ -33,8 +33,8 @@
 				<div class="col-lg-6">
 
                             <div class="contact-text">
-                                <form action="bookingCheck" class="contact-form" method="post">
-                                    <input type="text" id="inputBcode" name="bcode" value="${boCheck.bcode}"><span id="bcodeCheck"></span>
+                                <form action="bookingCheck" class="contact-form" method="post" id="bookingForm">
+                                    <input type="hidden" id="inputBcode" name="bcode" value="${boCheck.bcode}" ㄱㄷ><span id="bcodeCheck"></span>
                                     <input type="text" readonly="readonly" value="${mCheck.mname }">
                                     <input type="hidden" name="b_mcode" value="${mCheck.mcode }">
                                     
@@ -57,7 +57,7 @@
 									
                                     <textarea name="brequest" placeholder="요청 사항"></textarea>
                                     
-                                    <button type="submit" class="site-btn">입력</button>
+                                    <button onclike="submitForm()" class="site-btn">입력</button>
                                 </form>
                             </div>
                         </div>
@@ -98,7 +98,10 @@
 			 });
 
 		 });
-
+  });
+	function submitForm(){
+		bookingForm.submit();
+		}
 </script>
     
     

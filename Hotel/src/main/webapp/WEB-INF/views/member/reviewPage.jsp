@@ -34,11 +34,10 @@
              
                         <form action="#" class="sidebar-search">
                            <ul>
-                                <li><i class="fa fa-caret-right"></i> <a href="#">회원정보보기</a></li><br>
-                                <li><i class="fa fa-caret-right"></i> <a href="#">내가 예약한 목록</a></li><br>
-                                <li><i class="fa fa-caret-right"></i> <a href="#">찜 목록</a></li><br>
-                                <li><i class="fa fa-caret-right"></i> <a href="reviewList">나의 후기</a></li><br>
-                                <li><i class="fa fa-caret-right"></i> <a href="#">회원 탈퇴</a></li><br>
+                                <li><i class="fa fa-caret-right"></i> <a href="c_mypage?mid=${sessionScope.MLoginId }">회원정보보기</a></li><br>
+                                <li><i class="fa fa-caret-right"></i> <a href="c_myBookingList">내가 예약한 목록</a></li><br>
+                                <li><i class="fa fa-caret-right"></i> <a href="heartList">찜 목록</a></li><br>
+                                <li><i class="fa fa-caret-right"></i> <a href="reviewPage">나의 후기</a></li><br>
                             </ul>
                         </form>
                         </div>
@@ -110,6 +109,29 @@
          
     
 </body>
+<script type="text/javascript">
+function delMember(mcode, mid) {
+	$.ajax({
+		type : 'post',
+		url : 'memberDelete',
+		data : {
+			'mcode' : mcode,
+			'mid' : mid
+		},
+		dataType : 'text',
+		success : function(result) {
+			console.log(result);
+			if (result == 'OK') {
+				alert('탈퇴되었습니다.')
+				location.href = "/"
+			}
+		},
+		error : function() {
+			console.log('member 삭제 연결 실패')
+		}
+	})
+}
+</script>
 
 
 

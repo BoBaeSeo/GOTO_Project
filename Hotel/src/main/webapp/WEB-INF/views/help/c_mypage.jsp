@@ -256,7 +256,30 @@ a:link {
 		console.log(check);
 		console.log(member);
 		if (check == member) {
-			myInfo.submit()
+			var mid = $("#mid").val();
+			var mname = $("#mname").val();
+			var mphone = $("#mphone").val();
+			var mbirth = $("#mbirth").val();
+			var memail = $("#memail").val();
+			$.ajax({
+				type: 'post',
+				url : 'memberModify',
+				data : {
+					"mid": mid,
+					"mname": mname,
+					"mphone": mphone,
+					"mbirth": mbirth,
+					"memail": memail
+					},
+				dataType: 'text',
+				success : function(data){									
+					if(data == "OK") alert('수정이 완료되었습니다.');
+					location.href="c_mypage";
+				},
+				error: function(){
+					console.log('연결 실패')
+				}
+			});
 		} else {
 			alert('비밀번호가 일치하지 않습니다.')
 			return;

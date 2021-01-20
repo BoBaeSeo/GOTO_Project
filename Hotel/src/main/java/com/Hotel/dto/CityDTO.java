@@ -8,6 +8,7 @@ public class CityDTO {
 	private String ctcode;
 	private String ctname;
 	private String ctdivide;
+	private String ctborough;
 	public String getCtcode() {
 		return ctcode;
 	}

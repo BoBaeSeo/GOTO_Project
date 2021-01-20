@@ -31,15 +31,30 @@ public class HelpService {
 	private ModelAndView mav;
 
 	// 1대1 문의 작성부분
-	public ModelAndView HelpWrite(HelpDTO helpDTO) {
-		mav = new ModelAndView();
+	public String HelpWrite(HelpDTO helpDTO) {
+		// hecode 만들기
+		String gethecode = helpMapper.gethecode(); // 가장 큰 hecode 가져오기
+		String hecode;
+		int hecodeNum = 0;
+		if (gethecode == null) hecode = "HE001";
+		else hecodeNum = Integer.parseInt(gethecode.substring(2, 5)) + 1; // hecode에서 숫자부분만 따로 뽑아서 1을 더해준다.
+		if (hecodeNum < 10) {
+			hecode = "HE" + "00" + hecodeNum; // 더한 hecodeNum이 한자리 숫자면
+		} else if (hecodeNum < 100) { // 더한 hecodeNum이 두자리 숫자면
+			hecode = "HE" + "0" + hecodeNum;
+		} else { // 더한 hecodeNum이 세자리 숫자면
+			hecode = "HE" + hecodeNum;
+		}
+		helpDTO.setHecode(hecode);
 
 		// HELP 테이블에 INSERT
 		int WriteResult = helpMapper.HelpWrite(helpDTO);
 		System.out.println("WriteResult:::" + WriteResult);
-
-		mav.setViewName("redirect:/questionList");
-		return mav;
+		String result = "NO";
+		if(WriteResult > 0) {
+			result = "OK";
+		}
+		return result;
 	}
 
 	// 자주묻는리스트를 ArrayList로 불러오는 부분
@@ -98,7 +113,7 @@ public class HelpService {
 		mav = new ModelAndView();
 
 		String loginId = (String) session.getAttribute("MLoginId");
-		System.out.println("loginId::"+loginId);
+		System.out.println("loginId::" + loginId);
 		ArrayList<HelpDTO> questionList = helpMapper.questionList(loginId);
 		System.out.println(questionList);
 

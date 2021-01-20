@@ -132,7 +132,7 @@ h5 {
 					<a href="FaqList">자주묻는질문 리스트</a>
 				</c:when>
 				<c:otherwise>
-					<a href="a_hotelInfoForm">호텔등록</a> 
+					<a href="a_hotelInfoForm" id="hotelInsert">호텔등록</a> 
 					<a href="a_hotelList">호텔리스트</a>
 					<a href="RoomWriteForm">룸등록</a> 
 					<a href="RoomList">룸리스트</a> 

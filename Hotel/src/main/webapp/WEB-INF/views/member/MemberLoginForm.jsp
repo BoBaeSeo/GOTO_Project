@@ -30,7 +30,7 @@
 							<div class="col-lg-6 offset-lg-1" style="margin-left: 250px;">
 
 								<form action="MemberLogin" class="agent-contact-form"
-									id="memberLogin">
+									id="memberLogin" method="post">
 									<input type="text" name="mid" id="mid" placeholder="아이디">
 									<input type="text" name="mpassword" id="mpassword"
 										placeholder="비밀번호">
@@ -70,8 +70,14 @@
 		}
 		memberLogin.submit();
 		
-		
 	};
+
+	$(document).ready(function(){
+		var loginResult = "${loginResult}";
+		if(loginResult == "NO"){
+			alert('아이디 비밀번호가 일치하지 않습니다.')
+			}
+		})
 </script>
 
 
