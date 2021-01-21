@@ -27,7 +27,7 @@
 						<div class="card shadow">
 							<div class="card-body">
 								<div class="table-responsive">
-								<form action="CompanyModifyProcess" method="post">
+								<form action="CompanyModifyProcess" method="post" id="modifyForm">
 									<table class="table table-bordered" cellspacing="0">
 										<tr>
 											<td>업체 아이디</td>
@@ -65,7 +65,7 @@
 												value="${companyDTO.cmaddress }"></td>
 										</tr>
 									</table>
-									<button type="submit" class="site-btn">등록</button>
+									<button type="button" onclick="modifySubmit()" class="site-btn">등록</button>
 								</form>
 								</div>
 							</div>
@@ -78,7 +78,12 @@
 	<!-- main container 끝 -->
 </div>
 <!-- main 끝 -->
-
+<script>
+	function modifySubmit(){
+		alert('수정되었습니다.')
+		modifyForm.submit();
+		}
+</script>
 <!-- Js Plugins -->
 <script src="resources/js/jquery-3.3.1.min.js"></script>
 <script src="resources/js/bootstrap.min.js"></script>

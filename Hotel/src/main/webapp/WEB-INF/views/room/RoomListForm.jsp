@@ -53,7 +53,7 @@
 																	<td><a href="a_roomDetail?rocode=${rList.rocode }">${rList.roname }<a></a></td>
 																	<td>${rList.ronum }</td>
 																	<td><button type="button"
-																			onclick="location.href='RoomListDel?rocode=${rList.rocode}'">삭제</button></td>
+																			onclick="roomListDel('${rList.rocode}')">삭제</button></td>
 																</tr>
 														</c:forEach>
 													</c:when>
@@ -74,10 +74,18 @@
 </div>
 <!-- main 끝 -->
 
-
-
 </body>
 
+<script>
+	function roomListDel(rocode){
+		var inputPw = prompt('비밀번호를 입력해주세요');
+		var loginPw = '${loginPw}';
+		if(inputPw == loginPw){
+			alert('삭제되었습니다.');
+			location.href='RoomListDel?rocode='+rocode;
+			}
+		}
+</script>
 <!-- Js Plugins -->
 <script src="resources/js/jquery-3.3.1.min.js"></script>
 <script src="resources/js/bootstrap.min.js"></script>

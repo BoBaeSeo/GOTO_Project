@@ -28,45 +28,46 @@
 							<div class="card-body">
 								<div class="table-responsive">
 									<form action="RoomWrite" method="post"
-										enctype="multipart/form-data">
-										<select name="ro_hocode">
-											<option value="HO001">호텔1</option>
-											<option value="HO002">호텔2</option>
-											<option value="HO003">호텔3</option>
+										enctype="multipart/form-data" id="roomForm">
+										<select name="ro_hocode" id="ro_hocode">
+										<option value="">호텔선택</option>
+										<c:forEach var="list" items="${hotelList }">
+											<option value="${list.hocode }">${list.honame }</option>
+										</c:forEach>
 										</select><br> <br>
 										<table class="table table-bordered" cellspacing="0">
 											<tr>
 												<td>룸이름</td>
-												<td><input type="text" placeholder="룸 이름" name="roname"></td>
+												<td><input type="text" placeholder="룸 이름" name="roname" id="roname"></td>
 											</tr>
 											<tr>
 												<td>룸사진</td>
-												<td><input type="file" name="rophoto" name="rophoto"></td>
+												<td><input type="file" name="rophoto" name="rophoto" id="rophoto"></td>
 											</tr>
 											<tr>
 												<td>룸 상세정보</td>
 												<td><input type="text" placeholder="룸 상세정보"
-													name="rodetail"></td>
+													name="rodetail" id="rodetail"></td>
 											</tr>
 											<tr>
 												<td>룸최소인원</td>
-												<td><input type="number" name="rominper">명</td>
+												<td><input type="number" name="rominper" id="rominper">명</td>
 											</tr>
 											<tr>
 												<td>룸최대인원</td>
-												<td><input type="number" name="romaxper">명</td>
+												<td><input type="number" name="romaxper" id="romaxper">명</td>
 											</tr>
 											<tr>
 												<td>룸가격</td>
 												<td><input type="text" placeholder="룸 가격"
-													name="roprice"></td>
+													name="roprice" id="roprice"></td>
 											</tr>
 											<tr>
 												<td>방갯수</td>
-												<td><input type="number" name="ronum">개</td>
+												<td><input type="number" name="ronum" id="ronum">개</td>
 											</tr>
 										</table>
-										<input type="submit" value="방등록">
+										<input type="button" onclick="roomFormSubmit()" value="방등록">
 									</form>
 								</div>
 							</div>
@@ -89,6 +90,21 @@
 
 		});
 	});
+	function roomFormSubmit(){
+		var ro_hocode = $("#ro_hocode").val();
+		var roname = $("#roname").val();
+		var rophoto = $("#rophoto").val();
+		var rominper = $("#rominper").val();
+		var romaxper = $("#romaxper").val();
+		var roprice = $("#roprice").val();
+		var ronum = $("#ronum").val();
+		if(ro_hocode == "" || roname == "" || rophoto == "" || rominper == "" || romaxper == "" || roprice == "" ||ronum == "" ){
+			alert('작성을 완료해주세요');
+			return;
+			}
+		alert('등록되었습니다.');
+		roomForm.submit();
+		}
 </script>
 <!-- Js Plugins -->
 <script src="resources/js/jquery-3.3.1.min.js"></script>

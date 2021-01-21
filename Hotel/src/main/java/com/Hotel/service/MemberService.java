@@ -11,7 +11,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,6 +25,7 @@ import com.Hotel.dto.PageDTO;
 import com.Hotel.dto.RoomDTO;
 import com.Hotel.mapper.BookingMapper;
 import com.Hotel.mapper.CityMapper;
+import com.Hotel.mapper.CompanyMapper;
 import com.Hotel.mapper.H_InfoMapper;
 import com.Hotel.mapper.HotelMapper;
 import com.Hotel.mapper.MemberMapper;
@@ -36,6 +36,9 @@ public class MemberService {
 
 	@Autowired
 	private MemberMapper memberMapper;
+	
+	@Autowired
+	private CompanyMapper companyMapper;
 
 	@Autowired
 	private CityMapper cityMapper;
@@ -131,6 +134,10 @@ public class MemberService {
 		mav = new ModelAndView();
 		// 회원리스트
 		ArrayList<MemberDTO> memberList = memberMapper.a_memberList();
+		String ALoginId = (String) session.getAttribute("ALoginId");
+		String loginPw = companyMapper.getloginPw(ALoginId);
+		
+		mav.addObject("loginPw",loginPw);
 		mav.addObject("memberList", memberList);
 		mav.setViewName("member/a_memberList");
 		return mav;

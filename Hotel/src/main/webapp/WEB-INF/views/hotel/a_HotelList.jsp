@@ -88,6 +88,7 @@
 				dataType : 'text',
 				success : function(result) {
 					if (result == 'OK') {
+						alert('삭제되었습니다');
 						$("#hotel" + hocode).remove();
 					}
 				},

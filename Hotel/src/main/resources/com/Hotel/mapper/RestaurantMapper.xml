@@ -33,14 +33,14 @@
 	DELETE RESTAURANT WHERE RECODE = #{recode}
 </delete>
 
-<select id="restaurantModifyForm" parameterType="String" resultType="com.Hotel.dto.RestaurantDTO">
+<select id="restaurantModifyForm" parameterType="String" resultMap="restaurant">
 	SELECT * FROM RESTAURANT WHERE RECODE = #{recode}
 </select>
 	
 <resultMap type="com.Hotel.dto.RestaurantDTO" id="restaurant">
 		<result property="re_ctcode" column="RE_CTCODE" />
 		<result property="recode" column="RECODE" />
-		<result property="rename" column="RE_NAME" />
+		<result property="re_name" column="RE_NAME" />
 		<result property="readdr" column="READDR" />
 		<result property="refilename" column="REFILENAME" />
 		<result property="reintro" column="REINTRO" />

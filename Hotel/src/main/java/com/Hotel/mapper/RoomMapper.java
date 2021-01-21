@@ -27,4 +27,7 @@ public interface RoomMapper {
 	int RoomModify(RoomDTO roomDTO);
 
 	public String getrocode();
+
+	public ArrayList<HotelDTO> getAllHotelName(String loginId);
+
 }

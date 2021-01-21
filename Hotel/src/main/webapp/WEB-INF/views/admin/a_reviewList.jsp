@@ -46,7 +46,7 @@
 													<td>${rList.vwriter }</td>
 													<td>${rList.vdrawup }</td>
 													<td><a class="btn primary-btn" style="padding: 5% 10%;"
-														href="reviewDel?vcode=${rList.vcode }">삭제</a></td>
+														onclick="reviewDelete('${rList.vcode }')">삭제</a></td>
 												</tr>
 											</c:forEach>
 										</tbody>
@@ -65,7 +65,12 @@
 <!-- main 끝 -->
 
 </body>
-
+<script type="text/javascript">
+	function reviewDelete(vcode){
+		alert('삭제되었습니다.');
+		location.href="reviewDel?vcode="+vcode;
+		}
+</script>
 <!-- Js Plugins -->
 <script src="resources/js/jquery-3.3.1.min.js"></script>
 <script src="resources/js/bootstrap.min.js"></script>

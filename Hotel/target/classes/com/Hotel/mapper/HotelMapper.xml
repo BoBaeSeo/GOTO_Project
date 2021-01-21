@@ -22,9 +22,9 @@
 		</where>
 	</select>
 	
-	<select id="c_HotelList" parameterType="Map" resultMap="selectHotelList">
-		SELECT DISTINCT HO_CTCODE, HOCODE, HONAME, HOFILENAME, HOADDR, HOSCORE, HOPUBLICIZE, (SELECT MIN(ROPRICE)FROM ROOM WHERE RO_HOCODE = HOCODE) AS price 
-		FROM (SELECT ROWNUM RN, HOTEL.*, ROCODE, ROPRICE FROM HOTEL INNER JOIN ROOM ON HOCODE = RO_HOCODE
+	<select id="c_HotelList" parameterType="Map" resultMap="searchHotelDTO">
+		SELECT DISTINCT HO_CTCODE, HOCODE, HONAME, HOFILENAME, HOADDR, HOSCORE, HOPUBLICIZE, (SELECT MIN(ROPRICE)FROM ROOM WHERE RO_HOCODE = HOCODE) AS ROPRICE, RN2 
+		FROM (SELECT RN AS RN2, HOTEL.*, ROCODE, ROPRICE FROM (SELECT ROWNUM RN, HOTEL.* FROM HOTEL) HOTEL INNER JOIN ROOM ON HOCODE = RO_HOCODE
 		<where>
 			<if test="bookingDTO.bprice != null">AND ROPRICE &lt;= #{bookingDTO.bprice,jdbcType=VARCHAR}</if>
 			<if test="bookingDTO.bperson != null">AND ROMAXPER &gt;= #{bookingDTO.bperson,jdbcType=VARCHAR}</if>
@@ -36,6 +36,7 @@
 			ROCODE NOT IN (SELECT B_ROCODE FROM BOOKING WHERE (#{bookingDTO.bcheckin,jdbcType=VARCHAR} BETWEEN BCHECKIN AND BCHECKOUT OR #{bookingDTO.bcheckout,jdbcType=VARCHAR} BETWEEN BCHECKIN AND BCHECKOUT 
 			OR BCHECKIN BETWEEN #{bookingDTO.bcheckin,jdbcType=VARCHAR} AND #{bookingDTO.bcheckout,jdbcType=VARCHAR} OR BCHECKOUT BETWEEN #{bookingDTO.bcheckin,jdbcType=VARCHAR} AND #{bookingDTO.bcheckout,jdbcType=VARCHAR}))
 			</if>
+			AND RN2 BETWEEN #{pageDTO.startrow} AND #{pageDTO.endrow}
 		</where>
 	</select>
 	
@@ -105,30 +106,19 @@
 		WHERE RN BETWEEN #{startrow} AND #{endrow}
 	</select>
 	
-	
-	<!-- city 코드 -->
-  <select id="ctMaxNum" resultType="String">
- 	SELECT MAX(CTCODE) FROM CITY
-  </select>
-  
-  
   <!-- hotel 코드 -->
   <select id="hoMaxNum" resultType="String">
  	SELECT MAX(HOCODE) FROM HOTEL
   </select>
-  
   
   <!-- h_info 코드 -->
   <select id="inMaxNum" resultType="String">
  	SELECT MAX(INCODE) FROM H_INFO
   </select>
   
-  
   <!-- 호텔정보 등록 --><!-- 다중으로 받아올때 hashMap -->
   <insert id="hotelInfoForm" parameterType="map">
   	INSERT ALL
-	INTO CITY (CTCODE, CTNAME, CTDIVIDE,CTBOROUGH) 
-	VALUES(#{cityDTO.ctcode},#{cityDTO.ctname},#{cityDTO.ctdivide},#{cityDTO.ctborough})
 
 	INTO HOTEL (HO_CTCODE, HOCODE, HONAME, HOFILENAME, HOADDR, HOSCORE, HOPUBLICIZE, HO_CID, HOHIT, HOTOTALHIT) 
 	VALUES(#{cityDTO.ctcode},#{hotelDTO.hocode},#{hotelDTO.honame},#{hotelDTO.hofileName},#{hotelDTO.hoaddr},#{hotelDTO.hoscore},#{hotelDTO.hopublicize},#{hotelDTO.ho_cid},0,0)
@@ -183,18 +173,6 @@
 		<result property="hopublicize" column="HOPUBLICIZE" />
 		<result property="ho_cid" column="HO_CID" />
 		<result property="roprice" column="ROPRICE"/>
-	</resultMap>
-	
-	
-	<resultMap type="map" id="selectHotelList">
-		<result property="ho_ctcode" column="HO_CTCODE" />
-		<result property="hocode" column="HOCODE" />
-		<result property="honame" column="HONAME" />
-		<result property="hofileName" column="HOFILENAME" />
-		<result property="hoaddr" column="HOADDR" />
-		<result property="hoscore" column="HOSCORE" />
-		<result property="hopublicize" column="HOPUBLICIZE" />
-		<result property="roprice" column="ROPRICE" />
 	</resultMap>
 	
 	<resultMap type="com.Hotel.dto.HotelDTO" id="Hotel">

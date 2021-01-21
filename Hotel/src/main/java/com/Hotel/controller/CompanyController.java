@@ -6,13 +6,13 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.Hotel.dto.CityDTO;
 import com.Hotel.dto.CompanyDTO;
 import com.Hotel.dto.LandmarkDTO;
 import com.Hotel.dto.RestaurantDTO;
@@ -184,13 +184,13 @@ public class CompanyController {
 	}
 
 	@RequestMapping(value = "/landmarkInsert")
-	public ModelAndView landmarkInsert(LandmarkDTO landmarkDTO, RedirectAttributes ra)
+	public ModelAndView landmarkInsert(LandmarkDTO landmarkDTO, RedirectAttributes ra, CityDTO cityDTO)
 			throws IllegalStateException, IOException {
 		// landmarkInsert
 
 		System.out.println("/landmarkInsert");
 
-		mav = companyService.landmarkInsert(landmarkDTO, ra);
+		mav = companyService.landmarkInsert(landmarkDTO, ra, cityDTO);
 
 		return mav;
 	}
@@ -250,11 +250,11 @@ public class CompanyController {
 
 	// 맛집 등록하는거
 	@RequestMapping(value = "/JoinRestaurant")
-	public ModelAndView JoinRestaurant(RestaurantDTO restaurantDTO, RedirectAttributes ra)
+	public ModelAndView JoinRestaurant(RestaurantDTO restaurantDTO, RedirectAttributes ra, CityDTO cityDTO)
 			throws IllegalStateException, IOException {
 		System.out.println("/JoinRestaurant");
 		System.out.println(restaurantDTO);
-		mav = companyService.JoinRestaurant(restaurantDTO, ra);
+		mav = companyService.JoinRestaurant(restaurantDTO, ra, cityDTO);
 		return mav;
 	}
 

@@ -27,7 +27,7 @@
 					<div class="card shadow">
 						<div class="card-body">
 							<div class="table-responsive">
-								<form action="faqWriteForm" class="contact-form" method="post">
+								<form action="faqWriteForm" class="contact-form" method="post" id="insertForm">
 
 									<!-- 고객센터 코드 선택 -->
 									<div class="row">
@@ -61,7 +61,7 @@
 									<hr>
 									<div class="col-lg-12">
 										<div class="loadmore">
-											<button type="submit" class="btn site-btn">등록하기</button>
+											<button type="button" onclick="insertFormBtn()" class="btn site-btn">등록하기</button>
 										</div>
 									</div>
 								</form>
@@ -74,7 +74,13 @@
 
 	</section>
 	<!-- Contact Section End -->
-
+	</body>
+	<script>
+		function insertFormBtn(){
+			alert('등록되었습니다.');
+			insertForm.submit();
+			}
+	</script>
 	<!-- Js Plugins -->
 	<script src="resources/js/jquery-3.3.1.min.js"></script>
 	<script src="resources/js/bootstrap.min.js"></script>

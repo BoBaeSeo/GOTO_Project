@@ -48,7 +48,7 @@
 															<td>${lList.laname}</td>
 															<td>${lList.laaddr}</td>
 															<td><button class="site-btn"
-																	onclick="location.href='landmarkDelete?lacode=${lList.lacode}'">삭제</button>
+																	onclick="deleteBtn('${lList.lacode}')">삭제</button>
 																<button class="site-btn"
 																	onclick="location.href='landmarkModifyForm?lacode=${lList.lacode}'">수정</button></td>
 														</tr>
@@ -111,4 +111,8 @@
 					$("#laModifyModal").modal("show");
 				}
 			});
+	function deleteBtn(lacode){
+		alert('삭제되었습니다.');
+		location.href='landmarkDelete?lacode='+lacode;
+		}
 </script>

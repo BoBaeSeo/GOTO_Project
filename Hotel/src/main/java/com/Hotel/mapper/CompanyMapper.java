@@ -14,7 +14,7 @@ import com.Hotel.dto.RestaurantDTO;
 
 public interface CompanyMapper {
 
-	public String AdminLogin(CompanyDTO companyDTO);
+	public CompanyDTO AdminLogin(CompanyDTO companyDTO);
 	
 	@Select("SELECT * FROM COMPANY WHERE CMID=#{loginId}")
 	public CompanyDTO cpInfoView(@Param("cmid") String cmid,@Param("loginId") String loginId);
@@ -35,7 +35,6 @@ public interface CompanyMapper {
 	public int JoinRestaurant(RestaurantDTO restaurantDTO);
 
 	public String getRecode();
-	
 
 	public String cmidCheck(String cmid);
 
@@ -46,11 +45,13 @@ public interface CompanyMapper {
 	public ArrayList<CompanyDTO> companyList();
 
 	public int companyDelete(String cmid);
-
 	
 	List<Map<String, Object>> salesList(@Param("firstDateFormat") String firstDateFormat, @Param("lastDateFormat") String lastDateFormat, @Param("loginId") String loginId);
 
 	ArrayList<Integer> yearList(String loginId);
+	
+	@Select("SELECT CMPASSWORD FROM COMPANY WHERE CMID = #{ALoginId}")
+	public String getloginPw(String aLoginId);
 
 
 }

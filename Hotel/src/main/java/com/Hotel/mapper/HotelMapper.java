@@ -48,8 +48,6 @@ public interface HotelMapper {
 
 	int getHotelCount(String search);
 
-	public String ctMaxNum();
-
 	public int hotelInfoForm(Map<String, Object> map);
 
 	public String hoMaxNum();
@@ -64,12 +62,10 @@ public interface HotelMapper {
 
 	public ArrayList<String> getCtborough(CityDTO cityDTO);
 
-	
 	int updateHitZero();
 
 	int updateHit(String hocode);
 
 	ArrayList<HotelDTO> gethitList(String loginId);
 
-	
 }

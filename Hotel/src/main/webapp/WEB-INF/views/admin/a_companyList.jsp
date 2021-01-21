@@ -42,7 +42,7 @@
 												<th>아이디</th>
 												<th>이름</th>
 												<th>이메일</th>
-												<th>삭제</th>
+												<th>탈퇴</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -53,7 +53,7 @@
 													<td>${cList.cmname }</td>
 													<td>${cList.cmemail }</td>
 													<td>
-													<a class="btn primary-btn" style="padding: 5% 10%;" href="companyDelete?cmid=${cList.cmid }">삭제</a></td>
+													<a class="btn primary-btn" style="padding: 5% 10%;" onclick="companyDelete('${cList.cmid }')">삭제</a></td>
 												</tr>
 											</c:forEach>
 										</tbody>
@@ -71,7 +71,17 @@
 	</div>
 
 <!-- Property Section End -->
-
+</body>
+<script type="text/javascript">
+	function companyDelete(cmid){
+		var inputPw = prompt('비밀번호를 입력하세요');
+		var loginPw = '${loginPw}';
+		if(inputPw == loginPw){
+			alert('탈퇴되었습니다.')
+			location.href="companyDelete?cmid="+cmid;
+			}
+		}
+</script>
 
 
 	<script src="resources/js/jquery-3.3.1.min.js"></script>

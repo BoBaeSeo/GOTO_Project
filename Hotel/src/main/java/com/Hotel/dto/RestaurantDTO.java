@@ -9,11 +9,15 @@ public class RestaurantDTO {
 
 	private String re_ctcode;
 	private String recode;
-	private String rename;
+	private String re_name;
 	private String readdr;
 	private MultipartFile rephoto;
 	private String reintro;
 	private String refilename;
+	private String readdr_address;
+	private String readdr_detailAddress;
+	private String readdr_extraAddress;
+	private String readdr_postcode;
 	public String getRe_ctcode() {
 		return re_ctcode;
 	}
@@ -27,10 +31,10 @@ public class RestaurantDTO {
 		this.recode = recode;
 	}
 	public String getRename() {
-		return rename;
+		return re_name;
 	}
 	public void setRename(String rename) {
-		this.rename = rename;
+		this.re_name = rename;
 	}
 	public String getReaddr() {
 		return readdr;
@@ -58,7 +62,7 @@ public class RestaurantDTO {
 	}
 	@Override
 	public String toString() {
-		return "RestaurantDTO [re_ctcode=" + re_ctcode + ", recode=" + recode + ", rename=" + rename + ", readdr="
+		return "RestaurantDTO [re_ctcode=" + re_ctcode + ", recode=" + recode + ", rename=" + re_name + ", readdr="
 				+ readdr + ", rephoto=" + rephoto + ", reintro=" + reintro + ", refilename=" + refilename + "]";
 	}
 	

@@ -85,6 +85,7 @@
 			dataType : 'text',
 			success : function(result) {
 				if (result == 'OK') {
+					alert('승인되었습니다.')
 					$("#com" + cmcode).remove();
 				}
 			},
@@ -105,6 +106,7 @@
 			dataType : 'text',
 			success : function(result) {
 				if (result == 'OK') {
+					alert('거절되었습니다.')
 					$("#com" + cmcode).remove();
 				}
 			},

@@ -30,61 +30,73 @@
 							<div class="card-body">
 								<div class="table-responsive">
 									<form action="landmarkInsert" method="post"
-										class="contact-form" enctype="multipart/form-data">
+										class="contact-form" enctype="multipart/form-data" id="insertId">
 										<table class="table table-bordered" cellspacing="0">
-											<tr>
-												<th>관광지 코드</th>
-												<td><input type="text" name="lacode" value="${lacode}"
+											<tr style="display: none;">
+												<td><input type="hidden" name="lacode" value="${lacode}"
 													readonly="readonly"></td>
 											</tr>
 											<tr>
 												<th>관광 명소 지역</th>
-												<td><select name="la_ctcode">
-														<option value="#">관광 명소 지역 선택</option>
-														<option value="CT001">서울 CT001</option>
-														<option value="CT002">부산 CT002</option>
-														<option value="CT003">제주 CT003</option>
-														<option value="CT004">여수 CT004</option>
-														<option value="CT005">경주 CT005</option>
-												</select></td>
+												<td><select name="ctname" id="ctname">
+                                					<option value="">지역 선택</option>
+                                					<option value="서울">서울</option>
+                                					<option value="경주">경주</option>
+                                					<option value="부산">부산</option>
+                                					<option value="여수">여수</option>
+                                					<option value="제주도">제주도</option>
+                            					</select></td>
+												<td style="display: none;" id="ctdivideDiv">
+                                				<select name="ctdivide" id="ctdivide" style="display: none;">
+                                					<option value="">지역 선택</option>
+                                					<option value="동">동</option>
+                                					<option value="서">서</option>
+                                					<option value="남">남</option>
+                                					<option value="북">북</option>
+                            					</select>
+                                    	</td>
+												<td style="display: none;" id="ctboroughDiv">
+												<select name="ctborough" id="ctborough">
+                                					<option value="">지역 선택</option>
+                            					</select></td>
 											</tr>
 											<tr>
 												<th>관광지 이름</th>
-												<td><input type="text" id="inputLaname" name="laname"
+												<td colspan="3"><input type="text" id="inputLaname" name="laname"
 													placeholder="관광지 이름"><span id="lanameCheck"></span></td>
 											</tr>
 											<tr>
 												<th>우편번호</th>
-												<td><input type="text" name="laaddr_postcode"
+												<td colspan="3"><input type="text" name="laaddr_postcode"
 													id="sample6_postcode" placeholder="우편번호"> <input
 													type="button" onclick="sample6_execDaumPostcode()"
 													value="우편번호 찾기"></td>
 											</tr>
 											<tr>
 												<th>주소</th>
-												<td><input type="text" name="laaddr_address"
+												<td colspan="3"><input type="text" name="laaddr_address"
 													id="sample6_address" placeholder="주소"></td>
 											</tr>
 											<tr>
 												<th>상세 주소</th>
-												<td><input type="text" name="laaddr_detailAddress"
+												<td colspan="3"><input type="text" name="laaddr_detailAddress"
 													id="sample6_detailAddress" placeholder="상세주소"></td>
 											</tr>
 											<tr>
 												<th>참고 항목</th>
-												<td><input type="text" name="laaddr_extraAddress"
+												<td colspan="3"><input type="text" name="laaddr_extraAddress"
 													id="sample6_extraAddress" placeholder="참고항목"></td>
 											</tr>
 											<tr>
 												<th>관광지 홍보 문구</th>
-												<td><textarea name="laintro" placeholder="관광지 홍보 문구"></textarea></td>
+												<td colspan="3"><textarea name="laintro" id="laintro" placeholder="관광지 홍보 문구"></textarea></td>
 											</tr>
 											<tr>
 												<th>사진</th>
-												<td><input type="file" name="laphoto"></td>
+												<td colspan="3"><input type="file" name="laphoto" id="laphoto"></td>
 											</tr>
 											<tr>
-												<td colspan="2"><button type="submit" class="site-btn">입력</button></td>
+												<td colspan="5"><button type="button" onclick="insertForm()" class="site-btn">입력</button></td>
 											</tr>
 										</table>
 									</form>
@@ -110,7 +122,7 @@
 <script src="resources/js/jquery-ui.min.js"></script>
 <script src="resources/js/owl.carousel.min.js"></script>
 <script src="resources/js/main.js"></script>
-
+<script src="resources/js/findLocation.js"></script>
 </html>
 
 
@@ -175,60 +187,63 @@
 							});
 
 						});
+				$("#ctname").change(function(){
+					$("#ctdivideDiv").removeAttr("style");
+			    	})
+			    $("#ctdivide").change(function(){
+			        var ctname = $("#ctname").val();
+			        var ctdivide = $("#ctdivide").val();
+			        
+					$.ajax({
+						type : "post",
+						url : "getCtborough",
+						data : {
+							"ctname" : ctname,
+							"ctdivide" : ctdivide
+							},
+						dataType : "json",
+						success : function(result) {
+							console.log(result);
+							showCtborough(result);
+							},
+							error : function(){
+								alert("연결 실패.");
+								}
+						})
+			    	})
 			});
+	 function showCtborough(result){
+			$("#ctboroughDiv").removeAttr("style");
+			$("#ctborough").empty();
+			$("#ctboroughDiv .list").empty();
+			var output = '<li data-value="none" class="option selected">지역 선택</li>';
+			var option = "<option value='none'>지역 선택</option>";
+			for(var list in result){
+				option += "<option value='"+result[list]+"'>"+result[list]+"</option>";
+				output += '<li data-value="'+result[list]+'" class="option selected focus">'+result[list]+'</li>'
+				}
+				$("#ctborough").append(option);
+				$("#ctboroughDiv .list").append(output);
+			 }
+		function insertForm(){
+			var ctname = $("#ctname").val();
+	        var ctdivide = $("#ctdivide").val();
+			var ctborough = $("#ctborough").val();
+			if(ctname == "" || ctdivide == "" || ctborough == ""){
+				alert('지역을 선택해주세요');
+				return;
+				}
+			var inputLaname = $("#inputLaname").val();
+	        var sample6_postcode = $("#sample6_postcode").val();
+			var laintro = $("#laintro").val();
+			var laphoto = $("#laphoto").val();
+			if(inputLaname == "" || sample6_postcode == "" || laintro == ""|| laphoto == "" ){
+				alert('작성을 완료해주세요');
+				return;
+				}
+			alert('작성이 완료되었습니다.')
+			insertId.submit();
+			
+			}
 </script>
 
-<script>
-	function sample6_execDaumPostcode() {
-		new daum.Postcode(
-				{
-					oncomplete : function(data) {
-						// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-						// 각 주소의 노출 규칙에 따라 주소를 조합한다.
-						// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-						var addr = ''; // 주소 변수
-						var extraAddr = ''; // 참고항목 변수
-
-						//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-						if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-							addr = data.roadAddress;
-						} else { // 사용자가 지번 주소를 선택했을 경우(J)
-							addr = data.jibunAddress;
-						}
-
-						// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-						if (data.userSelectedType === 'R') {
-							// 법정동명이 있을 경우 추가한다. (법정리는 제외)
-							// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-							if (data.bname !== ''
-									&& /[동|로|가]$/g.test(data.bname)) {
-								extraAddr += data.bname;
-							}
-							// 건물명이 있고, 공동주택일 경우 추가한다.
-							if (data.buildingName !== ''
-									&& data.apartment === 'Y') {
-								extraAddr += (extraAddr !== '' ? ', '
-										+ data.buildingName : data.buildingName);
-							}
-							// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-							if (extraAddr !== '') {
-								extraAddr = ' (' + extraAddr + ')';
-							}
-							// 조합된 참고항목을 해당 필드에 넣는다.
-							document.getElementById("sample6_extraAddress").value = extraAddr;
-
-						} else {
-							document.getElementById("sample6_extraAddress").value = '';
-						}
-
-						// 우편번호와 주소 정보를 해당 필드에 넣는다.
-						document.getElementById('sample6_postcode').value = data.zonecode;
-						document.getElementById("sample6_address").value = addr;
-						// 커서를 상세주소 필드로 이동한다.
-						document.getElementById("sample6_detailAddress")
-								.focus();
-					}
-				}).open();
-	}
-</script>

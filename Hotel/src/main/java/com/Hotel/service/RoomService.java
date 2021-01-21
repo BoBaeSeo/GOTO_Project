@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.Hotel.dto.HotelDTO;
 import com.Hotel.dto.RoomDTO;
 import com.Hotel.mapper.BookingMapper;
+import com.Hotel.mapper.CompanyMapper;
 import com.Hotel.mapper.RoomMapper;
 
 @Service
@@ -27,6 +28,9 @@ public class RoomService {
 	@Autowired
 	private BookingMapper bookingMapper;
 
+	@Autowired
+	private CompanyMapper companyMapper;
+	
 	@Autowired
 	private HttpSession session;
 
@@ -88,7 +92,9 @@ public class RoomService {
 
 		ArrayList<RoomDTO> RoomList = roomMapper.RoomList(ALoginId);
 		System.out.println("RoomList:::" + RoomList);
-
+		String loginPw = companyMapper.getloginPw(ALoginId);
+		
+		mav.addObject("loginPw", loginPw);
 		mav.addObject("RoomList", RoomList);
 		mav.setViewName("room/RoomListForm");
 		return mav;
@@ -96,10 +102,10 @@ public class RoomService {
 
 	// 룸리스트 rocode로 삭제
 	@Transactional(rollbackFor = Exception.class)
-	public ModelAndView RoomListDel(String rocode, String b_rocode) {
+	public ModelAndView RoomListDel(String rocode) {
 		mav = new ModelAndView();
 		// 부킹 룸코드삭제
-		int BookingDel = bookingMapper.BookingDel(b_rocode);
+		int BookingDel = bookingMapper.BookingDel(rocode);
 		// 룸코드 삭제
 		int RoomListDel = roomMapper.RoomListDel(rocode);
 		System.out.println("RoomListDel::" + RoomListDel);
@@ -144,7 +150,7 @@ public class RoomService {
 		roomDTO.setRofilename(rofilename);
 
 		// 경로값
-		String savePath = "C:\\Users\\user\\Documents\\workspace-spring-tool-suite-4-4.8.1.RELEASE\\Hotel\\src\\main\\webapp\\resources\\roomFile\\";
+		String savePath = "C:\\Users\\seeth\\git\\Hotel\\Hotel\\src\\main\\webapp\\resources\\img\\roomFile\\";
 
 		// rophoto가 비어있지 않으면 새로운파일 적용가능한 조건문
 		if (!rophoto.isEmpty()) {
@@ -160,6 +166,16 @@ public class RoomService {
 			resultSet = "redirect:/RoomList";
 		}
 		return resultSet;
+	}
+
+	// 룸 작성 폼 넘어가는 부분
+	public ModelAndView roomWriteForm() {
+		mav = new ModelAndView();
+		String loginId = (String) session.getAttribute("ALoginId");
+		ArrayList<HotelDTO> hotelList = roomMapper.getAllHotelName(loginId);
+		mav.addObject("hotelList", hotelList);
+		mav.setViewName("room/RoomWriteForm");
+		return mav;
 	}
 
 }

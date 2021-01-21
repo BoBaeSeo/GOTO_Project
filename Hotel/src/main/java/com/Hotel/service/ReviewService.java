@@ -37,9 +37,8 @@ public class ReviewService {
 		String getVcode = reviewMapper.getvcode(); // 가장 큰 vcode 가져오기
 		String vcode;
 		System.out.println(hocode);
-		int vcodeNum = 0;
-		if(getVcode == null) vcode = "RV001";
-		else vcodeNum = Integer.parseInt(getVcode.substring(2, 5)) + 1; // vcode에서 숫자부분만 따로 뽑아서 1을 더해준다.
+		if(getVcode == null) getVcode = "RV000";
+		int vcodeNum = Integer.parseInt(getVcode.substring(2, 5)) + 1; // vcode에서 숫자부분만 따로 뽑아서 1을 더해준다.
 		if (vcodeNum < 10) {
 			vcode = "RV" + "00" + vcodeNum; // 더한 vcodeNum이 한자리 숫자면
 		} else if (vcodeNum < 100) { // 더한 vcodeNum이 두자리 숫자면

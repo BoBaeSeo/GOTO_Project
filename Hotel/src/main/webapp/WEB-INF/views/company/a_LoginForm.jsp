@@ -52,9 +52,8 @@
 	};
 	$(document).ready(function(){
 		var loginResult = "${loginResult}";
-		if(loginResult == "NO"){
-			alert('아이디 비밀번호가 일치하지 않습니다.')
-			}
+		if(loginResult == "NO") alert('아이디 비밀번호가 일치하지 않습니다.')
+		if(loginResult == "WAIT") alert('아직 승인되지 않은 아이디입니다.')
 		})
     </script>
     

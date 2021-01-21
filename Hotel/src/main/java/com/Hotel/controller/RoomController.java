@@ -29,9 +29,10 @@ public class RoomController {
 	
 	//룸등록 폼
 	@RequestMapping(value = "/RoomWriteForm")
-	public String RoomWriteForm() {
+	public ModelAndView RoomWriteForm() {
 		System.out.println("룸등록 폼!!");
-		return "room/RoomWriteForm";
+		mav = roomService.roomWriteForm();
+		return mav;
 		
 	}
 	
@@ -59,11 +60,11 @@ public class RoomController {
 	}
 	//룸리스트 삭제
 	@RequestMapping(value = "/RoomListDel")
-	public ModelAndView RoomListDel(String rocode, String b_rocode) {
+	public ModelAndView RoomListDel(String rocode) {
 
 		System.out.println("/RoomListDel");
 		System.out.println("룸리스트 삭제");
-		mav = roomService.RoomListDel(rocode,b_rocode);
+		mav = roomService.RoomListDel(rocode);
 		System.out.println(rocode);
 		return mav;
 	}

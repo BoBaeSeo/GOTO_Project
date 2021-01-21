@@ -4,11 +4,12 @@
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script>
 	//SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
-	Kakao.init('f44d30742b412fa8aa76a02e17bcfa29');
+	Kakao.init('6de89a1775e81d3bf2eebade3deea3b8');
 
 	// SDK 초기화 여부를 판단합니다.
 	console.log(Kakao.isInitialized());
 </script>
+<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 
 <!-- 안되는부분~~~~~~~~
  로그인창이 db랑비교해서 맞으면 성공 틀리면 실패...안됨 -->

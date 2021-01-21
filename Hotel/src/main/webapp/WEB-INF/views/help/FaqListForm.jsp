@@ -47,7 +47,7 @@
 																<td>${fList.faq_qccode }</td>
 																<td>${fList.faqtitle }</td>
 																<td><button type="button" id="FaqDelBtn"
-																		onclick="location.href='FaqListDel?faqcode=${fList.faqcode}'">삭제</button></td>
+																		onclick="deleteBtn('${fList.faqcode}')">삭제</button></td>
 															</tr>
 														</c:forEach>
 													</c:when>
@@ -71,6 +71,13 @@
 
 
 </body>
+
+	<script>
+		function deleteBtn(faqcode){
+			alert('삭제되었습니다.');
+			location.href='FaqListDel?faqcode='+faqcode;
+			}
+	</script>
 
 	<!-- Js Plugins -->
 	<script src="resources/js/jquery-3.3.1.min.js"></script>

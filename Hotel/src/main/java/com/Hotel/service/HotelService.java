@@ -25,6 +25,7 @@ import com.Hotel.dto.HotelDTO;
 import com.Hotel.dto.PageDTO;
 import com.Hotel.dto.ReviewDTO;
 import com.Hotel.dto.RoomDTO;
+import com.Hotel.mapper.CityMapper;
 import com.Hotel.mapper.HotelMapper;
 import com.Hotel.mapper.ReviewMapper;
 
@@ -35,6 +36,9 @@ public class HotelService {
 	
 	@Autowired
 	private HotelMapper hotelMapper;
+	
+	@Autowired
+	private CityMapper cityMapper;
 	
 	@Autowired
 	private ReviewMapper reviewMapper;
@@ -66,8 +70,10 @@ public class HotelService {
 		int hotelListCnt = hotelMapper.getHotelListCnt(map);
 		int maxPage = (int)(Math.ceil((double)hotelListCnt / pageLimit));
 		System.out.println(maxPage);
-		int startPage = ((int)(Math.ceil((double)page/pageNumLimit))-1) * pageNumLimit + 1;
-		int endPage = startPage + pageNumLimit - 1;
+		int startPage = page - 1;
+		if(page == 1) startPage = 1;
+		int endPage = page + 1;
+		if(page == 1) endPage = 3;
 		if(endPage > maxPage) {
 			endPage = maxPage;
 		}
@@ -227,16 +233,7 @@ public class HotelService {
 										+ hotelDTO.getHodetail());
 			
 			//city코드
-			String ctcode;
-			String ctMaxNum = hotelMapper.ctMaxNum();
-			int ctNum = Integer.parseInt(ctMaxNum.substring(2,5))+1;
-			if(ctNum < 10) {
-				ctcode = "CT" + "00" + ctNum;
-			} else if(ctNum < 100) {
-				ctcode = "CT" + "0" + ctNum;
-			} else {
-				ctcode = "CT" + ctNum;
-			}
+			String ctcode = cityMapper.getCtcode(cityDTO);
 			cityDTO.setCtcode(ctcode);
 			
 			//hotel코드
@@ -252,7 +249,6 @@ public class HotelService {
 			}
 			hotelDTO.setHocode(hocode);
 			String loginId = (String) session.getAttribute("ALoginId");	
-			loginId = "GG";
 			hotelDTO.setHo_cid(loginId);
 			
 			//h_info코드

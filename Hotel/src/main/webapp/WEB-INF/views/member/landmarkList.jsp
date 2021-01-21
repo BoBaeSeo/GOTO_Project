@@ -51,7 +51,7 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="property-pic">
-                                        <img src="resources/img/${LList.lafilename}" alt="">
+                                        <img src="resources/img/landmarkFile/${LList.lafilename}" alt="">
                                     </div>
                                 </div>
                                 <div class="col-md-8">

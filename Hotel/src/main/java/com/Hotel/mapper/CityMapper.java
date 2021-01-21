@@ -6,4 +6,5 @@ public interface CityMapper {
 
 	public CityDTO bookingCheck(String ctcode);
 
+	String getCtcode(CityDTO cityDTO);
 }

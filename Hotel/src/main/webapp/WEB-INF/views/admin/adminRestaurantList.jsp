@@ -45,12 +45,12 @@
 														<tr>
 															<td>${rList.recode}</td>
 															<td>${rList.re_ctcode}</td>
-															<td>${rList.rename}</td>
+															<td>${rList.re_name}</td>
 															<td>${rList.readdr}</td>
 															<td><button class="site-btn"
 																	onclick="location.href='restaurantModifyForm?recode=${rList.recode}'">수정</button>
 																<button class="site-btn"
-																	onclick="location.href='restaurantDelete?recode=${rList.recode}'">삭제</button></td>
+																	onclick="deleteRes('${rList.recode}')">삭제</button></td>
 														</tr>
 													</c:forEach>
 												</c:when>
@@ -110,4 +110,8 @@
 					$("#modalRecode").modal("show");
 				}
 			});
+	function deleteRes(recode){
+		alert('삭제되었습니다.');
+		location.href='restaurantDelete?recode='+recode;
+		}
 </script>

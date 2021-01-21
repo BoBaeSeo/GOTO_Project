@@ -27,7 +27,7 @@
 										<div class="card shadow">
 											<div class="card-body">
 												<div class="table-responsive">
-												<form action="landmarkModify" method="post" class="contact-form" enctype="multipart/form-data">
+												<form action="landmarkModify" method="post" class="contact-form" enctype="multipart/form-data" id="modifyForm">
 													<table class="table table-bordered" cellspacing="0">
 														<thead>
 															<tr>
@@ -44,8 +44,8 @@
 																	<td><input type="text" name="la_ctcode" readonly="readonly" value="${lList.la_ctcode}"></td>
 																	<td><input type="text" name="laname" value="${lList.laname}"></td>
 																	<td><input type="text" name="laaddr" value="${lList.laaddr}"></td>
-																	<td><button type="submit" class="site-btn">수정</button>
-																	<button class="site-btn" onclick="location.href='landmarkDelete?recode=${lList.lacode}'">삭제</button></td>
+																	<td><button type="button" onclick="modifyBtn()" class="site-btn">수정</button>
+																	<button class="site-btn" onclick="deleteBtn('${lList.lacode}')">삭제</button></td>
 																</tr>
 														</tbody>
 														<tfoot>
@@ -70,6 +70,16 @@
 		</div>
     
 </body>
+<script>
+	function modifyBtn(){
+		alert('수정되었습니다.');
+		modifyForm.submit();
+		}
+	function deleteBtn(lacode){
+		alert('삭제되었습니다.');
+		location.href='landmarkDelete?lacode='+lacode;
+		}
+</script>
 
 	<!-- Js Plugins -->
 	<script src="resources/js/jquery-3.3.1.min.js"></script>

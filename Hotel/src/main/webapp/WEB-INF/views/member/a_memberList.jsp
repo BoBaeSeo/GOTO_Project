@@ -42,7 +42,7 @@
 											<c:choose>
 												<c:when test="${sessionScope.ALoginId=='ADMIN' }">
 													<c:forEach var="list" items="${memberList }">
-														<tr id="hotel${list.mcode }">
+														<tr id="mem${list.mcode }">
 															<td>${list.mcode }</td>
 															<td>${list.mname }</td>
 															<td>${list.mid }</td>
@@ -74,6 +74,9 @@
 	})
 	/* member 탈퇴 */
 	function memberDelete(mcode, mid) {
+		var inputPw = prompt('비밀번호를 입력해주세요');
+		var loginPw = '${loginPw}';
+		if(inputPw == loginPw){
 		$.ajax({
 			type : 'post',
 			url : 'a_memberDelete',
@@ -93,6 +96,8 @@
 				console.log('member 삭제 연결 실패')
 			}
 		})
+
+			}
 	}
 </script>
 

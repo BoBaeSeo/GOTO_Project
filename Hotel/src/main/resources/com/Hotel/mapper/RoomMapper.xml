@@ -30,6 +30,10 @@
 		SELECT MAX(ROCODE) FROM ROOM
 	</select>
 	
+	<select id="getAllHotelName" parameterType="String" resultType="com.Hotel.dto.HotelDTO">
+		SELECT HOCODE, HONAME FROM HOTEL WHERE HO_CID = #{loginId}
+	</select>
+	
 	<resultMap type="map" id="room">
 		<result property="ro_hocode" column="RO_HOCODE" />
 		<result property="rocode" column="ROCODE" />

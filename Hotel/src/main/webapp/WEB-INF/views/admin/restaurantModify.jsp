@@ -27,7 +27,7 @@
 										<div class="card shadow">
 											<div class="card-body">
 												<div class="table-responsive">
-												<form action="restaurantModify" method="post" class="contact-form" enctype="multipart/form-data">
+												<form action="restaurantModify" method="post" class="contact-form" enctype="multipart/form-data" id="modifyForm">
 													<table class="table table-bordered" cellspacing="0">
 														<thead>
 															<tr>
@@ -44,8 +44,8 @@
 																	<td><input type="text" name="re_ctcode" readonly="readonly" value="${rList.re_ctcode}"></td>
 																	<td><input type="text" name="rename" value="${rList.rename}"></td>
 																	<td><input type="text" name="readdr" value="${rList.readdr}"></td>
-																	<td><button type="submit" class="site-btn">수정</button>
-                                									    <button class="site-btn" onclick="location.href='restaurantDelete?recode=${rList.recode}'">삭제</button></td>
+																	<td><button type="button" onclick="submitForm()" class="site-btn">수정</button>
+                                									    <button class="site-btn" onclick="deleteRes('${rList.recode}')">삭제</button></td>
 																</tr>
 														</tbody>
 														<tfoot>
@@ -70,6 +70,17 @@
 		</div>
     
 </body>
+
+<script>
+	function submitForm(){
+		alert('수정되었습니다.');
+		modifyForm.submit();
+		}
+	function deleteRes(recode){
+		alert('삭제되었습니다.');
+		location.href='restaurantDelete?recode='+recode;
+		}
+</script>
 
 	<!-- Js Plugins -->
 	<script src="resources/js/jquery-3.3.1.min.js"></script>

@@ -119,7 +119,7 @@
                                         <p>${list.hopublicize }</p>
                                         <div class="room-price sc-text">
                                             <span>가격: </span>
-                                            <h5>${list.price } ~</h5>
+                                            <h5>${list.roprice } ~</h5>
                                             <c:if test="${sessionScope.MLoginId != null }">
                                             <a id="heart${list.hocode }" class="comment-btn" onclick="heartProcess('${list.hocode }')">찜 등록</a>
                                             </c:if>
