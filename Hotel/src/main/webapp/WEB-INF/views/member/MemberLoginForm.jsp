@@ -50,7 +50,7 @@
 
 </section>
 <form action="kakaoLogin">
-	<a id="kakao-login-btn"></a>
+	<a id="kakao-login-btn">카카오로그인</a>
 </form>
 <script type="text/javascript">
 	function MLoginBtn() {
