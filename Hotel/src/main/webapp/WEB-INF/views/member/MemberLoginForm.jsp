@@ -5,11 +5,22 @@
 <script>
 	//SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해 주세요.
 	Kakao.init('6de89a1775e81d3bf2eebade3deea3b8');
-
 	// SDK 초기화 여부를 판단합니다.
 	console.log(Kakao.isInitialized());
 </script>
 <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+<style>
+.api-btn {
+	min-width: 222px;
+	height: 49px;
+	line-height: 49px;
+	font-size: 16px;
+	font-weight: 600;
+	color: #000;
+	background-color: #ffeb00;
+	border: 0;
+}
+</style>
 
 <!-- 안되는부분~~~~~~~~
  로그인창이 db랑비교해서 맞으면 성공 틀리면 실패...안됨 -->
@@ -50,8 +61,11 @@
 
 </section>
 <form action="kakaoLogin">
-	<a id="kakao-login-btn">카카오로그인</a>
+	<a id="kakao-login-btn" href="javascript:loginWithKakao()"><img
+		src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg"
+		width="222" /></a>
 </form>
+<button class="api-btn" onclick="kakaoLogout()">로그아웃</button>
 <script type="text/javascript">
 	function MLoginBtn() {
 		var mid = $("#mid").val();
@@ -71,7 +85,7 @@
 		}
 		memberLogin.submit();
 		
-	};
+	}
 
 	$(document).ready(function(){
 		var loginResult = "${loginResult}";
@@ -79,30 +93,90 @@
 			alert('아이디 비밀번호가 일치하지 않습니다.')
 			}
 		})
-</script>
 
-
-
-
-<script type="text/javascript">
-	Kakao.Auth.createLoginButton({
-				container : '#kakao-login-btn',
+		
+function loginWithKakao() {
+    Kakao.Auth.loginForm({
 				success : function(authObj) {
 					Kakao.API.request({
 								url : '/v2/user/me',
-								success : function(res) {
-									alert(JSON.stringify(res))
+								success : function(response) {
+									var userId = response.id;
+									var userEmail = response.kakao_account.email;
+									var userNickname = response.properties.nickname;
+									
+									console.log("userId", userId);
+									console.log("userEmail", userEmail);
+									console.log("userNickname", userNickname);
+
+									var mpassword = checkKakaoJoin(userId);
+									console.log("mpassword", mpassword);
+									if(mpassword != null){
+										$("#mid").val(userId);
+										$("#mpassword").val(mpassword);
+										MLoginBtn();
+									} else {
+										if(confirm('카카오계정으로 가입된 정보가 없습니다. 카카오 계정으로 가입하시겠습니까?')){
+											joinKakao(userId, userEmail, userNickname);
+										}
+									}
 								},
 								fail : function(error) {
 									alert('login success, but failed to request user information: '
 											+ JSON.stringify(error))
 								},
 							})
+							console.log(authObj);
+					var token = authObj.access_token;
 				},
-				fail : function(err) {
-					alert('failed to login: ' + JSON.stringify(err))
+      fail: function(err) {
+        alert(JSON.stringify(err))
+      },
+    })
+  }
+  
+				
+  function kakaoLogout() {
+    if (!Kakao.Auth.getAccessToken()) {
+      alert('Not logged in.')
+      return
+    }
+    Kakao.Auth.logout(function() {
+      alert('logout ok\naccess token -> ' + Kakao.Auth.getAccessToken())
+      location.href="https://developers.kakao.com/logout"
+    })
+  }
+
+  function checkKakaoJoin(userId){
+		var checkResult = null;
+		$.ajax({
+			type: "post",
+			url: "checkKakaoJoin",
+			data: {
+				"userId": userId
 				},
+			dataType: "text",
+			async: false,
+			success: function(result){
+				if(result != "NO") {
+					checkResult = result;
+					}
+				},
+			error: function(){
+				console.log('checkKakao 연결 실패')
+				}
+			
 			})
+			return checkResult;
+	  }
+	function joinKakao(userId, userEmail, userNickname){
+		window.name = "joinKakao";
+		var openWin = window.open("joinKakaoForm?mid="+userId+"&memail="+userEmail+"&mname="+userNickname, "joinKakaoPop", "width=600, height=800, left=100, top=50")
+	}
+	function gotoMain(){
+		alert('회원가입 및 로그인 되었습니다.');
+		location.href="/";
+		}
 </script>
 
 

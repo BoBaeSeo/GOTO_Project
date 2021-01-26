@@ -442,4 +442,47 @@ public class MemberService {
 			return findresult;
 		}
 
+		//추가추가추가추가
+		public String checkKakaoJoin(String userId) {
+			String mid = memberMapper.checkKakaoJoin(userId);
+			String result = "NO";
+			if(mid != null) {
+				result = "OK";
+			}
+			return result;
+		}
+
+		public ModelAndView joinKakaoForm(MemberDTO memberDTO) {
+			mav = new ModelAndView();
+			mav.addObject("memberDTO", memberDTO);
+			mav.setViewName("member/joinKakaoForm");
+			return mav;
+		}
+
+		public String kakaoJoin(MemberDTO memberDTO) {
+			String getMcode = memberMapper.getMcode();
+			String mcode;
+			if (getMcode == null) {
+				mcode = "ME" + "001";
+			} else {
+				int mcodeNum = Integer.parseInt(getMcode.substring(2, 5)) + 1;
+				if (mcodeNum < 10) {
+					mcode = "ME" + "00" + mcodeNum;
+				} else if (mcodeNum < 100) {
+					mcode = "ME" + "0" + mcodeNum;
+				} else {
+					mcode = "ME" + mcodeNum;
+				}
+			}
+
+			memberDTO.setMcode(mcode);
+			int insertResult = memberMapper.kakaoJoin(memberDTO);
+			String result = "NO";
+			if(insertResult > 0) {
+				session.setAttribute("MLoginId", memberDTO.getMid());
+				result = memberMapper.getMpassword(mcode);
+			}
+			return result;
+		}
+
 }

@@ -79,4 +79,11 @@ public interface MemberMapper {
 	public String findPassword(MemberDTO memberDTO);
 
 	public ArrayList<String> getReviewList(String loginId);
+
+	// 추가추가추가
+	public String checkKakaoJoin(String userId);
+
+	public int kakaoJoin(MemberDTO memberDTO);
+
+	public String getMpassword(String mcode);
 }

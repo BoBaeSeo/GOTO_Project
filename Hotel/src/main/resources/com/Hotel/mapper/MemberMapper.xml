@@ -199,7 +199,21 @@
 		resultType="String">
 		SELECT V_BCODE FROM REVIEW WHERE VWRITER = #{loginId}
 	</select>
+	
+	<!-- 추가추가추가 -->
+	<select id="checkKakaoJoin" resultType="String" parameterType="String">
+		SELECT MID FROM MEMBERS WHERE MID = #{userId}
+	</select>
 
+	<insert id="kakaoJoin" parameterType="com.Hotel.dto.MemberDTO">
+		INSERT INTO MEMBERS(MCODE,
+		MID, MPASSWORD, MNAME, MPHONE, MBIRTH, MEMAIL)
+		VALUES(#{mcode},#{mid},#{mpassword},#{mname},#{mphone},#{mbirth},#{memail})
+	</insert>
+	
+	<select id="getMpassword" resultType="String" parameterType="String">
+		SELECT MPASSWORD FROM MEMBERS WHERE MCODE = #{mcode}
+	</select>
 	<!-- 여러개를 불러올때는 타입을 map으로 설정 -->
 	<resultMap type="map" id="hotel">
 		<result property="ho_ctcode" column="HO_CTCODE" />

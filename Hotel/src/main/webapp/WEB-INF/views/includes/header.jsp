@@ -142,6 +142,3 @@
 		}
 	
 	</script>
-
-</body>
-</html>
