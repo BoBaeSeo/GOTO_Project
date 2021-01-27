@@ -65,7 +65,6 @@
 		src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg"
 		width="222" /></a>
 </form>
-<button class="api-btn" onclick="kakaoLogout()">로그아웃</button>
 <script type="text/javascript">
 	function MLoginBtn() {
 		var mid = $("#mid").val();
@@ -135,17 +134,6 @@ function loginWithKakao() {
     })
   }
   
-				
-  function kakaoLogout() {
-    if (!Kakao.Auth.getAccessToken()) {
-      alert('Not logged in.')
-      return
-    }
-    Kakao.Auth.logout(function() {
-      alert('logout ok\naccess token -> ' + Kakao.Auth.getAccessToken())
-      location.href="https://developers.kakao.com/logout"
-    })
-  }
 
   function checkKakaoJoin(userId){
 		var checkResult = null;

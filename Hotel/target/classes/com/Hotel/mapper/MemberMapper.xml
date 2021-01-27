@@ -201,18 +201,21 @@
 	</select>
 	
 	<!-- 추가추가추가 -->
+	<!-- 카카오 id가 존재하는지 확인 -->
 	<select id="checkKakaoJoin" resultType="String" parameterType="String">
 		SELECT MID FROM MEMBERS WHERE MID = #{userId}
 	</select>
 
+	<!-- 카카오 회원가입 -->
 	<insert id="kakaoJoin" parameterType="com.Hotel.dto.MemberDTO">
 		INSERT INTO MEMBERS(MCODE,
 		MID, MPASSWORD, MNAME, MPHONE, MBIRTH, MEMAIL)
 		VALUES(#{mcode},#{mid},#{mpassword},#{mname},#{mphone},#{mbirth},#{memail})
 	</insert>
 	
+	<!-- 패스워드 select -->
 	<select id="getMpassword" resultType="String" parameterType="String">
-		SELECT MPASSWORD FROM MEMBERS WHERE MCODE = #{mcode}
+		SELECT MPASSWORD FROM MEMBERS WHERE MID = #{userId}
 	</select>
 	<!-- 여러개를 불러올때는 타입을 map으로 설정 -->
 	<resultMap type="map" id="hotel">

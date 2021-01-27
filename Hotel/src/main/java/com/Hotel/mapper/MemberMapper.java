@@ -81,9 +81,12 @@ public interface MemberMapper {
 	public ArrayList<String> getReviewList(String loginId);
 
 	// 추가추가추가
+	// 로그인 api 가입확인
 	public String checkKakaoJoin(String userId);
 
+	// kakao 회원가입
 	public int kakaoJoin(MemberDTO memberDTO);
 
-	public String getMpassword(String mcode);
+	// 비밀번호 select
+	public String getMpassword(String userId);
 }

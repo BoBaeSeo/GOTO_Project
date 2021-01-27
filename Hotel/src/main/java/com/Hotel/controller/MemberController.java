@@ -230,21 +230,21 @@ public class MemberController {
 	}
 
 	// 추가추가추가추가
-	// 로그인 api 
+	// 로그인 api버튼을 눌렀을때 가입된 회원이 있는지 확인
 	@RequestMapping(value = "/checkKakaoJoin")
 	public @ResponseBody String checkKakaoJoin(String userId) {
 		System.out.println("checkKakaoJoin");
 		String result = memberService.checkKakaoJoin(userId);
 		return result;
 	}
-	
+	// 로그인 api로 가입하기 위해 Form으로 이동
 	@RequestMapping(value = "/joinKakaoForm")
 	public ModelAndView joinKakaoForm(MemberDTO memberDTO) {
 		System.out.println("joinKakaoForm");
 		mav = memberService.joinKakaoForm(memberDTO);
 		return mav;
 	}
-	
+	// joinKakaoForm에서 회원가입
 	@ResponseBody
 	@RequestMapping(value = "/kakaoJoin")
 	public void kakaoJoin(MemberDTO memberDTO) {

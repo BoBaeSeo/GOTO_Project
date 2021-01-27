@@ -22,6 +22,7 @@
 		</where>
 	</select>
 	
+	<!-- 메인페이지 검색, 호텔리스트 side바 검색, 메인 메뉴 호텔버튼을 눌렀을때 hotelList.jsp로 넘어가기 위한 정보 -->
 	<select id="c_HotelList" parameterType="Map" resultMap="searchHotelDTO">
 		SELECT DISTINCT HO_CTCODE, HOCODE, HONAME, HOFILENAME, HOADDR, HOSCORE, HOPUBLICIZE, (SELECT MIN(ROPRICE)FROM ROOM WHERE RO_HOCODE = HOCODE) AS ROPRICE, RN2 
 		FROM (SELECT RN AS RN2, HOTEL.*, ROCODE, ROPRICE FROM (SELECT ROWNUM RN, HOTEL.* FROM HOTEL) HOTEL INNER JOIN ROOM ON HOCODE = RO_HOCODE

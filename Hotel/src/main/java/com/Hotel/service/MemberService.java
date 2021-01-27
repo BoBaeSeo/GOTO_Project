@@ -443,23 +443,25 @@ public class MemberService {
 		}
 
 		//추가추가추가추가
+		// 로그인 api 가입확인
 		public String checkKakaoJoin(String userId) {
 			String mid = memberMapper.checkKakaoJoin(userId);
 			String result = "NO";
 			if(mid != null) {
-				result = "OK";
+				result = memberMapper.getMpassword(userId);
 			}
 			return result;
 		}
-
+		// 로그인 api로 가입하기 위해 Form으로 이동
 		public ModelAndView joinKakaoForm(MemberDTO memberDTO) {
 			mav = new ModelAndView();
 			mav.addObject("memberDTO", memberDTO);
 			mav.setViewName("member/joinKakaoForm");
 			return mav;
 		}
-
+		// joinKakaoForm에서 회원가입
 		public String kakaoJoin(MemberDTO memberDTO) {
+			// Mcode 생성
 			String getMcode = memberMapper.getMcode();
 			String mcode;
 			if (getMcode == null) {
@@ -476,11 +478,13 @@ public class MemberService {
 			}
 
 			memberDTO.setMcode(mcode);
+			// 회원 insert
 			int insertResult = memberMapper.kakaoJoin(memberDTO);
+			
 			String result = "NO";
 			if(insertResult > 0) {
 				session.setAttribute("MLoginId", memberDTO.getMid());
-				result = memberMapper.getMpassword(mcode);
+				result = "OK";
 			}
 			return result;
 		}
