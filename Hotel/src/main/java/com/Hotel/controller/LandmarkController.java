@@ -17,10 +17,10 @@ public class LandmarkController {
 	private LandmarkService landmarkService;
 	
 	@RequestMapping(value="/landmarkList")
-	public ModelAndView landmarkList(@RequestParam(value="page", defaultValue="1") int page) {
+	public ModelAndView landmarkList(@RequestParam(value="page", defaultValue="1") int page, String ctcode) {
 		// landmarkList
 		
-		mav = landmarkService.landmarkList(page);
+		mav = landmarkService.landmarkList(page, ctcode);
 		
 		return mav;
 	}

@@ -25,9 +25,10 @@ public class HelpController {
 	
 	// 1대1문의 작성폼
 	@RequestMapping(value = "/HelpWriteForm")
-	public String HelpWriteForm() {
+	public ModelAndView HelpWriteForm() {
 		System.out.println("1대1문의 작성폼!!");
-		return "help/HelpWriteForm";
+		mav = helpService.helpWriteForm();
+		return mav;
 		
 	}
 	

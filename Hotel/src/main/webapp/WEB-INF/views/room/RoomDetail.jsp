@@ -145,7 +145,8 @@
 
 	}
 	function RestaurantBtn() {
-		location.href = "landmarkList";
+		var ctcode = '${hotelDTO.ho_ctcode}';
+		location.href = "landmarkList?ctcode="+ctcode;
 
 	}
 

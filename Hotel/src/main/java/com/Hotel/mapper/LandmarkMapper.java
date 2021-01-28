@@ -2,6 +2,7 @@ package com.Hotel.mapper;
 
 import java.util.ArrayList;
 
+import com.Hotel.dto.CityDTO;
 import com.Hotel.dto.LandmarkDTO;
 import com.Hotel.dto.MemberDTO;
 import com.Hotel.dto.PageDTO;
@@ -31,5 +32,8 @@ public interface LandmarkMapper {
 	public String lacodeCheck(String inputLacode);
 
 	public String getlacode();
+
+	// city select
+	public ArrayList<CityDTO> getCityList();
 
 }

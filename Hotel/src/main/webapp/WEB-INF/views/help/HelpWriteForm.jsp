@@ -22,8 +22,9 @@
 									<h5>1대1 문의 작성</h5>
 									<span>#</span>
 								</div>
+						</a> 
 						</c:if>
-						</a> <a href="/c_FAQList" class="ba-item">
+						<a href="/c_FAQList" class="ba-item">
 							<div class="ba-text">
 								<h5>자주 묻는 질문</h5>
 								<span>FAQ</span>
@@ -43,9 +44,9 @@
 					</div>
 					<form action="HelpWrite" class="contact-form">
 						<select name="he_qccode" id="he_qccode">
-							<option value="QC001">예약관련</option>
-							<option value="QC002">취소관련</option>
-							<option value="QC003">할인관련</option>
+						<c:forEach var="list" items="${qcateList }">
+							<option value="${list.qccode }">${list.qcname }</option>
+						</c:forEach>
 						</select><br>
 						<br>
 						<br> <input type="text" name="hetitle" id="hetitle"

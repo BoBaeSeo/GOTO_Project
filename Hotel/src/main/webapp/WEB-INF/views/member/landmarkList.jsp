@@ -27,17 +27,52 @@
                     <div class="property-sidebar">
                         <h4>유명한 랜드마크 찾기</h4>
                         <form action="searchingLandmark" class="sidebar-search">
-                            <select name="la_ctcode">
-                                <option value="#">찾고 있는 지역 선택</option>
-                                <option value="CT001">서울</option>
-                                <option value="CT002">부산</option>
-                                <option value="CT003">제주</option>
-                                <option value="CT004">여수</option>
-                                <option value="CT005">경주</option>
+                            <select name="la_ctname" id="la_ctname">
+                                <option value="">찾고 있는 지역 선택</option>
+                                <option value="서울">서울</option>
+                                <option value="경주">경주</option>
+                                <option value="부산">부산</option>
+                                <option value="경주">경주</option>
+                                <option value="제주도">제주도</option>
+                            </select>
+                            <select name="la_ctdivide" id="la_ctdivide">
+                                <option value="">지역 위치 선택</option>
+                                <option value="동">동</option>
+                                <option value="서">서</option>
+                                <option value="남">남</option>
+                                <option value="북">북</option>
                             </select>
                             <button type="submit" class="search-btn">관광지 탐색</button>
                         </form>
-                        
+                        <p>서울</p>
+                        <p>동 - <c:forEach var="list" items="${cityList}">
+                        	<c:if test="${list.ctname == '서울'}">
+                        	<c:choose>
+                        	<c:when test="${list.ctdivide == '동' }">${list.ctborough } </c:when>
+                        	</c:choose>
+                        	</c:if>
+                        </c:forEach></p>
+                        <p>서 - <c:forEach var="list" items="${cityList}">
+                        	<c:if test="${list.ctname == '서울'}">
+                        	<c:choose>
+                        	<c:when test="${list.ctdivide == '서' }">${list.ctborough } </c:when>
+                        	</c:choose>
+                        	</c:if>
+                        </c:forEach></p>
+                        <p>남 - <c:forEach var="list" items="${cityList}">
+                        	<c:if test="${list.ctname == '서울'}">
+                        	<c:choose>
+                        	<c:when test="${list.ctdivide == '남' }">${list.ctborough } </c:when>
+                        	</c:choose>
+                        	</c:if>
+                        </c:forEach></p>
+                        <p>북 - <c:forEach var="list" items="${cityList}">
+                        	<c:if test="${list.ctname == '서울'}">
+                        	<c:choose>
+                        	<c:when test="${list.ctdivide == '북' }">${list.ctborough } </c:when>
+                        	</c:choose>
+                        	</c:if>
+                        </c:forEach></p>
                     </div>
                 </div>
                 <div class="col-lg-9">
@@ -86,11 +121,10 @@
         </div>
     </section>
 <script type="text/javascript">
-
-function danger() {
-	console.log("서울");
-}
-
+	$(document).ready(function(){
+		$("#la_ctname").change(function(){
+			})
+		})
 </script>
 
 

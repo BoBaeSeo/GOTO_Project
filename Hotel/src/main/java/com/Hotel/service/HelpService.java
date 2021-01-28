@@ -13,8 +13,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.Hotel.dto.FaqDTO;
 import com.Hotel.dto.HelpDTO;
-import com.Hotel.mapper.HelpMapper;
+import com.Hotel.dto.QcategoryDTO;
 import com.Hotel.mapper.FaqMapper;
+import com.Hotel.mapper.HelpMapper;
 
 @Service
 public class HelpService {
@@ -146,6 +147,17 @@ public class HelpService {
 		System.out.println("faqWriteForm::" + faqWrite);
 
 		mav.setViewName("redirect:/FaqList");
+		return mav;
+	}
+
+	// 오류 수정 추가
+	// 1대1문의 작성 폼
+	public ModelAndView helpWriteForm() {
+		mav = new ModelAndView();
+		// 카테고리 select
+		ArrayList<QcategoryDTO> qcateList = helpMapper.getQcategory();
+		mav.addObject("qcateList", qcateList);
+		mav.setViewName("help/HelpWriteForm");
 		return mav;
 	}
 

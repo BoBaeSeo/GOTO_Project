@@ -47,6 +47,9 @@
 		SELECT MAX(HECODE) FROM HELP
 	</select>
 
+	<select id="getQcategory" resultMap="qcategory">
+		SELECT * FROM QCATEGORY
+	</select>
 	<resultMap type="map" id="FaqAndQcategoryDTO">
 		<id property="qccode" column="QCCODE" />
 		<id property="qcname" column="QCNAME" />
@@ -70,5 +73,10 @@
 		<result property="hecontent" column="HECONTENT" />
 		<result property="heanswer" column="HEANSWER" />
 		<result property="hedate" column="HEDATE" />
+	</resultMap>
+	
+	<resultMap type="com.Hotel.dto.QcategoryDTO" id="qcategory">
+		<result property="qccode" column="QCCODE" />
+		<result property="qcname" column="QCNAME" />
 	</resultMap>
 </mapper>  

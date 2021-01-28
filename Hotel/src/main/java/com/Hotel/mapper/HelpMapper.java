@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.Hotel.dto.FaqDTO;
 import com.Hotel.dto.HelpDTO;
+import com.Hotel.dto.QcategoryDTO;
 
 public interface HelpMapper {
 	
@@ -25,6 +26,10 @@ public interface HelpMapper {
 	public String maxFaqNum();
 
 	public String gethecode();
+
+	// 오류 수정 코드 추가
+	// 카테고리 select
+	public ArrayList<QcategoryDTO> getQcategory();
 	
 
 }

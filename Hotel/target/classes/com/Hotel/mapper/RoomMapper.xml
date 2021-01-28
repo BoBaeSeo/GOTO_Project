@@ -19,7 +19,7 @@
 	</select>
 	
 	<select id="getHotelName" parameterType="String" resultType="com.Hotel.dto.HotelDTO">
-		SELECT HONAME, HOADDR FROM HOTEL, ROOM WHERE HOCODE = RO_HOCODE AND ROCODE = #{rocode}
+		SELECT HO_CTCODE, HONAME, HOADDR FROM HOTEL, ROOM WHERE HOCODE = RO_HOCODE AND ROCODE = #{rocode}
 	</select>
 	
 	<update id="RoomModify" parameterType="com.Hotel.dto.RoomDTO">

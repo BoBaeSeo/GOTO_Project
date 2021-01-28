@@ -6,9 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.Hotel.mapper.LandmarkMapper;
+import com.Hotel.dto.CityDTO;
 import com.Hotel.dto.LandmarkDTO;
 import com.Hotel.dto.PageDTO;
+import com.Hotel.mapper.LandmarkMapper;
 
 
 @Service
@@ -19,7 +20,7 @@ public class LandmarkService {
 	@Autowired
 	private LandmarkMapper landmarkMapper;
 
-	public ModelAndView landmarkList(int page) {
+	public ModelAndView landmarkList(int page, String ctcode) {
 		
 		mav = new ModelAndView();
 		
@@ -41,7 +42,7 @@ public class LandmarkService {
 		int maxPage = (int)(Math.ceil((double)landmarkListCnt/pageLimit));
 		int startPage = ((int)(Math.ceil((double)page/pageLimit)) - 1) * pageNumLimit + 1;
 		int endPage = startPage + pageNumLimit - 1;
-		/* �ִ� �� ������ ���� ���� ���� ������, �װ��� �ø� */
+		
 		
 		if(endPage > maxPage) {
 			endPage = maxPage;
@@ -51,6 +52,10 @@ public class LandmarkService {
 		pageDTO.setEndpage(endPage);
 		pageDTO.setMaxpage(maxPage);
 		
+		// city select
+		ArrayList<CityDTO> cityList = landmarkMapper.getCityList();
+		
+		mav.addObject("cityList", cityList);
 		mav.addObject("landmarkList", landmarkList);
 		mav.addObject("pageDTO", pageDTO);
 		mav.setViewName("member/landmarkList");
