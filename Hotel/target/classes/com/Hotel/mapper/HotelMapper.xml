@@ -24,8 +24,8 @@
 	
 	<!-- 메인페이지 검색, 호텔리스트 side바 검색, 메인 메뉴 호텔버튼을 눌렀을때 hotelList.jsp로 넘어가기 위한 정보 -->
 	<select id="c_HotelList" parameterType="Map" resultMap="searchHotelDTO">
-		SELECT DISTINCT HO_CTCODE, HOCODE, HONAME, HOFILENAME, HOADDR, HOSCORE, HOPUBLICIZE, (SELECT MIN(ROPRICE)FROM ROOM WHERE RO_HOCODE = HOCODE) AS ROPRICE, RN2 
-		FROM (SELECT RN AS RN2, HOTEL.*, ROCODE, ROPRICE FROM (SELECT ROWNUM RN, HOTEL.* FROM HOTEL) HOTEL INNER JOIN ROOM ON HOCODE = RO_HOCODE
+		SELECT * FROM (SELECT ROWNUM AS RN, A.* FROM (SELECT DISTINCT HO_CTCODE, HOCODE, HONAME, HOFILENAME, HOADDR, HOSCORE, HOPUBLICIZE, (SELECT MIN(ROPRICE)FROM ROOM WHERE RO_HOCODE = HOCODE) AS ROPRICE
+		FROM (SELECT  HOTEL.*, ROCODE, ROPRICE FROM (SELECT HOTEL.* FROM HOTEL) HOTEL INNER JOIN ROOM ON HOCODE = RO_HOCODE
 		<where>
 			<if test="bookingDTO.bprice != null">AND ROPRICE &lt;= #{bookingDTO.bprice,jdbcType=VARCHAR}</if>
 			<if test="bookingDTO.bperson != null">AND ROMAXPER &gt;= #{bookingDTO.bperson,jdbcType=VARCHAR}</if>
@@ -37,8 +37,8 @@
 			ROCODE NOT IN (SELECT B_ROCODE FROM BOOKING WHERE (#{bookingDTO.bcheckin,jdbcType=VARCHAR} BETWEEN BCHECKIN AND BCHECKOUT OR #{bookingDTO.bcheckout,jdbcType=VARCHAR} BETWEEN BCHECKIN AND BCHECKOUT 
 			OR BCHECKIN BETWEEN #{bookingDTO.bcheckin,jdbcType=VARCHAR} AND #{bookingDTO.bcheckout,jdbcType=VARCHAR} OR BCHECKOUT BETWEEN #{bookingDTO.bcheckin,jdbcType=VARCHAR} AND #{bookingDTO.bcheckout,jdbcType=VARCHAR}))
 			</if>
-			AND RN2 BETWEEN #{pageDTO.startrow} AND #{pageDTO.endrow}
 		</where>
+			)A ) WHERE RN BETWEEN #{pageDTO.startrow} AND #{pageDTO.endrow}
 	</select>
 	
 	<select id="getHotelInfo" parameterType="String" resultMap="selectHotelInfo">
