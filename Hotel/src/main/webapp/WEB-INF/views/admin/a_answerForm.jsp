@@ -55,7 +55,7 @@
 											</tr>
 
 											<tr>
-												<td colspan="2"><input type="button"  class="btn primary-btn" value="답변하기" onclick="answerSubmit()"></td>
+												<td colspan="2"><input type="button"  class="primary-btn" value="답변하기" onclick="answerSubmit()"></td>
 											</tr>
 									</table>
 								</div>
@@ -86,7 +86,9 @@ function answerSubmit(){
 	var heanswer = $("#heanswer").val()
 	console.log(hecode);
 	console.log(heanswer);
+	/* 작성한 답변이 있으면 실행 */
 	if(heanswer != ""){
+		/* 답변 update */
 		$.ajax({
 			type : "post",
 			url : "answerUpdate",
@@ -98,8 +100,6 @@ function answerSubmit(){
 			success : function(result){
 				if(result=="OK"){
 					alert("등록성공");
-					
-					/* 경로 수정해줘야해요 */
 					location.href="a_questionList";
 				}
 			},

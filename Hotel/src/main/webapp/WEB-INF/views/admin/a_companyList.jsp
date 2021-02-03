@@ -53,7 +53,7 @@
 													<td>${cList.cmname }</td>
 													<td>${cList.cmemail }</td>
 													<td>
-													<a class="btn primary-btn" style="padding: 5% 10%;" onclick="companyDelete('${cList.cmid }')">삭제</a></td>
+													<a class="site-btn" onclick="companyDelete('${cList.cmid }')">삭제</a></td>
 												</tr>
 											</c:forEach>
 										</tbody>

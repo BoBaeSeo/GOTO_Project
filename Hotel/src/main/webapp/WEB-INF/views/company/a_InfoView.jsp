@@ -2,6 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../includes/a_sidebar.jsp"%>
 <!-- main 시작 -->
+<style>
+input{
+    border: none;
+    color: #aaaab3;
+}
+</style>
 <!-- main top 시작-->
 <div class="main">
 	<section class="breadcrumb-section">
@@ -64,11 +70,9 @@
 												value="${companyDTO.cmaddress }" readonly="readonly"></td>
 										</tr>
 									</table>
-
 									<button type="button" class="site-btn"
-										onclick="location.href='CompanyModify?cmid=${companyDTO.cmid }'">글수정</button>
+										onclick="location.href='CompanyModify?cmid=${companyDTO.cmid }'">업체정보수정</button>
 									<button type="button" class="site-btn" onclick="location.href='a_companyList'">글목록</button>
-
 								</div>
 							</div>
 						</div>

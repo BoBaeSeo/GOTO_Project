@@ -36,7 +36,7 @@ public class MemberService {
 
 	@Autowired
 	private MemberMapper memberMapper;
-	
+
 	@Autowired
 	private CompanyMapper companyMapper;
 
@@ -78,10 +78,11 @@ public class MemberService {
 			mav.setViewName("member/MemberLoginForm");
 			result = "NO";
 		}
-		mav.addObject("loginResult",result);
+		mav.addObject("loginResult", result);
 		return mav;
 	}
 
+	// 나의 예약 리스트
 	public ModelAndView c_myBookingList(int page) {
 		mav = new ModelAndView();
 		String loginId = (String) session.getAttribute("MLoginId");
@@ -106,13 +107,17 @@ public class MemberService {
 		pageDTO.setEndpage(endPage);
 		pageDTO.setMaxpage(maxPage);
 
-		// bookingList select
 		Map<String, Object> pageAndId = new HashMap<String, Object>();
 		pageAndId.put("pageDTO", pageDTO);
 		pageAndId.put("loginId", loginId);
+
+		// 예약 리스트 select
 		List<Map<String, Object>> bookingList = memberMapper.c_myBookingList(pageAndId);
 		System.out.println(bookingList);
+
+		// 리뷰 리스트 select
 		ArrayList<String> bcodeList = memberMapper.getReviewList(loginId);
+
 		mav.addObject("bcodeList", bcodeList);
 		mav.addObject("pageDTO", pageDTO);
 		mav.addObject("bookingList", bookingList);
@@ -120,8 +125,9 @@ public class MemberService {
 		return mav;
 	}
 
+	// 예약 삭제
 	public String deleteBooking(String bcode) {
-		// 예약 취소
+		// 예약 삭제
 		int deleteResult = memberMapper.deleteBooking(bcode);
 		String result = "NO";
 		if (deleteResult > 0) {
@@ -130,19 +136,21 @@ public class MemberService {
 		return result;
 	}
 
+	// 관리자 회원 리스트
 	public ModelAndView a_memberList() {
 		mav = new ModelAndView();
 		// 회원리스트
 		ArrayList<MemberDTO> memberList = memberMapper.a_memberList();
 		String ALoginId = (String) session.getAttribute("ALoginId");
 		String loginPw = companyMapper.getloginPw(ALoginId);
-		
-		mav.addObject("loginPw",loginPw);
+
+		mav.addObject("loginPw", loginPw);
 		mav.addObject("memberList", memberList);
 		mav.setViewName("member/a_memberList");
 		return mav;
 	}
 
+	// 관리자 회원 삭제
 	@Transactional(rollbackFor = { Exception.class }) // delete중 하나라도 오류가 날 시 rollback
 	public String a_memberDelete(MemberDTO memberDTO) {
 		// member에 연결된 테이블에서 정보 삭제
@@ -164,31 +172,36 @@ public class MemberService {
 		return result;
 	}
 
+	// 에약 확인 폼
 	public ModelAndView bookingCheckForm(BookingDTO bookingDTO) {
 		mav = new ModelAndView();
 
+		// 고객 정보 select
 		String loginid = (String) session.getAttribute("MLoginId");
 		System.out.println("loginid : " + loginid);
 		MemberDTO memberDTO = memberMapper.bookingCheck(loginid);
 		System.out.println(memberDTO.getMid());
 
+		// 방 정보 select
 		String rocode = bookingDTO.getB_rocode();
 		System.out.println("rocode : " + rocode);
-		RoomDTO roomDTO = roomMapper.bookingCheck(rocode);
+		RoomDTO roomDTO = roomMapper.RoomDetail(rocode);
 		System.out.println(roomDTO.getRocode());
 
+		// 호텔 정보 select
 		String hocode = roomDTO.getRo_hocode();
 		System.out.println("hocode : " + hocode);
-		HotelDTO hotelDTO = hotelMapper.bookingCheck(hocode);
+		HotelDTO hotelDTO = hotelMapper.gethotel(hocode);
 		H_InfoDTO h_infoDTO = h_infoMapper.bookingCheck(hocode);
 		System.out.println(h_infoDTO.getIncin());
 
+		// 도시 정보 select
 		String ctcode = hotelDTO.getHo_ctcode();
 		System.out.println("ctcode : " + ctcode);
 		CityDTO cityDTO = cityMapper.bookingCheck(ctcode);
 		System.out.println(cityDTO.getCtname());
 
-		// bocode
+		// 방 코드 만들기
 		String getBocode = bookingMapper.getbocode();
 		String bocode;
 		int bocodeNum = Integer.parseInt(getBocode.substring(2, 5)) + 1; // bocode + 1
@@ -213,30 +226,27 @@ public class MemberService {
 		return mav;
 	}
 
+	// 예약 등록
 	public ModelAndView bookingCheck(BookingDTO bookingDTO) {
 		mav = new ModelAndView();
 
+		// 예약 등록
 		int checkResult = bookingMapper.bookingCheck(bookingDTO);
-		
-		if(checkResult > 0) {
+
+		if (checkResult > 0) {
 			String result = "OK";
-			mav.addObject("bookingesult",result);
+			mav.addObject("bookingesult", result);
 		}
-		
+
 		mav.setViewName("index");
 
 		return mav;
 	}
 
-	public String bcodeCheck(String inputBcode) {
-
-		String check = bookingMapper.bcodeCheck(inputBcode);
-
-		return check;
-	}
-
-	// 아이디 중복확인
+	// 아이디 중복 확인
 	public String idCheck(String inputMid) {
+
+		// 아이디 중복 확인
 		String idCheck = memberMapper.idCheck(inputMid);
 
 		String checkResult = null;
@@ -249,11 +259,15 @@ public class MemberService {
 		return checkResult;
 	}
 
-	// 회원가입
+	// 고객 회원가입
 	public ModelAndView joinMember(MemberDTO memberDTO, RedirectAttributes ra) {
 		System.out.println("service::joinMember");
 		mav = new ModelAndView();
+
+		// 전체 이메일
 		memberDTO.setMemail(memberDTO.getMemailid() + "@" + memberDTO.getMemaildomain());
+
+		// M코드 만들기
 		String getMcode = memberMapper.getMcode();
 		String mcode;
 		if (getMcode == null) {
@@ -282,8 +296,7 @@ public class MemberService {
 
 		System.out.println("insertResult::" + insertResult);
 
-		// mav.setViewName("redirect:/memberLoginForm");
-		mav.setViewName("index");
+		mav.setViewName("member/MemberLoginForm");
 		return mav;
 	}
 
@@ -291,22 +304,26 @@ public class MemberService {
 	public ModelAndView selectMembers() {
 		mav = new ModelAndView();
 		String loginId = (String) session.getAttribute("MLoginId");
+
+		// 회원 정보 select
 		MemberDTO memberDTO = memberMapper.selectMembers(loginId);
 		mav.setViewName("help/c_mypage");
 		mav.addObject("memberDTO", memberDTO);
-		return mav; 
+		return mav;
 	}
-	
+
 //	회원정보 수정
 	public String updateMembers(MemberDTO memberdto) {
 		mav = new ModelAndView();
 		String loginId = (String) session.getAttribute("MLoginId");
+
 		Map<String, Object> memberMap = new HashMap<String, Object>();
 		memberMap.put("memberdto", memberdto);
 		memberMap.put("loginId", loginId);
+		// 회원 수정
 		int result = memberMapper.updateMembers(memberMap);
 		String modifyResult = "NO";
-		if(result > 0) {
+		if (result > 0) {
 			modifyResult = "OK";
 		}
 		return modifyResult;
@@ -315,178 +332,183 @@ public class MemberService {
 //	회원 탈퇴
 	@Transactional(rollbackFor = Exception.class)
 	public String delMembers(MemberDTO memberDTO) {
-		memberMapper.c_delHistory(memberDTO);
+		// 좋아요 history 삭제
+		memberMapper.a_delHistory(memberDTO);
+
+		// 리뷰 삭제
 		ArrayList<String> vcodeList = memberMapper.getvcode(memberDTO);
-		for(String i : vcodeList) {
-			memberMapper.c_delHistoryVcode(i);
+		for (String i : vcodeList) {
+			memberMapper.a_delHistoryVcode(i);
 		}
-		memberMapper.c_delReview(memberDTO);
-		memberMapper.c_delBooking(memberDTO);
-		memberMapper.c_delHeart(memberDTO);
-		
+		memberMapper.a_delReview(memberDTO);
+
+		// 예약 삭제
+		memberMapper.a_delBooking(memberDTO);
+
+		// 찜 삭제
+		memberMapper.a_delHeart(memberDTO);
+
+		// 회원 삭제
 		int result = memberMapper.c_memberDelete(memberDTO);
 		String sesultSet;
-		if(result > 0) {
+		if (result > 0) {
 			sesultSet = "OK";
-		}else {
+		} else {
 			sesultSet = "NO";
 		}
 		return sesultSet;
 	}
-	
 
-	//찜목록 출력+찜목록 페이징
+	// 찜목록 출력+찜목록 페이징
 	public ModelAndView heartList(HotelDTO hotelDTO, int page) {
 		mav = new ModelAndView();
 		String htid = (String) session.getAttribute("MLoginId");
-		
-		//1페 보여지는 찜수, 페이지번호수
+
+		// 1페 보여지는 찜수, 페이지번호수
 		int pageLimit = 3;
 		int pageNumLimit = 2;
-				
-		//1페이지에 보여지는 첫페, 끝페
+
+		// 1페이지에 보여지는 첫페, 끝페
 		int startRow = (page - 1) * pageLimit + 1;
 		int endRow = page * pageLimit;
-				
-		//찜목록 첫찜, 막찜
+
+		// 찜목록 첫찜, 막찜
 		PageDTO pagedto = new PageDTO();
 		pagedto.setStartrow(startRow);
 		pagedto.setEndrow(endRow);
-		
-		
-		String hofilename = "";
-		String savePath = "C:\\Users\\seeth\\git\\Hotel\\Hotel\\src\\main\\webapp\\resources\\img\\hotelFile\\";
-		MultipartFile hophoto = hotelDTO.getHophoto();
-		File file = new File (savePath+hofilename);
-		hotelDTO.setHofileName(hofilename);
-		
+
 		int heartListCnt = memberMapper.getHeartListCnt(htid);
-		
-		//최대 page수
-		int maxPage = (int)(Math.ceil( (double)heartListCnt/pageLimit) );
-				
-		//첫페, 끝페
-		int startPage = ((int)(Math.ceil((double)page/pageNumLimit)) -1) * pageNumLimit + 1;
+
+		// 최대 page수
+		int maxPage = (int) (Math.ceil((double) heartListCnt / pageLimit));
+
+		// 첫페, 끝페
+		int startPage = ((int) (Math.ceil((double) page / pageNumLimit)) - 1) * pageNumLimit + 1;
 		int endPage = startPage + pageNumLimit - 1;
-				
-		if(endPage > maxPage) {
+
+		if (endPage > maxPage) {
 			endPage = maxPage;
 		}
 		pagedto.setPage(page);
 		pagedto.setStartpage(startPage);
 		pagedto.setEndpage(endPage);
 		pagedto.setMaxpage(maxPage);
-		
+
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("htid", htid);
 		map.put("hotelDTO", hotelDTO);
 		map.put("pagedto", pagedto);
 		List<Map<String, Object>> heartList = memberMapper.heartList(map);
-		System.out.println("heartList:::"+heartList);
-		
+		System.out.println("heartList:::" + heartList);
+
 		mav.addObject("pagedto", pagedto);
 		mav.addObject("heartList", heartList);
 		mav.setViewName("member/c_heartList");
 		return mav;
 	}
 
-
-	//찜삭제
+	// 찜삭제
 	public String heartDelete(String htcode) {
 		mav = new ModelAndView();
 
+		// 찜 삭제
 		int heartDelete = memberMapper.heartDelete(htcode);
 		System.out.println(heartDelete);
-		
+
 		String result = "NO";
 		if (heartDelete > 0) {
 			result = "OK";
 		}
 		return result;
 	}
-	
+
 	// 로그인 찾기
 	public @ResponseBody String findLogin(String findname, String findnumber) {
 
-			
-			MemberDTO memberDTO = new MemberDTO();
-			
-			memberDTO.setMname(findname);
-			memberDTO.setMphone(findnumber);
-			String result = memberMapper.findLogin(memberDTO);
-			String findresult = null;
-			
-			// 로그인 아이디 확인 후 출력 리설트
-			if ( result == null ) {
-				findresult = "ID not Found";
-			} else {
-				findresult = "Find ID : " + result;
-			}
-			
-			return findresult;
+		MemberDTO memberDTO = new MemberDTO();
+
+		memberDTO.setMname(findname);
+		memberDTO.setMphone(findnumber);
+		
+		// 아이디 찾기
+		String result = memberMapper.findLogin(memberDTO);
+		String findresult = null;
+
+		// 로그인 아이디 확인 후 출력 리설트
+		if (result == null) {
+			findresult = "ID not Found";
+		} else {
+			findresult = "Find ID : " + result;
 		}
+
+		return findresult;
+	}
 
 	// 비밀번호 찾기
-		public String findPassword(MemberDTO memberDTO) {
-			
-			String result = memberMapper.findPassword(memberDTO);
-			String findresult = null;
+	public String findPassword(MemberDTO memberDTO) {
 
-			// 비밀번호 확인 후 출력 리설트
-			if ( result == null ) {
-				findresult = "PASSWORD not Found";
+		// 비밀번호 찾기
+		String result = memberMapper.findPassword(memberDTO);
+		String findresult = null;
+
+		// 비밀번호 확인 후 출력 리설트
+		if (result == null) {
+			findresult = "PASSWORD not Found";
+		} else {
+			findresult = "Find PASSWORD : " + result;
+		}
+
+		return findresult;
+	}
+
+	// 로그인 api 가입확인
+	public String checkKakaoJoin(String userId) {
+		
+		// 카카오 아이디가 존재하는지 확인
+		String mid = memberMapper.checkKakaoJoin(userId);
+		String result = "NO";
+		if (mid != null) {
+			result = memberMapper.getMpassword(userId);
+		}
+		return result;
+	}
+
+	// 로그인 api로 가입하기 위해 Form으로 이동
+	public ModelAndView joinKakaoForm(MemberDTO memberDTO) {
+		mav = new ModelAndView();
+		mav.addObject("memberDTO", memberDTO);
+		mav.setViewName("member/joinKakaoForm");
+		return mav;
+	}
+
+	// joinKakaoForm에서 회원가입
+	public String kakaoJoin(MemberDTO memberDTO) {
+		// Mcode 생성
+		String getMcode = memberMapper.getMcode();
+		String mcode;
+		if (getMcode == null) {
+			mcode = "ME" + "001";
+		} else {
+			int mcodeNum = Integer.parseInt(getMcode.substring(2, 5)) + 1;
+			if (mcodeNum < 10) {
+				mcode = "ME" + "00" + mcodeNum;
+			} else if (mcodeNum < 100) {
+				mcode = "ME" + "0" + mcodeNum;
 			} else {
-				findresult = "Find PASSWORD : " + result;
+				mcode = "ME" + mcodeNum;
 			}
-			
-			return findresult;
 		}
 
-		//추가추가추가추가
-		// 로그인 api 가입확인
-		public String checkKakaoJoin(String userId) {
-			String mid = memberMapper.checkKakaoJoin(userId);
-			String result = "NO";
-			if(mid != null) {
-				result = memberMapper.getMpassword(userId);
-			}
-			return result;
-		}
-		// 로그인 api로 가입하기 위해 Form으로 이동
-		public ModelAndView joinKakaoForm(MemberDTO memberDTO) {
-			mav = new ModelAndView();
-			mav.addObject("memberDTO", memberDTO);
-			mav.setViewName("member/joinKakaoForm");
-			return mav;
-		}
-		// joinKakaoForm에서 회원가입
-		public String kakaoJoin(MemberDTO memberDTO) {
-			// Mcode 생성
-			String getMcode = memberMapper.getMcode();
-			String mcode;
-			if (getMcode == null) {
-				mcode = "ME" + "001";
-			} else {
-				int mcodeNum = Integer.parseInt(getMcode.substring(2, 5)) + 1;
-				if (mcodeNum < 10) {
-					mcode = "ME" + "00" + mcodeNum;
-				} else if (mcodeNum < 100) {
-					mcode = "ME" + "0" + mcodeNum;
-				} else {
-					mcode = "ME" + mcodeNum;
-				}
-			}
+		memberDTO.setMcode(mcode);
+		// 회원 insert
+		int insertResult = memberMapper.kakaoJoin(memberDTO);
 
-			memberDTO.setMcode(mcode);
-			// 회원 insert
-			int insertResult = memberMapper.kakaoJoin(memberDTO);
-			
-			String result = "NO";
-			if(insertResult > 0) {
-				session.setAttribute("MLoginId", memberDTO.getMid());
-				result = "OK";
-			}
-			return result;
+		String result = "NO";
+		if (insertResult > 0) {
+			session.setAttribute("MLoginId", memberDTO.getMid());
+			result = "OK";
 		}
+		return result;
+	}
 
 }

@@ -46,19 +46,19 @@ public class CompanyController {
 
 	// 업체정보상세보기
 	@RequestMapping(value = "/cpInfoView")
-	public ModelAndView cpInfoView(String cmid) {
+	public ModelAndView cpInfoView() {
 		System.out.println("/cpInfoView");
 		System.out.println("업체정보수정 view부분");
-		mav = companyService.cpInfoView(cmid);
+		mav = companyService.cpInfoView();
 		return mav;
 	}
 
 	// 업체정보수정 폼
 	@RequestMapping(value = "/CompanyModify")
-	public ModelAndView CompanyModify(String cmid) {
+	public ModelAndView CompanyModify() {
 		System.out.println("/CompanyModify");
 		System.out.println("업체정보수정폼");
-		mav = companyService.CompanyModify(cmid);
+		mav = companyService.CompanyModify();
 		return mav;
 	}
 
@@ -96,6 +96,7 @@ public class CompanyController {
 		return result;
 	}
 
+	// 관리자 레스토랑 리스트
 	@RequestMapping(value = "/adminRestaurantList")
 	public ModelAndView adminRestaurantList() {
 		// adminRestaurantList
@@ -105,29 +106,31 @@ public class CompanyController {
 		return mav;
 	}
 
+	// 관리자 레스토랑 수정
 	@RequestMapping(value = "/restaurantModify")
-	public ModelAndView restaurantModify(RestaurantDTO restaurantDTO, RedirectAttributes ra)
-			throws IllegalStateException, IOException {
+	public ModelAndView restaurantModify(RestaurantDTO restaurantDTO) throws IllegalStateException, IOException {
 		// restaurantModify
 
 		System.out.println("/restaurantModify");
 		System.out.println(restaurantDTO.getRecode());
-		mav = companyService.restaurantModify(restaurantDTO, ra);
+		mav = companyService.restaurantModify(restaurantDTO);
 
 		return mav;
 	}
 
+	// 관리자 레스토랑 삭제
 	@RequestMapping(value = "/restaurantDelete")
-	public ModelAndView restaurantDelete(String recode, RedirectAttributes ra) {
+	public ModelAndView restaurantDelete(String recode) {
 		// restaurantDelete
 
 		System.out.println("/restaurantDelete");
 
-		mav = companyService.restaurantDelete(recode, ra);
+		mav = companyService.restaurantDelete(recode);
 
 		return mav;
 	}
 
+	// 관리자 레스토랑 수정 폼
 	@RequestMapping(value = "/restaurantModifyForm")
 	public ModelAndView restaurantModifyForm(String recode) {
 		// restaurantModifyForm
@@ -140,6 +143,7 @@ public class CompanyController {
 		return mav;
 	}
 
+	// 관리자 랜드마크 리스트
 	@RequestMapping(value = "/adminLandmarkList")
 	public ModelAndView adminLandmarkList() {
 		System.out.println("/adminLandmarkList");
@@ -149,6 +153,7 @@ public class CompanyController {
 		return mav;
 	}
 
+	// 관리자 랜드마크 수정 폼
 	@RequestMapping(value = "/landmarkModifyForm")
 	public ModelAndView landmarkModifyForm(String lacode) {
 		// landmarkModifyForm
@@ -160,41 +165,45 @@ public class CompanyController {
 		return mav;
 	}
 
+	// 관리자 랜드마크 삭제
 	@RequestMapping(value = "/landmarkDelete")
-	public ModelAndView landmarkDelete(String lacode, RedirectAttributes ra) {
+	public ModelAndView landmarkDelete(String lacode) {
 		// landmarkDelete
 
 		System.out.println("/landmarkDelete");
 
-		mav = companyService.landmarkDelete(lacode, ra);
+		mav = companyService.landmarkDelete(lacode);
 
 		return mav;
 	}
 
+	// 관리자 랜드마크 수정
 	@RequestMapping(value = "/landmarkModify")
-	public ModelAndView landmarkModify(LandmarkDTO landmarkDTO, RedirectAttributes ra)
+	public ModelAndView landmarkModify(LandmarkDTO landmarkDTO)
 			throws IllegalStateException, IOException {
 		// landmarkModify
 
 		System.out.println("/landmarkModify");
 
-		mav = companyService.landmarkModify(landmarkDTO, ra);
+		mav = companyService.landmarkModify(landmarkDTO);
 
 		return mav;
 	}
 
+	// 관리자 랜드마크 등록
 	@RequestMapping(value = "/landmarkInsert")
-	public ModelAndView landmarkInsert(LandmarkDTO landmarkDTO, RedirectAttributes ra, CityDTO cityDTO)
+	public ModelAndView landmarkInsert(LandmarkDTO landmarkDTO, CityDTO cityDTO)
 			throws IllegalStateException, IOException {
 		// landmarkInsert
 
 		System.out.println("/landmarkInsert");
 
-		mav = companyService.landmarkInsert(landmarkDTO, ra, cityDTO);
+		mav = companyService.landmarkInsert(landmarkDTO, cityDTO);
 
 		return mav;
 	}
 
+	// 관리자 랜드마크 등록 폼
 	@RequestMapping(value = "/LandmarkInsertForm")
 	public ModelAndView LandmarkInsertForm() {
 		// landmarkInsertForm
@@ -206,6 +215,7 @@ public class CompanyController {
 		return mav;
 	}
 
+	// 관리자 랜드마크 이름 중복확인
 	@RequestMapping(value = "/lanameCheck")
 	public @ResponseBody String lanameCheck(String inputLaname) {
 		// lanameCheck
@@ -217,24 +227,13 @@ public class CompanyController {
 		return check;
 	}
 
-	@RequestMapping(value = "/lacodeCheck")
-	public @ResponseBody String lacodeCheck(String inputLacode) {
-		// lacodeCheck
-
-		System.out.println("/lacodeCheck");
-
-		String check = companyService.lacodeCheck(inputLacode);
-
-		return check;
-	}
-
 	// 관리자 메인페이지
 	@RequestMapping(value = "/companyMain")
 	public String companyMain() {
 		return "company/companyMain";
 	}
 
-	// 1대1문의 리스트
+	// 관리자 1대1문의 리스트
 	@RequestMapping(value = "/a_questionList")
 	public ModelAndView a_questionList() {
 		System.out.println("/a_questionList");
@@ -242,19 +241,19 @@ public class CompanyController {
 		return mav;
 	}
 
-	// 맛집 등록으로 넘어가는거
+	// 관리자 맛집 등록으로 넘어가는거
 	@RequestMapping(value = "/restaurantForm")
 	public String restaurantForm() {
 		return "company/restaurantForm";
 	}
 
-	// 맛집 등록하는거
+	// 관리자 맛집 등록하는거
 	@RequestMapping(value = "/JoinRestaurant")
-	public ModelAndView JoinRestaurant(RestaurantDTO restaurantDTO, RedirectAttributes ra, CityDTO cityDTO)
+	public ModelAndView JoinRestaurant(RestaurantDTO restaurantDTO, CityDTO cityDTO)
 			throws IllegalStateException, IOException {
 		System.out.println("/JoinRestaurant");
 		System.out.println(restaurantDTO);
-		mav = companyService.JoinRestaurant(restaurantDTO, ra, cityDTO);
+		mav = companyService.JoinRestaurant(restaurantDTO, cityDTO);
 		return mav;
 	}
 
@@ -282,7 +281,7 @@ public class CompanyController {
 		return mav;
 	}
 
-	// 업체리스트
+	// 관리자 업체리스트
 	@RequestMapping(value = "/a_companyList")
 	public ModelAndView companyList() {
 		System.out.println("/companyList");
@@ -290,7 +289,7 @@ public class CompanyController {
 		return mav;
 	}
 
-	// 업체 삭제
+	// 관리자 업체 삭제
 	@RequestMapping(value = "companyDelete")
 	public ModelAndView companyDelete(String cmid) {
 		System.out.println("/companyDelete::" + cmid);
@@ -299,7 +298,7 @@ public class CompanyController {
 		return mav;
 	}
 
-	// 업체 매출 현황
+	// 관리자 업체 매출 현황
 	@RequestMapping(value = "companySales")
 	public ModelAndView companySales(@RequestParam(value = "year", defaultValue = "0") int year) {
 		System.out.println("companySales");

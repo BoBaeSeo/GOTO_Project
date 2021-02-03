@@ -101,7 +101,7 @@
 									<div class="form-row">
 										<div class="form-group col-md-6">
 											<label class="small mb-1">호텔 사진</label>
-											<img src="/resources/img/${hotelDTO.hofileName }" style="max-width: 75%;">
+											<img src="/resources/img/hotelFile/${hotelDTO.hofileName }" style="max-width: 75%;">
 										</div>
 									</div>
 								</form>
@@ -113,7 +113,6 @@
                         					<button type="button" class="btn site-btn" onclick="btnUpdate()" id="btnUp">수정하기</button>
                     					</div>
                 					</div>
-                					
                                 </div>
                             </div>
                         </div>
@@ -125,7 +124,7 @@
     <!-- Contact Section End -->
     </body>
 <script type="text/javascript">
- 	//수정버튼
+ 	/* 수정버튼 */
 	function btnUpdate(){
 		console.log("btnUpdate() 실행.");
 
@@ -138,24 +137,26 @@
  	}
 
 
-	 //세부내용 수정
+	 /* 세부내용 수정 */
 	 function btnUpdateCheck(check) {
 		console.log("btnUpdateCheck() 실행::" + check);
 
 		if(check){
 			var in_hocode = '${h_infoDTO.in_hocode}';
-			//수정내용
+			/* 수정내용 */
 			var newIndetail = $("#indetail").val();
 			console.log(in_hocode+"::"+newIndetail);
 
-			//원래내용
+			/* 원래내용 */
 			var indetail = '${h_infoDTO.indetail }';
+
+			/* 호텔 수정 */
 			$.ajax({
 				type : "post",
 				url : "updateIndetail",
 				data : {
 					"in_hocode" : in_hocode,
-					"indetail" : indetail
+					"indetail" : newIndetail
 					},
 					dataType : "text",
 					success : function(updateResult){
@@ -174,7 +175,7 @@
 
 
 	 
-	 //취소버튼
+	 /* 취소버튼 */
 	 function btnUpdateCancel(check){
 		 console.log("btnUpdateCancel() 실행::" + check);
 

@@ -45,8 +45,7 @@
 													<td>${rList.honame }</td>
 													<td>${rList.vwriter }</td>
 													<td>${rList.vdrawup }</td>
-													<td><a class="btn primary-btn" style="padding: 5% 10%;"
-														onclick="reviewDelete('${rList.vcode }')">삭제</a></td>
+													<td><a class="site-btn" onclick="reviewDelete('${rList.vcode }')">삭제</a></td>
 												</tr>
 											</c:forEach>
 										</tbody>

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
     <!-- Footer Section Begin -->
     <footer class="footer-section set-bg" data-setbg="resources/img/footer-bg.jpg">
         <div class="container">
@@ -22,9 +21,9 @@
                             <ul>
                                 <li><i class="fa fa-caret-right"></i> <a href="/c_HotelList?ctname=서울">서울</a></li>
                                 <li><i class="fa fa-caret-right"></i> <a href="/c_HotelList?ctname=경주">경주</a></li>
-                                <li><i class="fa fa-caret-right"></i> <a href="/c_HotelList?ctname=전주">전주</a></li>
+                                <li><i class="fa fa-caret-right"></i> <a href="/c_HotelList?ctname=여수">여수</a></li>
                                	<li><i class="fa fa-caret-right"></i> <a href="/c_HotelList?ctname=부산">부산</a></li>
-                                <li><i class="fa fa-caret-right"></i> <a href="/c_HotelList?ctname=제주">제주</a></li>
+                                <li><i class="fa fa-caret-right"></i> <a href="/c_HotelList?ctname=제주도">제주</a></li>
                             </ul>
                         </div>
                     </div>

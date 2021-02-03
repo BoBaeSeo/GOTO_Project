@@ -5,11 +5,13 @@
 
 <mapper namespace="com.Hotel.mapper.CityMapper">
 
+	<!-- 예약 확인 -->
 	<select id="bookingCheck" parameterType="String"
 		resultType="com.Hotel.dto.CityDTO">
 		SELECT * FROM CITY WHERE CTCODE = #{ctcode}
 	</select>
-
+	
+	<!-- ct코드 select -->
 	<select id="getCtcode" parameterType="com.Hotel.dto.CityDTO"
 		resultType="String">
 		SELECT CTCODE FROM CITY WHERE CTBOROUGH = #{ctborough}

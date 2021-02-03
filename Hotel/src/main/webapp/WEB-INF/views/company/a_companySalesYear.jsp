@@ -18,12 +18,13 @@
 </body>
 <script language="JavaScript">
 	$(document).ready(function(){
+		/* 구글 차트 api 불러오기 */
 		google.charts.load('current', {'packages':['bar']});
 		google.charts.setOnLoadCallback(salesChart);
 		})
 
 	function salesChart(){
-
+		/* 구글 차트 이용하여 12개월로 나눠서 차트 생성 */
 		var nowDate = '${salesList[0].bdrawup}';
 		var nowYear = nowDate.split('-');
 		

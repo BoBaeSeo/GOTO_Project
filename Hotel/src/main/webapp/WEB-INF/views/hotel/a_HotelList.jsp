@@ -4,6 +4,7 @@
 <%@ include file="../includes/a_sidebar.jsp"%>
 <!-- main 시작 -->
 <!-- main top 시작-->
+
 <div class="main">
 	<section class="breadcrumb-section">
 		<div class="row">
@@ -41,15 +42,15 @@
 											</thead>
 											<tbody>
 											<c:choose>
-												<c:when test="${sessionScope.ALoginId=='AACM' }">
+												<c:when test="${sessionScope.ALoginId != null }">
 													<c:forEach var="list" items="${hotelList }">
 														<tr id="hotel${list.hocode }">
 															<td>${list.ho_ctcode }</td>
 															<td>${list.ho_cid }</td>
 															<td>${list.hocode }</td>
-															<td> <a href="a_hotelView?hocode=${list.hocode }">${list.honame }</a></td>
+															<td> <a href="a_hotelView?hocode=${list.hocode }" style="border-bottom-style: solid;">${list.honame }</a></td>
 															<td>${list.hoscore }</td>
-															<td><button onclick="hotelDelete('${list.hocode}')">삭제</button></td>
+															<td><button class="btn" onclick="hotelDelete('${list.hocode}')" >삭제</button></td>
 														</tr>
 													</c:forEach>
 												</c:when>

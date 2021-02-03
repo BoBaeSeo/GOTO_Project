@@ -37,7 +37,7 @@ public class RoomController {
 	}
 	
 	
-	//룸등록부분
+	//룸등록 부분
 	@RequestMapping(value = "/RoomWrite")
 	public ModelAndView RoomWrite(RoomDTO roomDTO) throws IllegalStateException, IOException {
 		System.out.println("/RoomWrite");

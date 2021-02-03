@@ -26,7 +26,6 @@
 				<div class="col-lg-12">
 					<div class="card shadow">
 						<div class="card-body">
-							<div class="table-responsive">
 								<form action="faqWriteForm" class="contact-form" method="post" id="insertForm">
 
 									<!-- 고객센터 코드 선택 -->
@@ -65,7 +64,6 @@
 										</div>
 									</div>
 								</form>
-							</div>
 						</div>
 					</div>
 				</div>

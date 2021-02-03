@@ -26,19 +26,19 @@
 				<div class="col-lg-12">
 					<div class="property-list">
 						<form action="FaqList" method="post">
-									<div class="card shadow">
-										<div class="card-body">
-											<div class="table-responsive">
-												<table class="table table-bordered" cellspacing="0">
-													<thead>
-														<tr>
-															<td>FaqCode</td>
-															<td>카테고리</td>
-															<td>자주묻는 질문 제목</td>
-															<td>삭제</td>
-														</tr>
-													</thead>
-													<tbody>
+							<div class="card shadow">
+								<div class="card-body">
+									<div class="table-responsive">
+										<table class="table table-bordered" cellspacing="0">
+											<thead>
+												<tr>
+													<td>FaqCode</td>
+													<td>카테고리</td>
+													<td>자주묻는 질문 제목</td>
+													<td>삭제</td>
+												</tr>
+											</thead>
+											<tbody>
 												<c:choose>
 													<c:when test="${sessionScope.ALoginId=='ADMIN' }">
 														<c:forEach var="fList" items="${FaqList }">
@@ -47,16 +47,17 @@
 																<td>${fList.faq_qccode }</td>
 																<td>${fList.faqtitle }</td>
 																<td><button type="button" id="FaqDelBtn"
+																		class="site-btn"
 																		onclick="deleteBtn('${fList.faqcode}')">삭제</button></td>
 															</tr>
 														</c:forEach>
 													</c:when>
 												</c:choose>
 											</tbody>
-												</table>
-											</div>
-										</div>
+										</table>
 									</div>
+								</div>
+							</div>
 						</form>
 					</div>
 				</div>
@@ -72,21 +73,21 @@
 
 </body>
 
-	<script>
-		function deleteBtn(faqcode){
-			alert('삭제되었습니다.');
-			location.href='FaqListDel?faqcode='+faqcode;
-			}
-	</script>
+<script>
+	function deleteBtn(faqcode) {
+		alert('삭제되었습니다.');
+		location.href = 'FaqListDel?faqcode=' + faqcode;
+	}
+</script>
 
-	<!-- Js Plugins -->
-	<script src="resources/js/jquery-3.3.1.min.js"></script>
-	<script src="resources/js/bootstrap.min.js"></script>
-	<script src="resources/js/jquery.magnific-popup.min.js"></script>
-	<script src="resources/js/jquery.nice-select.min.js"></script>
-	<script src="resources/js/jquery.slicknav.js"></script>
-	<script src="resources/js/jquery-ui.min.js"></script>
-	<script src="resources/js/owl.carousel.min.js"></script>
-	<script src="resources/js/main.js"></script>
+<!-- Js Plugins -->
+<script src="resources/js/jquery-3.3.1.min.js"></script>
+<script src="resources/js/bootstrap.min.js"></script>
+<script src="resources/js/jquery.magnific-popup.min.js"></script>
+<script src="resources/js/jquery.nice-select.min.js"></script>
+<script src="resources/js/jquery.slicknav.js"></script>
+<script src="resources/js/jquery-ui.min.js"></script>
+<script src="resources/js/owl.carousel.min.js"></script>
+<script src="resources/js/main.js"></script>
 
 </html>

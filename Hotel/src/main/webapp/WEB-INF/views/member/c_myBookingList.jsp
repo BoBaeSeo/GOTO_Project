@@ -2,53 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../includes/header.jsp"%>
-<style>
-	.col-lg-4{
-		float: left;
-	}
-	.f-text{
-		font-size: 13px;
-    	color: #ffffff;
-    	font-weight: 500;
-    	text-transform: uppercase;
-    	letter-spacing: 1px;
-    	background: #E1481F;
-    	display: inline-block;
-    	padding: 3px 20px;
-    	float: right;
-	}
-	.s-text{
-		font-size: 13px;
-		float: left;
-	}
-	h5, .room-price{
-		clear: both;
-		padding: 10px;
-	}
-	p{
-		width: 250px;
-		float: left;
-		margin: 5px;
-	}
-	.review{
-		background: #ffffff;
-		color: #2cbdb8;
-		float: right;
-	}
-	.t_title{
-		font-weight: bold;
-		font-size: 17px;
-	}
-	.property-list .single-property-item .property-pic img{
-		min-width: 80%;
-		width: 230px;
-		height: 230px;
-		padding-top: 25px;
-	}
-	.property-list .single-property-item{
-		padding: 0;
-	}
-</style>
+
 <!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-section">
 	<div class="container">
@@ -57,7 +11,7 @@
 				<div class="breadcrumb-text">
 					<h2>My Page</h2>
 					<div class="breadcrumb-option">
-						<a href="#"><i class="fa fa-home"></i> Home</a> 
+						<a href="/"><i class="fa fa-home"></i> Home</a> 
 						<span>MyBookingList</span>
 					</div>
 				</div>
@@ -67,7 +21,8 @@
 </section>
 <!-- Breadcrumb Section End -->
 
-   <section class="property-section spad">
+<!-- Property Section Begin -->
+<section class="property-section spad">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-3">
@@ -77,24 +32,32 @@
 						<a href="c_mypage?mid=${sessionScope.MLoginId }" class="ba-item">
 							<div class="ba-text">
 								<h5>내 정보</h5>
-								<span>#</span>
+								<span>Info</span>
 							</div>
 						</a> <a href="c_myBookingList" class="ba-item">
 							<div class="ba-text">
 								<h5>내 예약 목록</h5>
-								<span>#</span>
+								<span>Booking</span>
 							</div>
 						</a> <a href="heartList" class="ba-item">
 							<div class="ba-text">
 								<h5>찜 목록</h5>
-								<span>#</span>
+								<span>♡</span>
 							</div>
 						</a> <a href="reviewPage" class="ba-item">
 							<div class="ba-text">
 								<h5>나의 후기</h5>
-								<span>#</span>
+								<span>Review</span>
 							</div>
 						</a>
+						<button
+							onclick="delMember('${memberDTO.mcode }','${memberDTO.mid }')"
+							class="ba-item btn-none">
+							<div class="ba-text">
+								<h5>회원 탈퇴</h5>
+								<span>Secession</span>
+							</div>
+						</button>
 					</div>
 				</div>
 			</div>
@@ -218,6 +181,28 @@
 		var openWin = window.open("resources/writeReview.jsp?hocode="+hocode+"&loginId=${sessionScope.MLoginId}&v_bcode="+bcode, "reviewPop", "width=700, height=500, left=100, top=50");
 		$("#review" + bcode).remove();
 	}
-
+	
+	/* 탈퇴 */
+	function delMember(mcode, mid) {
+		$.ajax({
+			type : 'post',
+			url : 'memberDelete',
+			data : {
+				'mcode' : mcode,
+				'mid' : mid
+			},
+			dataType : 'text',
+			success : function(result) {
+				console.log(result);
+				if (result == 'OK') {
+					alert('탈퇴되었습니다.')
+					location.href = "/"
+				}
+			},
+			error : function() {
+				console.log('member 삭제 연결 실패')
+			}
+		})
+	}
 </script>
 <%@ include file="../includes/footer.jsp"%>

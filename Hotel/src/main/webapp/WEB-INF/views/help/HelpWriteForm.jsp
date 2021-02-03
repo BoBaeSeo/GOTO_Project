@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../includes/header.jsp"%>
-
+<style>
+#help{
+color: #2CBDB8;
+}
+</style>
 <!-- Property Section Begin -->
 <section class="contact-section">
 	<div class="container">
@@ -20,11 +24,10 @@
 							<a href="HelpWriteForm" class="ba-item">
 								<div class="ba-text">
 									<h5>1대1 문의 작성</h5>
-									<span>#</span>
+									<span>1:1 Write</span>
 								</div>
-						</a> 
 						</c:if>
-						<a href="/c_FAQList" class="ba-item">
+						</a> <a href="/c_FAQList" class="ba-item">
 							<div class="ba-text">
 								<h5>자주 묻는 질문</h5>
 								<span>FAQ</span>
@@ -78,7 +81,7 @@
 			$("#hecontent").focus();
 			return;
 			}
-		
+		/* 문의 등록 */
 		$.ajax({
 			type : 'post',
 			url : 'HelpWrite',

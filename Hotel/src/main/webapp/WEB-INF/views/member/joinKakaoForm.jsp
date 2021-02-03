@@ -234,6 +234,7 @@ a:link {
 		var mphone = $("#mphone").val();
 		var mbirth = $("#mbirth").val();
 		var memail = $("#memail").val();
+		/* 카카오 아이디로 회원가입 */
 		$.ajax({
 			url : 'kakaoJoin',
 			data : {

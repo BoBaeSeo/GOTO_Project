@@ -47,8 +47,7 @@
 															<td>${list.mname }</td>
 															<td>${list.mid }</td>
 															<td>${list.memail }</td>
-															<td><button class="btn primary-btn" style="padding: 5% 10%;"
-																 onclick="memberDelete('${list.mcode}', '${list.mid }')">탈퇴</button></td>
+															<td><button class="site-btn" onclick="memberDelete('${list.mcode}', '${list.mid }')">탈퇴</button></td>
 														</tr>
 													</c:forEach>
 												</c:when>

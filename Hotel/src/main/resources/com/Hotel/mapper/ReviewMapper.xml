@@ -5,53 +5,57 @@
 
 <mapper namespace="com.Hotel.mapper.ReviewMapper">
 
+	<!-- 리뷰 등록 -->
 	<select id="getReviewList" parameterType="String"
 		resultMap="selectReview">
 		SELECT * FROM REVIEW WHERE V_HOCODE = #{hocode}
 	</select>
 
+	<!-- 리뷰 리스트 select -->
 	<insert id="insertReview"
 		parameterType="com.Hotel.dto.ReviewDTO">
 		INSERT INTO REVIEW(VCODE, V_HOCODE, VWRITER, VCONTENT, VSCORE, VDRAWUP, V_BCODE)
 		VALUES(#{vcode}, #{v_hocode}, #{vwriter}, #{vcontent}, #{vscore}, SYSDATE, #{v_bcode})
 	</insert>
 
+	<!-- MAX RV코드 select -->
 	<select id="getvcode" resultType="String">
 		SELECT MAX(VCODE) FROM REVIEW
 	</select>
 
-	<select id="getNewReview" parameterType="String"
-		resultMap="selectReview">
-		SELECT * FROM REVIEW WHERE VCODE = #{vcode}
-	</select>
-
+	<!-- 리뷰 개수 select -->
 	<select id="getReviewCnt" parameterType="String"
 		resultType="int">
 		SELECT count(vcode) FROM REVIEW where v_hocode = #{hocode}
 	</select>
 
+	<!-- 리뷰 삭제 -->
 	<delete id="deleteReview" parameterType="String">
 		DELETE FROM REVIEW WHERE
 		VCODE = #{vcode}
 	</delete>
 
+	<!-- 리뷰 수정 -->
 	<update id="modifyReview"
 		parameterType="com.Hotel.dto.ReviewDTO">
 		UPDATE REVIEW SET VCONTENT = #{vcontent}, VSCORE = #{vscore} WHERE VCODE =
 		#{vcode}
 	</update>
 
+	<!-- 좋아요 리스트 select -->
 	<select id="getlikeList" parameterType="String"
 		resultMap="selectHistory">
 		SELECT * FROM HISTORY
 	</select>
 
+	<!-- 리뷰 좋아요 -->
 	<insert id="likeProcess"
 		parameterType="com.Hotel.dto.HistoryDTO">
 		INSERT INTO HISTORY(HI_VCODE, HIID, HICHECKLIKE) VALUES(#{hi_vcode},
 		#{hiid}, 1)
 	</insert>
 
+	<!-- 리뷰 좋아요 취소 -->
 	<delete id="unlikeProcess"
 		parameterType="com.Hotel.dto.HistoryDTO">
 		DELETE FROM HISTORY WHERE HI_VCODE = #{hi_vcode} AND HIID = #{hiid}
@@ -65,15 +69,13 @@
 		SELECT REVIEW.*, HOTEL.HONAME FROM REVIEW, HOTEL WHERE
 		REVIEW.V_HOCODE = HOTEL.HOCODE AND REVIEW.VWRITER = #{MloginId}
 	</select>
-	<!-- 나의 후기 삭제 -->
-	<delete id="reviewDelete" parameterType="String">
-		DELETE FROM REVIEW WHERE VCODE = #{VCODE}
-	</delete>
 
+	<!-- 리뷰 history 삭제 -->
 	<delete id="historyDelete" parameterType="String">
 		DELETE FROM HISTORY WHERE HI_VCODE= #{VCODE}
 	</delete>
 
+	<!-- 리뷰 리스트 select -->
 	<select resultMap="review" id="reviewPage">
 		SELECT *
 		FROM (SELECT ROWNUM RN, REVIEW.* , HOTEL.HONAME
@@ -82,10 +84,12 @@
 		WHERE RN BETWEEN #{startRow} AND #{endRow}
 	</select>
 
+	<!-- 리뷰 개수 select -->
 	<select id="getReviewListCnt" resultType="int">
 		SELECT COUNT(*) FROM REVIEW 
 	</select>
 
+	<!-- 리뷰 리스트 select -->
 	<select id="selectReviewList" resultMap="review">
 		SELECT VCODE, HONAME, VWRITER, TO_CHAR(VDRAWUP, 'YYYY-MM-DD') AS VDRAWUP FROM REVIEW INNER JOIN HOTEL ON V_HOCODE = HOCODE
 	</select>

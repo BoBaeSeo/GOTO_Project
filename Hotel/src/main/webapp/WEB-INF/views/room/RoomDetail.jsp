@@ -3,8 +3,12 @@
 <%@ include file="../includes/header.jsp"%>
 
 <style>
-.pd-hero-text{
+.pd-hero-text {
 	padding: 20px 0 20px;
+}
+
+#hotel {
+	color: #2CBDB8;
 }
 </style>
 <!-- Property Details Hero Section Begin -->
@@ -15,11 +19,11 @@
 		<div class="row">
 			<div class="col-lg-8 offset-lg-2">
 				<div class="pd-hero-text">
-						<p class="room-location"><i class="icon_pin"></i> ${hotelDTO.hoaddr }</p>
-					<div class="room-price">
-						<h2>${hotelDTO.honame }</h2>
-						<p style="font-size: 25px;">${roomDTO.roname }</p>
-					</div>
+					<p class="room-location">
+						<i class="icon_pin"></i> ${hotelDTO.hoaddr }
+					</p>
+					<h2>${hotelDTO.honame }</h2>
+					<p style="font-size: 25px;">${roomDTO.roname }</p>
 				</div>
 			</div>
 		</div>
@@ -34,32 +38,28 @@
 			<div class="col-lg-3">
 				<div class="property-sidebar">
 					<h4>Reservation</h4>
-
 					<form class="sidebar-search">
 						<div class="first-row">
 							<div id="ctnameDiv">
-
 								<p>체크인</p>
-                            	<input type="date" id="checkin" class="div-Date" name="bcheckin">
-                            	<p>체크아웃</p>
-                            	<input type="date" id="checkout" class="div-Date" name="bcheckout">
+								<input type="date" id="checkin" class="div-Date" name="bcheckin">
+								<p>체크아웃</p>
+								<input type="date" id="checkout" class="div-Date"
+									name="bcheckout">
 							</div>
 						</div>
 						<div id="bpriceDiv">
-							<br> <br>
 							<c:if test="${sessionScope.MLoginId != null }">
-								<button type="button" onclick="BookingBtn()" class="search-btn">예약</button>
-								<br>
-								<br>
-								<button type="reset" class="search-btn">다시작성</button>
-								<br>
-								<br>
+								<button type="button" onclick="BookingBtn()" class="search-btn"
+									style="margin: 5px 0;">예약</button>
+								<button type="reset" class="search-btn" style="margin: 15px 0;">다시작성</button>
 							</c:if>
-							<button type="button" onclick="RestaurantBtn()"
-								class="search-btn">맛집list</button>
-							<br> <br> <br>
-							<button type="button" onclick="LandMarkBtn()" class="search-btn">관광지list</button>
-
+							<button type="button"
+								onclick="location.href='restaurantList?re_ctcode=${hotelDTO.ho_ctcode}'"
+								class="search-btn" style="margin: 5px 0;">맛집list</button>
+							<button type="button"
+								onclick="location.href='landmarkList?la_ctcode=${hotelDTO.ho_ctcode}'"
+								class="search-btn" style="margin: 5px 0;">관광지list</button>
 						</div>
 					</form>
 				</div>
@@ -70,7 +70,8 @@
 					<div class="property-more-pic">
 						<div class="product-pic-zoom">
 							<img name="rofilename" class="product-big-img"
-								src="resources/img/roomFile/${roomDTO.rofilename }" alt="" width="100px" height="300px">
+								src="resources/img/roomFile/${roomDTO.rofilename }" alt=""
+								width="100px" height="300px">
 						</div>
 					</div>
 					<div class="pd-details-text">
@@ -109,13 +110,10 @@
 													</tr>
 													<tr>
 													</tr>
-
 												</tbody>
 											</table>
 										</div>
 									</div>
-
-
 								</div>
 							</div>
 						</div>
@@ -132,27 +130,16 @@
 		var rocode = "${roomDTO.rocode }";
 		var checkin = $("#checkin").val();
 		var checkout = $("#checkout").val();
-		if(checkin == ""){
+		if (checkin == "") {
 			alert('체크인 날짜를 입력해주세요');
 			return;
-			}
-		if(checkin == ""){
+		}
+		if (checkin == "") {
 			alert('체크아웃 날짜를 입력해주세요');
 			return;
-			}
+		}
 		location.href = "bookingCheckForm?b_rocode=" + rocode + "&bcheckin="
 				+ checkin + "&bcheckout=" + checkout;
-
-	}
-	function RestaurantBtn() {
-		var ctcode = '${hotelDTO.ho_ctcode}';
-		location.href = "landmarkList?ctcode="+ctcode;
-
-	}
-
-	function LandMarkBtn() {
-
-		location.href = "restaurantList";
 
 	}
 </script>

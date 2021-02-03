@@ -3,8 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="../includes/a_sidebar.jsp"%>
 <style>
-#sub, #rophoto{
-display: none;
+#sub, #rophoto {
+	display: none;
 }
 </style>
 
@@ -26,71 +26,84 @@ display: none;
 	<!-- main top 끝 -->
 
 	<!-- main container 시작 -->
-	<section class="property-section spad">
-		<div class="container">
+	<section class="contact-section">
+		<div class="container-fluid">
 			<div class="row">
-				<div class="col-lg-12">
-					<div class="property-list">
-						<div class="card shadow">
-							<div class="card-body">
-								<div class="table-responsive">
-									<form action="RoomModify" method="post"
-										enctype="multipart/form-data">
-										<table class="table table-bordered" cellspacing="0">
-											<tr>
-												<td>호텔코드</td>
-												<td><input type="text" value="${roomDTO.ro_hocode }" name="ro_hocode" id="ro_hocode"
-													readonly="readonly"></td>
-											</tr>
-											<tr>
-												<td>룸코드</td>
-												<td><input type="text" value="${roomDTO.rocode }" name="rocode" id="rocode"
-													readonly="readonly"></td>
-											</tr>
-											<tr>
-												<td>룸이름</td>
-												<td><input type="text" placeholder="룸 이름" name="roname"
-													id="roname" value="${roomDTO.roname }" readonly="readonly"></td>
-											</tr>
-											<tr>
-												<td>룸사진</td>
-												<td><input type="file" name="rophoto" id="rophoto">
-													<img src="resources\roomFile\${roomDTO.rofilename }"
-													alt="등록된 이미지 없음" id="roimg"></td>
-											</tr>
-											<tr>
-												<td>룸 상세정보</td>
-												<td><input type="text" placeholder="룸 상세정보"
-													name="rodetail" id="rodetail" value="${roomDTO.rodetail }"
-													readonly="readonly"></td>
-											</tr>
-											<tr>
-												<td>룸최소인원</td>
-												<td><input type="number" name="rominper" id="rominper"
-													value="${roomDTO.rominper }" readonly="readonly">명</td>
-											</tr>
-											<tr>
-												<td>룸최대인원</td>
-												<td><input type="number" name="romaxper" id="romaxper"
-													value="${roomDTO.romaxper }" readonly="readonly">명</td>
-											</tr>
-											<tr>
-												<td>룸가격</td>
-												<td><input type="text" placeholder="룸 가격"
-													name="roprice" id="roprice" value="${roomDTO.roprice }"
-													readonly="readonly"></td>
-											</tr>
-											<tr>
-												<td>방갯수</td>
-												<td><input type="number" name="ronum" id="ronum"
-													value="${roomDTO.ronum }" readonly="readonly">개</td>
-											</tr>
-										</table>
-										<input type="button" value="방정보 수정" id="btn"
-											onclick="remove_readonly_a()"> <input type="submit"
-											value="방정보 수정" id="sub">
-									</form>
+				<div class="col-lg-6" style="margin-left: auto; margin-right: auto;">
+					<div class="row">
+						<div class="col-lg-10 offset-lg-1">
+							<div class="contact-text">
+								<div class="section-title">
+									<h2>룸정보</h2>
 								</div>
+								<form action="RoomModify" method="post" class="contact-form"
+									enctype="multipart/form-data">
+									<!-- 호텔코드 -->
+									<div class="ba-text">
+										<label class="breadcrumb-text">호텔 코드</label> <input
+											type="text" value="${roomDTO.ro_hocode }" name="ro_hocode"
+											id="ro_hocode" readonly="readonly">
+									</div>
+
+									<!-- 룸코드 -->
+									<div class="ba-text">
+										<label class="breadcrumb-text">호텔 주소</label> <input
+											type="text" value="${roomDTO.rocode }" name="rocode"
+											id="rocode" readonly="readonly">
+									</div>
+
+									<!-- 룸사진 -->
+									<div class="ba-text">
+										<label class="breadcrumb-text">룸사진</label> <img
+											src="resources\img\roomFile\${roomDTO.rofilename }"
+											alt="등록된 이미지 없음" id="roimg">
+
+									</div>
+
+									<!-- 룸 상세정보 -->
+									<div class="ba-text">
+										<label class="breadcrumb-text">룸 상세정보</label>
+										<textarea rows="10" placeholder="룸 상세정보" name="rodetail"
+											id="rodetail" readonly="readonly">${roomDTO.rodetail }</textarea>
+										</td>
+									</div>
+
+									<!-- 룸최소인원 -->
+									<div class="ba-text">
+										<label class="breadcrumb-text">룸최소인원</label> <input
+											type="number" name="rominper" id="rominper"
+											value="${roomDTO.rominper }" readonly="readonly">
+									</div>
+
+									<!-- 룸최대인원 -->
+									<div class="ba-text">
+										<label class="breadcrumb-text">룸최대인원</label> <input
+											type="number" name="romaxper" id="romaxper"
+											value="${roomDTO.romaxper }" readonly="readonly">
+									</div>
+
+									<!-- 룸가격 -->
+									<div class="ba-text">
+										<label class="breadcrumb-text">룸가격</label> <input type="text"
+											placeholder="룸 가격" name="roprice" id="roprice"
+											value="${roomDTO.roprice }" readonly="readonly">
+									</div>
+
+									<!-- 방갯수 -->
+									<div class="ba-text">
+										<label class="breadcrumb-text">방갯수</label> <input
+											type="number" name="ronum" id="ronum"
+											value="${roomDTO.ronum }" readonly="readonly">
+									</div>
+									<hr>
+									<div class="col-lg-12">
+										<div class="loadmore">
+											<input type="button" value="방정보 수정" id="btn"
+												onclick="remove_readonly_a()"> <input type="submit"
+												value="방정보 수정" id="sub">
+										</div>
+									</div>
+								</form>
 							</div>
 						</div>
 					</div>
@@ -98,9 +111,8 @@ display: none;
 			</div>
 		</div>
 	</section>
-	<!-- main container 끝 -->
 </div>
-</div>
+<!-- main container 끝 -->
 <!-- main 끝 -->
 
 </body>
@@ -115,12 +127,12 @@ display: none;
 <script src="resources/js/owl.carousel.min.js"></script>
 <script src="resources/js/main.js"></script>
 <script type="text/javascript">
-	$("#btn").click(function(){
+	$("#btn").click(function() {
 		$('#sub').show()
 		$('#btn').hide()
 		$('#rophoto').show()
 		$('#roimg').hide()
-		
+
 		$('#roname').removeAttr("readonly")
 		$('#rodetail').removeAttr("readonly")
 		$('#rominper').removeAttr("readonly")
@@ -129,7 +141,5 @@ display: none;
 		$('#ronum').removeAttr("readonly")
 
 	})
-	
-	
 </script>
 </html>

@@ -50,8 +50,8 @@
 															<td>${list.cmphone }</td>
 															<td>${list.cmaddress }</td>
 															<td>${list.cmemail }</td>
-															<td><button onclick="comApprove('${list.cmcode}')">승인</button></td>
-															<td><button onclick="comDecline('${list.cmcode}')">거절</button></td>
+															<td><button class="site-btn" onclick="comApprove('${list.cmcode}')">승인</button></td>
+															<td><button class="site-btn" onclick="comDecline('${list.cmcode}')">거절</button></td>
 														</tr>
 													</c:forEach>
 												</c:when>

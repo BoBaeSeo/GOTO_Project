@@ -40,60 +40,6 @@
 </head>
 
 <body>
-	<!-- Page Preloder -->
-	<div id="preloder">
-		<div class="loader"></div>
-	</div>
-
-    <!-- Offcanvas Menu Section Begin -->
-    <div class="offcanvas-menu-overlay"></div>
-    <div class="canvas-open">
-        <i class="icon_menu"></i>
-    </div>
-    <div class="offcanvas-menu-wrapper">
-        <div class="canvas-close">
-            <i class="icon_close"></i>
-        </div>
-        <div class="language-bar" style="padding: 20px 0">
-            <div class="property-btn">
-            	<a href="joinSelect" class="property-sub">회원가입</a>
-                <a href="MemberLoginForm" class="property-sub">로그인</a>
-            </div>
-        </div>
-        <nav class="main-menu">
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="c_HotelList" >Hotel</a></li>
-                <li><a href="c_FAQList">Help</a></li>
-            </ul>
-        </nav>
-        <div class="nav-logo-right">
-            <ul>
-                <li>
-                    <i class="icon_phone"></i>
-                    <div class="info-text">
-                        <span>Phone:</span>
-                        <p>(032) 123 4567</p>
-                    </div>
-                </li>
-                <li>
-                    <i class="icon_map"></i>
-                    <div class="info-text">
-                        <span>Address:</span>
-                        <p>Michuhol-gu, <span>Incheon</span></p>
-                    </div>
-                </li>
-                <li>
-                    <i class="icon_mail"></i>
-                    <div class="info-text">
-                        <span>Email:</span>
-                        <p>ICIA@gmail.com</p>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <!-- Offcanvas Menu Section End -->
 
 	<!-- Header Section Begin -->
 	<header class="header-section">
@@ -103,12 +49,11 @@
 					<div class="col-lg-7">
 						<nav class="main-menu">
 							<ul>
-								<li><a href="/"><img src="resources/img/logo.png"
-										alt="" width="150px"></a>
+								<li><a href="/"><img src="resources/img/logo.png" alt="홈페이지 로고" width="150px"></a>
 								<li>
-								<li class="active" id="home"><a href="/">Home</a></li>
-								<li id="hotel"><a href="c_HotelList">Hotel</a></li>
-								<li id="help"><a href="c_FAQList">Help</a></li>
+								<li><a id="home" href="/">Home</a></li>
+								<li><a id="hotel" href="c_HotelList">Hotel</a></li>
+								<li><a id="help" href="c_FAQList">Help</a></li>
 							</ul>
 						</nav>
 					</div>
@@ -117,18 +62,16 @@
 							<!-- 로그인이 되면 보여줄 메뉴 -->
 							<c:choose>
 								<c:when test="${sessionScope.MLoginId eq null }">
-									<a href="joinSelect" class="property-sub"style="margin: 0 10px;">회원가입</a>
+									<a href="joinSelect" class="property-sub">회원가입</a>
 									<a href="MemberLoginForm" class="property-sub">회원 로그인</a>
 									<a href="AdminLoginForm" class="property-sub">업체 로그인</a>
 								</c:when>
 								<c:otherwise>
 									<a href="Logout" onclick="LogOut()" class="property-sub">로그아웃</a>
-									<a href="c_mypage?mid=${sessionScope.MLoginId }" class="property-sub">마이페이지</a>
+									<a href="c_mypage?mid=${sessionScope.MLoginId }"
+										class="property-sub">마이페이지</a>
 								</c:otherwise>
 							</c:choose>
-
-
-
 						</div>
 					</div>
 				</div>
@@ -136,9 +79,8 @@
 		</div>
 	</header>
 
-<script type="text/javascript">
-		function LogOut(){
+	<script type="text/javascript">
+		function LogOut() {
 			alert("로그아웃 되었습니다!");
 		}
-	
 	</script>

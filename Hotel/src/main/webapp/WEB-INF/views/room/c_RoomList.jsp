@@ -3,30 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../includes/header.jsp"%>
 <style>
-	.like-btn{
-   		background: #2cbdb8;
-   	 	cursor: pointer;
-	}
-	.property-list .single-property-item .property-pic img{
-		min-width: 80%;
-		width: 200px;
-		height: 200px;
-	}
-	@media (max-width: 1200px){
-		.property-list .single-property-item .property-pic img{
-		min-width: 80%;
-		width: 180px;
-		height: 180px;
-		}
-	}
-	@media (max-width: 992px){
-		.property-list .single-property-item .property-pic img{
-		min-width: 80%;
-		width: 150px;
-		height: 150px;
-		}
-	}
+#hotel{
+color: #2CBDB8;
+}
 </style>
+
 <!-- Property Details Hero Section Begin -->
 <section class="pd-hero-section set-bg"
 	data-setbg="resources/img/properties/product-content-bg.jpg"
@@ -98,7 +79,11 @@
 								</div>
 								<div class="tab-pane fade" id="tab-2" role="tabpanel">
 									<div class="pd-table-desc">
-										<p>${h_info.indetail }</p>
+									<table class="table">
+										<tr>
+										<td><p class="cl">${h_info.indetail }</p></td>
+										</tr>
+									</table>
 									</div>
 								</div>
 							</div>

@@ -16,25 +16,25 @@ public class RestaurantController {
 	@Autowired
 	private RestaurantService restaurantService;
 	
+	//레스토랑 리스트
 	@RequestMapping(value="/restaurantList")
-	public ModelAndView restrauntList(@RequestParam(value="page", defaultValue="1") int page) {
+	public ModelAndView restrauntList(String re_ctcode, @RequestParam(value="page", defaultValue="1") int page) {
 		// restaurantList
 		
 		System.out.println("/restrauntList");
 		
-		 mav = restaurantService.restaurantList(page);
+		 mav = restaurantService.restaurantList(re_ctcode,page);
 		
 		return mav;
 	}
 
-	
+	//레스토랑 검색
 	@RequestMapping(value="/searchingRestaurant")
-	public ModelAndView searchingRestaurant(String re_ctcode) {
+	public ModelAndView searchingRestaurant(String ctname, String ctdivide, @RequestParam(value="page", defaultValue="1") int page) {
 		// searchingRestaurant
 		
-		System.out.println("/searchingRestaurant " + re_ctcode );
 		
-		mav = restaurantService.searchingRestaurant(re_ctcode);
+		mav = restaurantService.searchingRestaurant(ctname, ctdivide, page);
 		
 		return mav;
 	}

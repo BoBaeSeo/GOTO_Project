@@ -111,19 +111,19 @@
                                     <div class="row">
                                 		<div class="col-lg-4">
                                 			<label class="breadcrumb-text">와이파이</label>
-                                    		<input type="text" id="inwifi" name="inwifi" required="required">
+                                    		<input type="text" id="inwifi" name="inwifi" required="required" placeholder="무료와이파이제공/불가">
                                			</div>
                                			
                                			<!-- 조식 -->
                                 		<div class="col-lg-4">
                                 			<label class="breadcrumb-text">조식여부</label>
-                                    		<input type="text" id="inbreak" name="inbreak" required="required">
+                                    		<input type="text" id="inbreak" name="inbreak" required="required" placeholder="조식제공/불가">
                                 		</div>
                                 		
                                 		<!-- 주차장 -->
                                 		<div class="col-lg-4">
                                 			<label class="breadcrumb-text">주차장</label>
-                                    		<input type="text" id="inparking" name="inparking" required="required">
+                                    		<input type="text" id="inparking" name="inparking" required="required" placeholder="무료주차/불가">
                                 		</div>
                             		</div>
                             		
@@ -131,13 +131,13 @@
                                     <div class="row">
                                 		<div class="col-lg-6">
                                 			<label class="breadcrumb-text">이른 체크인</label>
-                                    		<input type="text" id="incin_early" name="incin_early" required="required">
+                                    		<input type="text" id="incin_early" name="incin_early" required="required" placeholder="ex)오후 14:00/해당없음">
                                			</div>
                                			
                                			<!-- 늦은 체크아웃 -->
                                 		<div class="col-lg-6">
                                 			<label class="breadcrumb-text">늦은 체크아웃</label>
-                                    		<input type="text" id="incout_late" name="incout_late" required="required">
+                                    		<input type="text" id="incout_late" name="incout_late" required="required" placeholder="ex)오후 13:00/해당없음">
                                 		</div>
                             		</div>
                             		
@@ -145,13 +145,13 @@
                                     <div class="row">
                                 		<div class="col-lg-6">
                                 			<label class="breadcrumb-text">체크인</label>
-                                    		<input type="text" id="incin" name="incin" required="required">
+                                    		<input type="text" id="incin" name="incin" required="required" placeholder="ex)오후 15:00">
                                			</div>
                                			
                                			<!-- 체크아웃 -->
                                 		<div class="col-lg-6">
                                 			<label class="breadcrumb-text">체크아웃</label>
-                                    		<input type="text" id="incout" name="incout" required="required">
+                                    		<input type="text" id="incout" name="incout" required="required" placeholder="ex)오전 11:00">
                                 		</div>
                             		</div>
                             		
@@ -214,7 +214,7 @@ $(document).ready(function(){
     $("#ctdivide").change(function(){
         var ctname = $("#ctname").val();
         var ctdivide = $("#ctdivide").val();
-        
+        /* 도시 선택에 따라 지역 세부적으로 불러오기 */
 		$.ajax({
 			type : "post",
 			url : "getCtborough",
@@ -234,6 +234,7 @@ $(document).ready(function(){
     	})
  })
  
+ /* 세부 지역 option 생성 */
  function showCtborough(result){
 	$("#ctboroughDiv").removeAttr("style");
 	$("#ctborough").empty();
@@ -252,6 +253,7 @@ $(document).ready(function(){
 		var ctname = $("#ctname").val();
         var ctdivide = $("#ctdivide").val();
 		var ctborough = $("#ctborough").val();
+		/* 지역 선택 안 할 시에 insert  되지 않도록 */
 		if(ctname == "none" || ctdivide == "none" || ctborough == "none"){
 			alert('지역을 선택해주세요');
 			return;

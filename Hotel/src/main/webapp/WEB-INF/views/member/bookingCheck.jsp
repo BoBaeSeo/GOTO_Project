@@ -69,36 +69,6 @@
     </section>
     
 <script type="text/javascript">
-
-  $(document).ready(function(){
-        
-    $("#inputBcode").keyup(function() {
-		 var inputBcode = $("#inputBcode").val();
-		 $.ajax({
-			 type : "post",
-			 url : "bcodeCheck",
-			 data : {
-				 "inputBcode" : inputBcode
-				 },
-			dataType : "text",
-			success : function(result){
-				console.log("result: " + result);
-				if (result == "OK") {
-					$("#bcodeCheck").css("color", "green").text("등록할 수 있는 관광지 이름입니다.");
-					 } else {
-					$("#bcodeCheck").css("color", "red").text("중복된 이름입니다.");
-					}
-
-				},
-			error : function() {
-				alert("bcodeCheck 연결 실패");
-				}
-
-
-			 });
-
-		 });
-  });
 	function submitForm(){
 		bookingForm.submit();
 		}

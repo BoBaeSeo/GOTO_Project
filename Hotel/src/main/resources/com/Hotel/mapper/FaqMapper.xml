@@ -5,6 +5,7 @@
 
 <mapper namespace="com.Hotel.mapper.FaqMapper">
 
+	<!-- 자묻질 리스트 select -->
 	<select id="FaqList" resultMap="faq" parameterType="com.Hotel.dto.FaqDTO">
 		SELECT * FROM FAQ ORDER BY FAQCODE
 	</select>

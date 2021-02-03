@@ -5,6 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+.main-menu #home {
+	color: #2CBDB8;
+}
+</style>
 </head>
 <body>
 	<%@ include file="includes/header.jsp"%>
@@ -12,7 +17,7 @@
 	<section class="hero-section">
 		<div class="hero-items owl-carousel">
 			<div class="single-hero-item set-bg"
-				data-setbg="resources/img/hero/hero-1.jpg">
+				data-setbg="resources/img/seoul1.jpg">
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-8 offset-lg-2">
@@ -41,7 +46,7 @@
 				</div>
 			</div>
 			<div class="single-hero-item set-bg"
-				data-setbg="resources/img/hero/hero-2.jpg">
+				data-setbg="resources/img/yosu.jpg">
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-8 offset-lg-2">
@@ -70,7 +75,7 @@
 				</div>
 			</div>
 			<div class="single-hero-item set-bg"
-				data-setbg="resources/img/hero/hero-3.jpg">
+				data-setbg="resources/img/kungju.jpg">
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-8 offset-lg-2">
@@ -102,13 +107,13 @@
 		<div class="thumbnail-pic">
 			<div class="thumbs owl-carousel">
 				<div class="item">
-					<img src="resources/img/hero/dot-1.jpg" alt="">
+					<img src="resources/img/seoul.jpg" alt="">
 				</div>
 				<div class="item">
-					<img src="resources/img/hero/dot-2.jpg" alt="">
+					<img src="resources/img/yosu.jpg" alt="">
 				</div>
 				<div class="item">
-					<img src="resources/img/hero/dot-3.jpg" alt="">
+					<img src="resources/img/kungju.jpg" alt="">
 				</div>
 			</div>
 		</div>
@@ -182,26 +187,22 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-lg-4">
+				<div class="col-lg-6">
 					<div class="single-howit-works">
-						<img src="resources/img/howit-works/howit-works-1.png" alt="">
-						<h4>Search & Find Apertment</h4>
+						<img src="resources/img/howit-works/rastaurant.JPG" alt="">
+						<h4>
+							<a href="restaurantList">Restaurant</a>
+						</h4>
 						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
 							sed do eiusmod tempor incididunt ut labore.</p>
 					</div>
 				</div>
-				<div class="col-lg-4">
+				<div class="col-lg-6">
 					<div class="single-howit-works">
-						<img src="resources/img/howit-works/howit-works-2.png" alt="">
-						<h4>Find Your Room</h4>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-							sed do eiusmod tempor incididunt ut labore.</p>
-					</div>
-				</div>
-				<div class="col-lg-4">
-					<div class="single-howit-works">
-						<img src="resources/img/howit-works/howit-works-3.png" alt="">
-						<h4>Talk To Agent</h4>
+						<img src="resources/img/howit-works/landmark.JPG" alt="">
+						<h4>
+							<a href="landmarkList">Landmark</a>
+						</h4>
 						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
 							sed do eiusmod tempor incididunt ut labore.</p>
 					</div>
@@ -212,38 +213,37 @@
 	<!-- How It Works Section End -->
 	<%@ include file="includes/footer.jsp"%>
 	<script>
-    function c_hotellist() {
-    	var bcheckin = $("#checkin").val();
-    	var bcheckout = $("#checkout").val();
+		function c_hotellist() {
+			var bcheckin = $("#checkin").val();
+			var bcheckout = $("#checkout").val();
 
-    	console.log(bcheckin);
-    	console.log(bcheckout);
+			console.log(bcheckin);
+			console.log(bcheckout);
 
-    	if (bcheckin != "" && bcheckout != "") {
-    		c_hotelListcon.submit();
-    	} else {
-    		alert("다시 입력");
-    		history.back;
-    	}
-
-    }
-    $(document).ready(function(){
-        var bookingesult = "${bookingesult}";
-		if(bookingesult == "OK"){
-			alert('예약이 완료되었습니다.')
+			if (bcheckin != "" && bcheckout != "") {
+				c_hotelListcon.submit();
+			} else {
+				alert("다시 입력");
+				history.back;
 			}
 
-		var msg = "${msg}";
-		console.log(msg);
-		if(msg != ""){
-			alert(msg);
+		}
+		$(document).ready(function() {
+			var bookingesult = "${bookingesult}";
+			if (bookingesult == "OK") {
+				alert('예약이 완료되었습니다.')
 			}
-		var loginResult = "${loginResult}";
-		if(loginResult == "OK"){
-			alert('로그인 되었습니다.')
+
+			var msg = "${msg}";
+			console.log(msg);
+			if (msg != "") {
+				alert(msg);
 			}
-        });
-    
-    </script>
+			var loginResult = "${loginResult}";
+			if (loginResult == "OK") {
+				alert('로그인 되었습니다.')
+			}
+		});
+	</script>
 </body>
 </html>

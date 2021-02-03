@@ -5,6 +5,7 @@
   
 <mapper namespace="com.Hotel.mapper.H_InfoMapper">
 
+<!-- 호텔 정보 select -->
 <select id="bookingCheck" parameterType="String" resultType="com.Hotel.dto.H_InfoDTO">
 	SELECT * FROM H_INFO WHERE IN_HOCODE = #{hocode}
 </select>

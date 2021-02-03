@@ -52,7 +52,7 @@
 																	<td>${rList.honame }</td>
 																	<td><a href="a_roomDetail?rocode=${rList.rocode }">${rList.roname }<a></a></td>
 																	<td>${rList.ronum }</td>
-																	<td><button type="button"
+																	<td><button type="button" class="btn"
 																			onclick="roomListDel('${rList.rocode}')">삭제</button></td>
 																</tr>
 														</c:forEach>

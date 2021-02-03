@@ -5,17 +5,20 @@
 
 <mapper namespace="com.Hotel.mapper.MemberMapper">
 
+	<!-- 회원 로그인 -->
 	<select id="MemberLogin" resultType="String">
 		SELECT MID FROM MEMBERS
 		WHERE MID=#{mid} AND MPASSWORD=#{mpassword}
 	</select>
 
+	<!-- 예약 개수 select -->
 	<select id="bookingListCnt" parameterType="String"
 		resultType="int">
 		SELECT COUNT(BCODE) FROM BOOKING, MEMBERS WHERE MCODE =
 		B_MCODE AND MID = #{loginId}
 	</select>
 
+	<!-- 나의 예약 리스트 select -->
 	<select id="c_myBookingList" parameterType="map"
 		resultMap="seleteBookingList">
 		SELECT * FROM(SELECT ROWNUM RN, BOOKING.*, HONAME,
@@ -29,56 +32,67 @@
 		#{pageDTO.startrow} AND #{pageDTO.endrow}
 	</select>
 
+	<!-- 예약 삭제 -->
 	<delete id="deleteBooking" parameterType="String">
 		DELETE FROM BOOKING
 		WHERE BCODE = #{bcode}
 	</delete>
 
+	<!-- 관리자 회원 리스트 -->
 	<select id="a_memberList" resultMap="members">
 		SELECT * FROM MEMBERS ORDER
 		BY MCODE ASC
 	</select>
 
+	<!-- 관리자 회원 삭제 -->
 	<delete id="a_memberDelete" parameterType="String">
 		DELETE FROM MEMBERS
 		WHERE MCODE = #{mcode}
 	</delete>
 
+	<!-- 리뷰 history 삭제 -->
 	<delete id="a_delHistory"
 		parameterType="com.Hotel.dto.MemberDTO">
 		DELETE FROM HISTORY WHERE HIID = #{mid}
 	</delete>
 
+	<!-- 로그인 된 아이디로 작성한 리뷰 select -->
 	<select id="getvcode" parameterType="com.Hotel.dto.MemberDTO"
 		resultType="String">
 		SELECT VCODE FROM REVIEW WHERE VWRITER = #{mid}
 	</select>
 
+	<!-- 리뷰 삭제 -->
 	<delete id="a_delReview" parameterType="com.Hotel.dto.MemberDTO">
 		DELETE FROM REVIEW WHERE
 		VWRITER = #{mid}
 	</delete>
 
+	<!-- 리뷰에 연관된 history 삭제 -->
 	<delete id="a_delHistoryVcode" parameterType="String">
 		DELETE FROM HISTORY
 		WHERE HI_VCODE = #{vcode}
 	</delete>
 
+	<!-- 예약 삭제 -->
 	<delete id="a_delBooking"
 		parameterType="com.Hotel.dto.MemberDTO">
 		DELETE FROM BOOKING WHERE B_MCODE = #{mcode}
 	</delete>
 
+	<!-- 찜 삭제 -->
 	<delete id="a_delHeart" parameterType="com.Hotel.dto.MemberDTO">
 		DELETE FROM HEART WHERE
 		HTID = #{mid}
 	</delete>
 
+	<!-- 1대1문의 삭제 -->
 	<delete id="a_delHelp" parameterType="com.Hotel.dto.MemberDTO">
 		DELETE FROM HELP WHERE
 		HE_MID = #{mid}
 	</delete>
 
+	<!-- 회원 정보 select -->
 	<select id="bookingCheck" parameterType="String"
 		resultType="com.Hotel.dto.MemberDTO">
 		SELECT * FROM MEMBERS WHERE MID = #{loginid}
@@ -102,7 +116,7 @@
 		VALUES(#{mcode},#{mid},#{mpassword},#{mname},#{mphone},#{mbirth},#{memail})
 	</insert>
 
-
+	<!-- 회원정보 가져오기 -->
 	<select id="selectMembers"
 		parameterType="com.Hotel.dto.MemberDTO" resultMap="members">
 		SELECT MCODE, MID,
@@ -110,6 +124,7 @@
 		MEMAIL FROM MEMBERS WHERE MID=#{loginId}
 	</select>
 
+	<!-- 회원정보 수정 -->
 	<update id="updateMembers" parameterType="Map">
 		UPDATE MEMBERS SET
 		MID=#{memberdto.mid}, MNAME=#{memberdto.mname},
@@ -117,41 +132,11 @@
 		MEMAIL=#{memberdto.memail} WHERE MID=#{loginId}
 	</update>
 
-	<delete id="c_delHistory"
-		parameterType="com.Hotel.dto.MemberDTO">
-		DELETE FROM HISTORY WHERE HIID=#{mid}
-	</delete>
-
-	<delete id="c_delReview" parameterType="com.Hotel.dto.MemberDTO">
-		DELETE FROM REVIEW WHERE
-		VWRITER=#{mid}
-	</delete>
-
-	<delete id="c_delBooking"
-		parameterType="com.Hotel.dto.MemberDTO">
-		DELETE FROM BOOKING WHERE B_MCODE=#{mcode}
-	</delete>
-
-	<delete id="c_delHeart" parameterType="com.Hotel.dto.MemberDTO">
-		DELETE FROM HEART WHERE
-		HTID=#{mid}
-	</delete>
-
-	<delete id="delHelp_mid" parameterType="com.Hotel.dto.MemberDTO">
-		DELETE FROM HELP WHERE
-		HE_MID=#{mid}
-	</delete>
-
+	<!-- 회원 삭제 -->
 	<delete id="c_memberDelete"
 		parameterType="com.Hotel.dto.MemberDTO">
 		DELETE FROM MEMBERS WHERE MCODE=#{mcode}
 	</delete>
-
-	<delete id="c_delHistoryVcode" parameterType="String">
-		DELETE FROM HISTORY
-		WHERE HI_VCODE = #{vcode}
-	</delete>
-
 
 	<!-- 찜목록의 찜수 -->
 	<select id="getHeartListCnt" resultType="int"
@@ -181,12 +166,14 @@
 		HTCODE=#{htcode}
 	</delete>
 
+	<!-- 아이디 찾기 -->
 	<select id="findLogin" parameterType="com.Hotel.dto.MemberDTO"
 		resultType="String">
 		SELECT MID FROM MEMBERS WHERE MNAME = #{mname} AND MPHONE =
 		#{mphone}
 	</select>
 
+	<!-- 비밀번호 찾기 -->
 	<select id="findPassword"
 		parameterType="com.Hotel.dto.MemberDTO" resultType="String">
 		SELECT MPASSWORD
@@ -195,12 +182,12 @@
 		#{mid}
 	</select>
 
+	<!-- 나의 리뷰 리스트 select -->
 	<select id="getReviewList" parameterType="String"
 		resultType="String">
 		SELECT V_BCODE FROM REVIEW WHERE VWRITER = #{loginId}
 	</select>
 	
-	<!-- 추가추가추가 -->
 	<!-- 카카오 id가 존재하는지 확인 -->
 	<select id="checkKakaoJoin" resultType="String" parameterType="String">
 		SELECT MID FROM MEMBERS WHERE MID = #{userId}

@@ -90,8 +90,11 @@ public class RoomService {
 		mav = new ModelAndView();
 		String ALoginId = (String) session.getAttribute("ALoginId");
 
+		// 방 리스트 select
 		ArrayList<RoomDTO> RoomList = roomMapper.RoomList(ALoginId);
 		System.out.println("RoomList:::" + RoomList);
+		
+		// 로그인된 아이디 비밀번호 select
 		String loginPw = companyMapper.getloginPw(ALoginId);
 		
 		mav.addObject("loginPw", loginPw);
@@ -104,8 +107,10 @@ public class RoomService {
 	@Transactional(rollbackFor = Exception.class)
 	public ModelAndView RoomListDel(String rocode) {
 		mav = new ModelAndView();
+		
 		// 부킹 룸코드삭제
 		int BookingDel = bookingMapper.BookingDel(rocode);
+		
 		// 룸코드 삭제
 		int RoomListDel = roomMapper.RoomListDel(rocode);
 		System.out.println("RoomListDel::" + RoomListDel);
@@ -117,7 +122,11 @@ public class RoomService {
 	// 룸디테일 select부분
 	public ModelAndView RoomDetail(String rocode) {
 		mav = new ModelAndView();
+		
+		// 방 정보 select
 		RoomDTO roomDTO = roomMapper.RoomDetail(rocode);
+		
+		// 호텔 이름 select
 		HotelDTO hotelDTO = roomMapper.getHotelName(rocode);
 
 		mav.addObject("roomDTO", roomDTO);
@@ -129,6 +138,8 @@ public class RoomService {
 //	관리자 룸 디테일 select
 	public ModelAndView SelectRoom(String rocode) {
 		mav = new ModelAndView();
+		
+		// 방 정보 select
 		RoomDTO roomDTO = roomMapper.RoomDetail(rocode);
 		System.out.println(roomDTO);
 		mav.addObject("roomDTO", roomDTO);
@@ -157,6 +168,7 @@ public class RoomService {
 			rophoto.transferTo(new File(savePath + rofilename));
 		}
 
+		// 방 수정
 		int result = roomMapper.RoomModify(roomDTO);
 		String resultSet;
 		if (result > 0) {
@@ -172,6 +184,8 @@ public class RoomService {
 	public ModelAndView roomWriteForm() {
 		mav = new ModelAndView();
 		String loginId = (String) session.getAttribute("ALoginId");
+		
+		// 모든 호텔 이름 select
 		ArrayList<HotelDTO> hotelList = roomMapper.getAllHotelName(loginId);
 		mav.addObject("hotelList", hotelList);
 		mav.setViewName("room/RoomWriteForm");

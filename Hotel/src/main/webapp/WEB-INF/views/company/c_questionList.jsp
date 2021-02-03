@@ -123,21 +123,22 @@ a:link {
 					<div class="best-agents">
 						<h4>Help</h4>
 						<c:if test="${sessionScope.MLoginId != null }">
-						<a href="questionList" class="ba-item">
-							<div class="ba-text">
-								<h5>1대1 문의 목록</h5>
-								<span>Q&A</span>
-							</div>
-						</a> <a href="HelpWriteForm" class="ba-item">
-							<div class="ba-text">
-								<h5>1대1 문의 작성</h5>
-								<span>#</span>
-							</div>
-							</c:if>
-						</a> <a href="#" class="ba-item">
+							<a href="questionList" class="ba-item">
+								<div class="ba-text">
+									<h5>1대1 문의 목록</h5>
+									<span>Q&A</span>
+								</div>
+							</a>
+							<a href="HelpWriteForm" class="ba-item">
+								<div class="ba-text">
+									<h5>1대1 문의 작성</h5>
+									<span>#</span>
+								</div>
+						</c:if>
+						</a> <a href="/c_FAQList" class="ba-item">
 							<div class="ba-text">
 								<h5>자주 묻는 질문</h5>
-								<span>#</span>
+								<span>FAQ</span>
 							</div>
 						</a>
 					</div>
@@ -148,10 +149,22 @@ a:link {
 			<div class="col-lg-9">
 				<h4 class="property-title">1대1 문의 목록</h4>
 				<div class="property-list">
+					<form action="questionSelect" class="sidebar-search" method="post">
+						<select id="selectBtn">
+							<option value="직접입력">직접입력</option>
+							<option value="QC001">예약관련</option>
+							<option value="QC002">취소관련</option>
+							<option value="QC003">할인관련</option>
+							<option value="QC004">회원관련</option>
+							<option value="QC005">기타</option>
+						</select> <input type="hidden" name="he_qccode" id="serchBtn">
+						<button type="submit" class="search-btn">검색</button>
+						<br>
+						<br>
+					</form>
 					<div class="single-property-item">
-
 						<div class="row">
-							<div class="col-lg-10 accordion_one">
+							<div class="col-lg-12 accordion_one">
 								<div class="panel-group" id="accordion_oneRight">
 
 									<form action="questionList" method="post">
@@ -163,10 +176,10 @@ a:link {
 															<h4 class="panel-title">
 																<a class="collapsed" data-toggle="collapse"
 																	data-parent="#accordion_oneRight"
-																	href="#collapseFiveRightone${questionList.hecode }" aria-expanded="false"
-																	style="font-weight: bold;">
-																	${questionList.hetitle } (${questionList.hedate }) (답변완료)
-																</a>
+																	href="#collapseFiveRightone${questionList.hecode }"
+																	aria-expanded="false" style="font-weight: bold;">
+																	${questionList.hetitle } (${questionList.hedate })
+																	(답변완료) </a>
 															</h4>
 														</div>
 														<div id="collapseFiveRightone${questionList.hecode }"
@@ -195,9 +208,9 @@ a:link {
 																<a class="collapsed" data-toggle="collapse"
 																	data-parent="#accordion_oneRight${questionList.hecode }"
 																	href="#collapseFiveRightTwo" aria-expanded="false"
-																	style="font-weight: bold;"> 
-																	Q. ${questionList.hetitle } (${questionList.hedate }) (답변대기)
-																</a>
+																	style="font-weight: bold;"> Q.
+																	${questionList.hetitle } (${questionList.hedate })
+																	(답변대기) </a>
 															</h4>
 														</div>
 														<div id="collapseFiveRightone${questionList.hecode }"
@@ -219,6 +232,13 @@ a:link {
 							</div>
 						</div>
 					</div>
+					<div class="col-lg-12">
+						<div class="loadmore">
+							<a href="HelpWriteForm" class="btn site-btn">글쓰기</a>
+						</div>
+					</div>
+				</div>
+			</div>
 </section>
 <!-- Property Section End -->
 
@@ -229,8 +249,13 @@ a:link {
 
 
 <script type="text/javascript">
-$(document).ready(function(){
-    $(".active").removeClass('active');
-    $("#hotel").addClass('active');
- })
+	$(document).ready(function() {
+		$(".active").removeClass('active');
+		$("#hotel").addClass('active');
+	})
+
+	$("#selectBtn").change(function() {
+		var selectBtn = $("#selectBtn").val();
+		$("#serchBtn").val(selectBtn);
+	});
 </script>

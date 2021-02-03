@@ -27,7 +27,7 @@
 									<div class="card-body">
 										<div class="table-responsive">
 												<form action="JoinRestaurant" method="post" enctype="multipart/form-data" id="insertId">
-												<table class="table table-bordered" cellspacing="0">
+												<table class="table" cellspacing="0">
 											<tr>
 												<th>식당 지역</th>
 												<td><select name="ctname" id="ctname">
@@ -90,12 +90,6 @@
 											<tr>
 												<td colspan="5"><button type="button" onclick="insertForm()" class="site-btn">입력</button></td>
 											</tr>
-												<tr>
-													<td colspan="5" style="text-align: center;">
-														<button class="btn primary-btn" type="button"
-															onclick="location.href='companyMain'">관리자 홈으로</button>
-													</td>
-												</tr>
 										</table>
 											</form>
 										</div>
@@ -133,7 +127,7 @@
 	    $("#ctdivide").change(function(){
 	        var ctname = $("#ctname").val();
 	        var ctdivide = $("#ctdivide").val();
-	        
+	        /* 도시 선택하면 세부 지역 select */
 			$.ajax({
 				type : "post",
 				url : "getCtborough",
@@ -153,6 +147,7 @@
 	    	})
 	});
 
+	/* 세부 지역 option 생성 */
 	 function showCtborough(result){
 			$("#ctboroughDiv").removeAttr("style");
 			$("#ctborough").empty();

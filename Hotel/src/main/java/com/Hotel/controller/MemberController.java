@@ -83,6 +83,7 @@ public class MemberController {
 		return result;
 	}
 
+	//예약확인 폼
 	@RequestMapping(value="/bookingCheckForm")
 	public ModelAndView bookingCheckForm(BookingDTO bookingDTO) {
 		// bookingCheckForm
@@ -92,6 +93,7 @@ public class MemberController {
 		return mav;
 	}
 
+	//예약확인
 	@RequestMapping(value="/bookingCheck")
 	public ModelAndView bookingCheck(BookingDTO bookingDTO) {
 		// bookingCheck
@@ -99,15 +101,6 @@ public class MemberController {
 		mav = memberService.bookingCheck(bookingDTO);
 
 		return mav;
-	}
-
-	@RequestMapping(value="/BcodeCheck")
-	public String bcodeCheck(String inputBcode) {
-		// bcodeCheck
-
-		String check = memberService.bcodeCheck(inputBcode);
-
-		return check;
 	}
 
 	// 회원가입을 누르면 일반 회원가입 업체 회원가입이 뜨는것
@@ -138,7 +131,7 @@ public class MemberController {
 		return mav;
 	}
 
-	//		마이페이지
+	//마이페이지
 	@RequestMapping(value = "/c_mypage")
 	public ModelAndView mypage() {
 		System.out.println("/c_mypage");
@@ -147,7 +140,7 @@ public class MemberController {
 		return mav;
 	}
 
-	//		회원수정
+	//회원수정
 	@RequestMapping(value="/memberModify")
 	public @ResponseBody String modify(MemberDTO memberDTO) {
 		System.out.println("/memberModify");
@@ -155,7 +148,7 @@ public class MemberController {
 		String result = memberService.updateMembers(memberDTO);
 		return result;
 	}
-	//		회원탈퇴
+	//회원탈퇴
 	@RequestMapping(value="/memberDelete")
 	public @ResponseBody String delMembers(MemberDTO memberDTO) {
 		System.out.println("/memberDelete");
@@ -229,7 +222,6 @@ public class MemberController {
 		return result;
 	}
 
-	// 추가추가추가추가
 	// 로그인 api버튼을 눌렀을때 가입된 회원이 있는지 확인
 	@RequestMapping(value = "/checkKakaoJoin")
 	public @ResponseBody String checkKakaoJoin(String userId) {
@@ -237,6 +229,7 @@ public class MemberController {
 		String result = memberService.checkKakaoJoin(userId);
 		return result;
 	}
+	
 	// 로그인 api로 가입하기 위해 Form으로 이동
 	@RequestMapping(value = "/joinKakaoForm")
 	public ModelAndView joinKakaoForm(MemberDTO memberDTO) {
@@ -244,6 +237,7 @@ public class MemberController {
 		mav = memberService.joinKakaoForm(memberDTO);
 		return mav;
 	}
+	
 	// joinKakaoForm에서 회원가입
 	@ResponseBody
 	@RequestMapping(value = "/kakaoJoin")

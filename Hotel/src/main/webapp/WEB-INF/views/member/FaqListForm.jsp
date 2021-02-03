@@ -130,7 +130,7 @@ a:link {
 						</a> <a href="#" class="ba-item">
 							<div class="ba-text">
 								<h5>1대1 문의 작성</h5>
-								<span>#</span>
+								<span>1:1 Write</span>
 							</div>
 						</a> <a href="/c_FAQList" class="ba-item">
 							<div class="ba-text">

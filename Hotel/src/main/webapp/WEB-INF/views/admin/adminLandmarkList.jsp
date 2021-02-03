@@ -86,31 +86,6 @@
 
 
 <script type="text/javascript">
-	$(document).ready(
-			function() {
-
-				var modalLacode = '${modallacode}';
-				var msg = '${msg}';
-				checkModal(modalBno);
-
-				function checkModal(modalLacode) {
-					if (modalRecode === '') {
-						return;
-					}
-					if (parseInt(modalLacode) > 0) {
-						/* if(deleteCheck == 'del'){
-							$(".modal-body").text("게시글 " +parseInt(modalBno) +" 번이 삭제되었습니다." )
-						}else{
-							$(".modal-body").text("게시글 " +parseInt(modalBno) +" 번이 등록되었습니다." )
-						} */
-						$(".modal-body").text(
-								"게시글 " + parseInt(modalRecode) + " 개가 " + msg
-										+ " 되었습니다.")
-					}
-
-					$("#laModifyModal").modal("show");
-				}
-			});
 	function deleteBtn(lacode){
 		alert('삭제되었습니다.');
 		location.href='landmarkDelete?lacode='+lacode;

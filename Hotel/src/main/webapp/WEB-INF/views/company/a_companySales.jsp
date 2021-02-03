@@ -53,7 +53,7 @@
 													<td><select id="yearSelect">
 													<option value="">선택</option>
 													</select></td>
-													<td><button onclick="gotoCompanySales()">월별 매출 보기</button></td>
+													<td><button class="site-btn" onclick="gotoCompanySales()">월별 매출 보기</button></td>
 												</tr>
 										</tbody>
 									</table>
@@ -104,6 +104,7 @@
 </body>
 <script language="JavaScript">
 	$(document).ready(function(){
+		/* 구글 차트 api 불러오기 */
 		google.charts.load('current', {'packages':['bar']});
 		google.charts.setOnLoadCallback(salesChart);
 		nowMonth();
@@ -111,7 +112,7 @@
 		})
 
 	function salesChart(){
-
+		/* 구글 차트 이용하여 12개월로 나눠서 차트 생성 */
 		var nowDate = '${salesList[0].bdrawup}';
 		var nowYear = nowDate.split('-');
 		
@@ -141,6 +142,7 @@
 		chart.draw(data, google.charts.Bar.convertOptions(options));
 		}
 
+	/* 월 별 매출, 매출 건수 출력 */
 	function nowMonth(){
 		var nowDate = new Date();
 		var bdrawup = nowDate.getFullYear() + '-' +nowDate.getMonth()+1;
@@ -156,6 +158,7 @@
 		$("#countTd").text(count+' 건');
 		}
 
+	/* 매출이 있는 년도 option 생성 */
 	function selectYear(){
 		var output = "";
 		var option = "";
@@ -167,6 +170,7 @@
 		</c:forEach>
 		}
 
+	/* 다른 년도의 매출보기 누르면 뜨는 window 창 */
 	function gotoCompanySales(){
 		var selectYear = $("#yearSelect").val();
 		if(selectYear != ""){

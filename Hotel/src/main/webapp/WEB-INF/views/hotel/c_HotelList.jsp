@@ -36,6 +36,9 @@
 		width: 230px;
 		height: 230px;
 	}
+	#hotel {
+	color: #2CBDB8;
+	}
 </style>
 	<!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section">
@@ -63,13 +66,15 @@
                     <div class="property-sidebar">
                         <h4>예약하기</h4>
                         <form action="c_HotelList" class="sidebar-search" method="post" id="hotelListForm">
-                            <div class="first-row">
+                            <div class="first-row" id="ctnameDiv">
                             <div id="ctnameDiv">
                             <select name="ctname" id="ctname">
                                 <option value="지역">지역</option>
                                 <option value="서울">서울</option>
                                 <option value="부산">부산</option>
                                 <option value="제주도">제주도</option>
+                                <option value="경주">경주</option>
+                                <option value="여수">여수</option>
                             </select>
                             </div>
                             <p>체크인</p>
@@ -82,15 +87,19 @@
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
+                                <option value="3">4</option>
+                                <option value="3">4명 이상</option>
                             </select>
                             </div>
                        	 	</div>
                         	<div id="bpriceDiv">
                             <select name="bprice" id="bprice">
                                 <option value="">가격</option>
-                                <option value="50000">50000이하</option>
-                                <option value="100000">100000이하</option>
                                 <option value="150000">150000이하</option>
+                                <option value="300000">300000이하</option>
+                                <option value="500000">500000이하</option>
+                                <option value="1000000">1000000이하</option>
+                                <option value="10000000">1000000이상</option>
                             </select>
                             <button type="button" class="search-btn" onclick="searchHotel()" >Search</button>
                             </div>
@@ -133,7 +142,21 @@
                     <!-- hotelList end -->
                     <!-- page start -->
                     <div class="property-pagination">
+                    <c:choose>
+                    <c:when test="${search != null }">
                     <c:forEach begin="${pageDTO.startpage }" end="${pageDTO.endpage }" step="1" var="pageNum">
+                    	<c:choose>
+                    		<c:when test="${pageNum == pageDTO.page }">
+		                        <a href="#" class="active">${pageNum }</a>
+                    		</c:when>
+                    		<c:otherwise>
+		                        <a onclick="footerSearchHotel(${pageNum })">${pageNum }</a>
+                    		</c:otherwise>
+                    	</c:choose>
+                    </c:forEach>
+                    </c:when>
+                    <c:otherwise>
+                    	<c:forEach begin="${pageDTO.startpage }" end="${pageDTO.endpage }" step="1" var="pageNum">
                     	<c:choose>
                     		<c:when test="${pageNum == pageDTO.page }">
 		                        <a href="#" class="active">${pageNum }</a>
@@ -143,6 +166,8 @@
                     		</c:otherwise>
                     	</c:choose>
                     </c:forEach>
+                    </c:otherwise>
+                    </c:choose>
                     </div>
                     <!-- page end -->
                 </div>
@@ -151,9 +176,6 @@
     </section>
 <script>
 	$(document).ready(function(){
-		$("#home").removeClass('active');
-		$("#help").removeClass('active');
-		$("#hotel").addClass('active');
 		var ctname = '${ctname}'
 		var bperson = '${searchData.bperson}';
 		var bprice = '${searchData.bprice}';
@@ -262,6 +284,7 @@
 		location.href= url;
 		}
 
+	/* 호텔 조회수 1 올리기 */
 	function updateHit(hocode){
 		$.ajax({
 			type: 'post',
@@ -279,6 +302,13 @@
 				console.log('updateHit 연결 실패');
 				}
 			});
+		}
+
+	/* 메인 푸터 검색으로 들어왔을시에 페이징 처리 */
+	function footerSearchHotel(page){
+		var search = "${search}";
+		var	url = "searchHotel?page="+page+"&search="+search;
+		location.href= url;
 		}
 </script>
     <!-- Property Section End -->

@@ -16,8 +16,7 @@
 					<div class="breadcrumb-text">
 						<h2>My Page</h2>
 						<div class="breadcrumb-option">
-							<a href="home"><i class="fa fa-home"></i> Home</a>
-							 <span>MyReview</span>
+							<a href="home"><i class="fa fa-home"></i> Home</a> <span>MyReview</span>
 						</div>
 
 					</div>
@@ -28,46 +27,46 @@
 
 
 	<section class="property-section spad">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-3">
-				<div class="property-sidebar">
-					<div class="best-agents">
-						<h4>MyPage</h4>
-						<a href="c_mypage?mid=${sessionScope.MLoginId }" class="ba-item">
-							<div class="ba-text">
-								<h5>내 정보</h5>
-								<span>#</span>
-							</div>
-						</a> <a href="c_myBookingList" class="ba-item">
-							<div class="ba-text">
-								<h5>내 예약 목록</h5>
-								<span>#</span>
-							</div>
-						</a> <a href="heartList" class="ba-item">
-							<div class="ba-text">
-								<h5>찜 목록</h5>
-								<span>#</span>
-							</div>
-						</a> <a href="reviewList" class="ba-item">
-							<div class="ba-text">
-								<h5>나의 후기</h5>
-								<span>#</span>
-							</div>
-						</a>
-						<button
-							onclick="delMember('${memberDTO.mcode }','${memberDTO.mid }')"
-							class="ba-item btn-none">
-							<div class="ba-text">
-								<h5>회원 탈퇴</h5>
-								<span>#</span>
-							</div>
-						</button>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3">
+					<div class="property-sidebar">
+						<div class="best-agents">
+							<h4>MyPage</h4>
+							<a href="c_mypage?mid=${sessionScope.MLoginId }" class="ba-item">
+								<div class="ba-text">
+									<h5>내 정보</h5>
+									<span>#</span>
+								</div>
+							</a> <a href="c_myBookingList" class="ba-item">
+								<div class="ba-text">
+									<h5>내 예약 목록</h5>
+									<span>#</span>
+								</div>
+							</a> <a href="heartList" class="ba-item">
+								<div class="ba-text">
+									<h5>찜 목록</h5>
+									<span>#</span>
+								</div>
+							</a> <a href="reviewList" class="ba-item">
+								<div class="ba-text">
+									<h5>나의 후기</h5>
+									<span>#</span>
+								</div>
+							</a>
+							<button
+								onclick="delMember('${memberDTO.mcode }','${memberDTO.mid }')"
+								class="ba-item btn-none">
+								<div class="ba-text">
+									<h5>회원 탈퇴</h5>
+									<span>#</span>
+								</div>
+							</button>
+						</div>
 					</div>
 				</div>
-			</div>
-			<!-- 사이드 메뉴 끝 -->
-			
+				<!-- 사이드 메뉴 끝 -->
+
 				<div class="col-lg-9">
 					<h4 class="property-title">후기 목록</h4>
 					<div class="property-list">

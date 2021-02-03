@@ -16,20 +16,22 @@ public class LandmarkController {
 	@Autowired
 	private LandmarkService landmarkService;
 	
+	//랜드마크 리스트
 	@RequestMapping(value="/landmarkList")
-	public ModelAndView landmarkList(@RequestParam(value="page", defaultValue="1") int page, String ctcode) {
+	public ModelAndView landmarkList(String la_ctcode, @RequestParam(value="page", defaultValue="1") int page) {
 		// landmarkList
 		
-		mav = landmarkService.landmarkList(page, ctcode);
+		mav = landmarkService.landmarkList(la_ctcode,page);
 		
 		return mav;
 	}
 	
+	//랜드마크 검색
 	@RequestMapping(value="/searchingLandmark")
-	public ModelAndView searchingLandmark(String la_ctcode) {
+	public ModelAndView searchingLandmark(String ctname, String ctdivide, @RequestParam(value="page", defaultValue="1") int page) {
 		// searchingLandmark
-		
-		mav = landmarkService.searchingLandmark(la_ctcode);
+		System.out.println("searchingLandmark");
+		mav = landmarkService.searchingLandmark(ctname, ctdivide, page);
 		
 		return mav;
 	}

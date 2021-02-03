@@ -44,13 +44,13 @@
 																	<td><input type="text" name="re_ctcode" readonly="readonly" value="${rList.re_ctcode}"></td>
 																	<td><input type="text" name="rename" value="${rList.rename}"></td>
 																	<td><input type="text" name="readdr" value="${rList.readdr}"></td>
-																	<td><button type="button" onclick="submitForm()" class="site-btn">수정</button>
-                                									    <button class="site-btn" onclick="deleteRes('${rList.recode}')">삭제</button></td>
+																	<td><button class="btn" type="button" onclick="submitForm()">수정</button>
+                                									    <button class="btn" onclick="deleteRes('${rList.recode}')">삭제</button></td>
 																</tr>
 														</tbody>
 														<tfoot>
 														<tr>
-														<td colspan="5"><textarea name="reintro">${rList.reintro}</textarea></td>
+														<td colspan="5"><textarea cols="100" rows="10" name="reintro">${rList.reintro}</textarea></td>
 														</tr>
 														<tr>
 														<td colspan="5"><input type="file" name="rephoto">${rList.refilename}</td>

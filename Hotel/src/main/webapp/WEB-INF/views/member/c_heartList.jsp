@@ -13,8 +13,8 @@
 				<div class="breadcrumb-text">
 					<h2>My Page</h2>
 					<div class="breadcrumb-option">
-						<a href="#"><i class="fa fa-home"></i> Home</a> 
-						<a href="#">My Page</a> 
+						<a href="/"><i class="fa fa-home"></i> Home</a> 
+						<a href="c_mypage?mid=${sessionScope.MLoginId }">My Page</a> 
 						<span>HeartList</span>
 					</div>
 				</div>
@@ -35,28 +35,37 @@
 						<a href="c_mypage?mid=${sessionScope.MLoginId }" class="ba-item">
 							<div class="ba-text">
 								<h5>내 정보</h5>
-								<span>#</span>
+								<span>Info</span>
 							</div>
 						</a> <a href="c_myBookingList" class="ba-item">
 							<div class="ba-text">
 								<h5>내 예약 목록</h5>
-								<span>#</span>
+								<span>Booking</span>
 							</div>
 						</a> <a href="heartList" class="ba-item">
 							<div class="ba-text">
 								<h5>찜 목록</h5>
-								<span>#</span>
+								<span>♡</span>
 							</div>
 						</a> <a href="reviewPage" class="ba-item">
 							<div class="ba-text">
 								<h5>나의 후기</h5>
-								<span>#</span>
+								<span>Review</span>
 							</div>
 						</a>
+						<button
+							onclick="delMember('${memberDTO.mcode }','${memberDTO.mid }')"
+							class="ba-item btn-none">
+							<div class="ba-text">
+								<h5>회원 탈퇴</h5>
+								<span>Secession</span>
+							</div>
+						</button>
 					</div>
 				</div>
 			</div>
 			<!-- 사이드 메뉴 끝 -->
+			
 			<div class="col-lg-9">
 				<h4 class="property-title">HeartList</h4>
 				<div class="property-list">
@@ -114,6 +123,7 @@
 <script type="text/javascript">
 	function heartDelete(htcode){
 		console.log(htcode)
+		/* 찜 삭제 */
 		$.ajax({
 			type: "post",
 			url: "heartDelete",
@@ -130,7 +140,28 @@
 			}
 			})
 		}
-
+	function delMember(mcode, mid) {
+		/* 회원 삭제 */
+		$.ajax({
+			type : 'post',
+			url : 'memberDelete',
+			data : {
+				'mcode' : mcode,
+				'mid' : mid
+			},
+			dataType : 'text',
+			success : function(result) {
+				console.log(result);
+				if (result == 'OK') {
+					alert('탈퇴되었습니다.')
+					location.href = "/"
+				}
+			},
+			error : function() {
+				console.log('member 삭제 연결 실패')
+			}
+		})
+	}
 </script>
 
 

@@ -83,9 +83,6 @@ public class HotelController {
 		return mav;
 	}
 	
-/* 호텔상세보기, 호텔등록 */
-
-	
 	//호텔상세보기 페이지
 	@RequestMapping(value = "/a_hotelView")
 	public ModelAndView hotelView(String hocode) {

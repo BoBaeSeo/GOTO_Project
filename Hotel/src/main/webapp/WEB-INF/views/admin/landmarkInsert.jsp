@@ -31,7 +31,7 @@
 								<div class="table-responsive">
 									<form action="landmarkInsert" method="post"
 										class="contact-form" enctype="multipart/form-data" id="insertId">
-										<table class="table table-bordered" cellspacing="0">
+										<table class="table" cellspacing="0">
 											<tr style="display: none;">
 												<td><input type="hidden" name="lacode" value="${lacode}"
 													readonly="readonly"></td>
@@ -133,6 +133,7 @@
 				$("#inputLaname").keyup(
 						function() {
 							var inputLaname = $("#inputLaname").val();
+							/* 관광지 이름 중복 확인 */
 							$.ajax({
 								type : "post",
 								url : "lanameCheck",
@@ -158,42 +159,14 @@
 							});
 
 						});
-
-				$("#inputLacode").keyup(
-						function() {
-							var inputLacode = $("#inputLacode").val();
-							$.ajax({
-								type : "post",
-								url : "lacodeCheck",
-								data : {
-									"inputLacode" : inputLacode
-								},
-								dataType : "text",
-								success : function(result) {
-									console.log("result: " + result);
-									if (result == "OK") {
-										$("#lacodeCheck").css("color", "green")
-												.text("등록할 수 있는 코드입니다.");
-									} else {
-										$("#lacodeCheck").css("color", "red")
-												.text("중복된 코드입니다.");
-									}
-
-								},
-								error : function() {
-									alert("lacodeCheck 연결 실패");
-								}
-
-							});
-
-						});
+					
 				$("#ctname").change(function(){
 					$("#ctdivideDiv").removeAttr("style");
 			    	})
 			    $("#ctdivide").change(function(){
 			        var ctname = $("#ctname").val();
 			        var ctdivide = $("#ctdivide").val();
-			        
+			        /*  도시 선택하면 세부 지역 불러오기 */
 					$.ajax({
 						type : "post",
 						url : "getCtborough",
@@ -212,6 +185,7 @@
 						})
 			    	})
 			});
+	/* 도시 세부 지역 option 생성 */
 	 function showCtborough(result){
 			$("#ctboroughDiv").removeAttr("style");
 			$("#ctborough").empty();
@@ -225,10 +199,13 @@
 				$("#ctborough").append(option);
 				$("#ctboroughDiv .list").append(output);
 			 }
+
+	 /* 최종적으로 등록하는 함수 */
 		function insertForm(){
 			var ctname = $("#ctname").val();
 	        var ctdivide = $("#ctdivide").val();
 			var ctborough = $("#ctborough").val();
+			/* 지역 선택 안 할 경우 retrun */
 			if(ctname == "" || ctdivide == "" || ctborough == ""){
 				alert('지역을 선택해주세요');
 				return;
