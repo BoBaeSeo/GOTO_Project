@@ -11,7 +11,7 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="breadcrumb-text">
-					<h2>업체 리스트</h2>
+					<h2>업체 관리</h2>
 					<div class="breadcrumb-option">
 						<span>CompanyList</span>
 					</div>
@@ -42,7 +42,7 @@
 												<th>아이디</th>
 												<th>이름</th>
 												<th>이메일</th>
-												<th>탈퇴</th>
+												<th>삭제</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -53,7 +53,7 @@
 													<td>${cList.cmname }</td>
 													<td>${cList.cmemail }</td>
 													<td>
-													<a class="site-btn" onclick="companyDelete('${cList.cmid }')">삭제</a></td>
+													<button class="site-btn btn" onclick="companyDelete('${cList.cmid }')">삭제</button></td>
 												</tr>
 											</c:forEach>
 										</tbody>

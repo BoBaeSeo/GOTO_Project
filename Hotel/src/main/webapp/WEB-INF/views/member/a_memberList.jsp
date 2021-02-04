@@ -4,14 +4,15 @@
 <%@ include file="../includes/a_sidebar.jsp"%>
 <!-- main 시작 -->
 <!-- main top 시작-->
+
 <div class="main">
 	<section class="breadcrumb-section">
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="breadcrumb-text">
-					<h2>회원리스트</h2>
+					<h2>회원 관리</h2>
 					<div class="breadcrumb-option">
-						<span>memberList</span>
+						<span>MemberList</span>
 					</div>
 				</div>
 			</div>
@@ -31,10 +32,10 @@
 									<table class="table table-bordered" cellspacing="0">
 										<thead>
 											<tr>
-												<th>회원코드</th>
-												<th>회원이름</th>
-												<th>회원아이디</th>
-												<th>회원이메일</th>
+												<th>코드</th>
+												<th>이름</th>
+												<th>아이디</th>
+												<th>이메일</th>
 												<th>탈퇴</th>
 											</tr>
 										</thead>
@@ -47,7 +48,7 @@
 															<td>${list.mname }</td>
 															<td>${list.mid }</td>
 															<td>${list.memail }</td>
-															<td><button class="site-btn" onclick="memberDelete('${list.mcode}', '${list.mid }')">탈퇴</button></td>
+															<td><button class="site-btn btn" onclick="memberDelete('${list.mcode}', '${list.mid }')">탈퇴</button></td>
 														</tr>
 													</c:forEach>
 												</c:when>

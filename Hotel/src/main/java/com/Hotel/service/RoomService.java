@@ -111,6 +111,12 @@ public class RoomService {
 		// 부킹 룸코드삭제
 		int BookingDel = bookingMapper.BookingDel(rocode);
 		
+		// 룸 사진 삭제
+		String deleteProfile = roomMapper.getRoomname(rocode);
+		String savePath = "C:\\Users\\seeth\\git\\Hotel\\Hotel\\src\\main\\webapp\\resources\\img\\roomFile\\";
+		File file = new File(savePath + deleteProfile);
+		file.delete();
+		
 		// 룸코드 삭제
 		int RoomListDel = roomMapper.RoomListDel(rocode);
 		System.out.println("RoomListDel::" + RoomListDel);

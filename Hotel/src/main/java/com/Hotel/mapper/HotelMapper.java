@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Delete;
+
 import com.Hotel.dto.CityDTO;
 import com.Hotel.dto.H_InfoDTO;
 import com.Hotel.dto.HeartDTO;
@@ -86,5 +88,33 @@ public interface HotelMapper {
 
 	// 호텔 조회수 select
 	ArrayList<HotelDTO> gethitList(String loginId);
+
+	// 호텔 사진 이름 select
+	String getHotelFilename(String hocode);
+
+	// 방 사진 이름 select
+	String[] getRoomFilename(String hocode);
+
+	// history 삭제
+	@Delete("DELETE FROM HISTORY WHERE HI_VCODE IN (SELECT VCODE FROM REVIEW, HOTEL WHERE HOCODE = V_HOCODE AND HOCODE = #{hocode})")
+	void deleteHistory(String hocode);
+
+	// 리뷰 삭제
+	@Delete("DELETE FROM REVIEW WHERE V_HOCODE=#{hocode}")
+	void deleteReview(String hocode);
+
+	// 찜 삭제
+	@Delete("DELETE FROM HEART WHERE HT_HOCODE=#{hocode}")
+	void deleteHeartHotel(String hocode);
+	
+	// 호텔정보 삭제
+	@Delete("DELETE FROM H_INFO WHERE IN_HOCODE=#{hocode}")
+	void deleteH_Info(String hocode);
+
+	// 예약 삭제
+	@Delete("DELETE FROM BOOKING WHERE B_HOCODE=#{hocode}")
+	void deleteBooking(String hocode);
+
+
 
 }

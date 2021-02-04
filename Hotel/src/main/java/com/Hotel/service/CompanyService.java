@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -453,7 +454,7 @@ public class CompanyService {
 		String refileName = uuid.toString() + "_" + rephoto.getOriginalFilename();
 		System.out.println("refileName::" + refileName);
 
-		String savePath = "C:\\Users\\1\\Desktop\\Hotel\\src\\main\\webapp\\resources\\img\\restaurantFile\\";
+		String savePath = "C:\\Users\\seeth\\git\\Hotel\\Hotel\\src\\main\\webapp\\resources\\img\\restaurantFile\\";
 
 		// 레스토랑 사진이 비어있지 않을때
 		if (!rephoto.isEmpty()) {
@@ -539,14 +540,51 @@ public class CompanyService {
 	}
 
 	// 업체삭제
-	public ModelAndView companyDelete(String cmid) {
+	@Transactional(rollbackFor= {Exception.class})
+	public ModelAndView companyDelete(String cmid, String cmcode) {
 		mav = new ModelAndView();
 
+		// history 삭제
+		companyMapper.deleteHistory(cmid);
+		// 리뷰 삭제
+		companyMapper.deleteReview(cmid);
+		// 찜 삭제
+		companyMapper.deleteHeartHotel(cmid);
+		// 호텔정보 삭제
+		companyMapper.deleteH_Info(cmid);
+		// 예약 삭제
+		companyMapper.deleteBooking(cmid);
+
+		// 룸 사진 삭제
+		String[] deleteProfile = companyMapper.getRoomFilename(cmid);
+		String savePath = "C:\\Users\\seeth\\git\\Hotel\\Hotel\\src\\main\\webapp\\resources\\img\\roomFile\\";
+		for (int i = 0; i < deleteProfile.length; i++) {
+			System.out.println(deleteProfile[i]);
+			File file = new File(savePath + deleteProfile[i]);
+			file.delete();
+		}
+
+		// 호텔 사진 삭제
+		String[] deleteHotelProfile = companyMapper.getHotelFilename(cmid);
+		String hotelSavePath = "C:\\Users\\seeth\\git\\Hotel\\Hotel\\src\\main\\webapp\\resources\\img\\hotelFile\\";
+		for (int i = 0; i < deleteHotelProfile.length; i++) {
+			File hotelFile = new File(hotelSavePath + deleteHotelProfile[i]);
+			hotelFile.delete();
+		}
+
+		// 룸, 호텔 삭제
+		companyMapper.deleteRoom(cmid);
+		companyMapper.deleteHotel(cmid);
+		
 		// 업체 삭제
 		int companyDelete = companyMapper.companyDelete(cmid);
 		System.out.println("companyDelete::" + companyDelete);
 
-		mav.setViewName("redirect:/a_companyList");
+		if(cmcode == null) mav.setViewName("redirect:/a_companyList");
+		else {
+			session.invalidate();
+			mav.setViewName("redirect:/");
+		}
 		return mav;
 	}
 
@@ -580,11 +618,11 @@ public class CompanyService {
 		// 업체 매출 리스트 select
 		List<Map<String, Object>> salesList = companyMapper.salesList(firstDateFormat, lastDateFormat, loginId);
 		System.out.println(salesList);
-		
+
 		// hotel 조회수 select
 		ArrayList<HotelDTO> hotelHitList = hotelMapper.gethitList(loginId);
 		System.out.println(hotelHitList);
-		
+
 		// 호텔에 booking 내역이 있는 year select
 		ArrayList<Integer> yearList = companyMapper.yearList(loginId);
 		System.out.println(yearList);

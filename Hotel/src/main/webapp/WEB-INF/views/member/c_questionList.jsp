@@ -58,7 +58,7 @@ color: #2CBDB8;
 				<h4 class="property-title">1대1 문의 목록</h4>
 				<div class="property-list">
 				<form action="questionSelect" class="sidebar-search" method="post">
-					<select  id="selectBtn">
+					<select id="selectBtn">
 						<option value="직접입력">직접입력</option>
 						<option value="QC001">예약관련</option>
 						<option value="QC002">취소관련</option>
@@ -67,7 +67,8 @@ color: #2CBDB8;
 						<option value="QC005">기타</option>
 					</select>
 					 <input type="hidden" name="he_qccode" id="serchBtn">
-					<button type="submit" class="search-btn"> 검색</button><br><br>
+					<button type="submit" class="btn"> 검색</button>
+					<br><br>
 					</form>
 					<div class="single-property-item">
 
@@ -142,7 +143,7 @@ color: #2CBDB8;
 					</div>
 						<div class="col-lg-12">
                     		<div class="loadmore">
-                        		<a href="HelpWriteForm" class="site-btn">글쓰기</a>
+                        		<a href="HelpWriteForm" class="site-btn btn">글쓰기</a>
                     		</div>
                 		</div>
 				</div>

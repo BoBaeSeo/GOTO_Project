@@ -40,7 +40,7 @@
 							<option value="남">남</option>
 							<option value="북">북</option>
 						</select></div>
-						<button type="submit" class="search-btn">맛집 탐색</button>
+						<button type="submit" class="search-btn btn">맛집 탐색</button>
 					</form>
 				</div>
 			</div>
@@ -60,7 +60,7 @@
 								</div>
 								<div class="col-md-4">
 									<div class="property-pic">
-										<img src="resources/fileUpload/${rList.refilename}" alt="">
+										<img src="resources/img/restaurantFile/${rList.refilename}" alt="">
 									</div>
 								</div>
 							</div>

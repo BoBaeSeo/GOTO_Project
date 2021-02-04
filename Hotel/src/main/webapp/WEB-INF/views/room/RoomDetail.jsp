@@ -23,7 +23,7 @@
 						<i class="icon_pin"></i> ${hotelDTO.hoaddr }
 					</p>
 					<h2>${hotelDTO.honame }</h2>
-					<p style="font-size: 25px;">${roomDTO.roname }</p>
+					<p style="font-size: 20px; color: white;">${roomDTO.roname }</p>
 				</div>
 			</div>
 		</div>
@@ -50,16 +50,16 @@
 						</div>
 						<div id="bpriceDiv">
 							<c:if test="${sessionScope.MLoginId != null }">
-								<button type="button" onclick="BookingBtn()" class="search-btn"
+								<button type="button" onclick="BookingBtn()" class="search-btn btn"
 									style="margin: 5px 0;">예약</button>
-								<button type="reset" class="search-btn" style="margin: 15px 0;">다시작성</button>
+								<button type="reset" class="search-btn btn" style="margin: 15px 0;">다시작성</button>
 							</c:if>
 							<button type="button"
 								onclick="location.href='restaurantList?re_ctcode=${hotelDTO.ho_ctcode}'"
-								class="search-btn" style="margin: 5px 0;">맛집list</button>
+								class="search-btn btn" style="margin: 5px 0;">주변 맛집</button>
 							<button type="button"
 								onclick="location.href='landmarkList?la_ctcode=${hotelDTO.ho_ctcode}'"
-								class="search-btn" style="margin: 5px 0;">관광지list</button>
+								class="search-btn btn" style="margin: 5px 0;">주변 관광지</button>
 						</div>
 					</form>
 				</div>
@@ -71,7 +71,7 @@
 						<div class="product-pic-zoom">
 							<img name="rofilename" class="product-big-img"
 								src="resources/img/roomFile/${roomDTO.rofilename }" alt=""
-								width="100px" height="300px">
+								width="100px" height="500px">
 						</div>
 					</div>
 					<div class="pd-details-text">
@@ -79,7 +79,7 @@
 							<div class="tab-item">
 								<ul class="nav" role="tablist">
 									<li><a class="active" data-toggle="tab" href="#tab-1"
-										role="tab">룸정보</a></li>
+										role="tab">룸 정보</a></li>
 								</ul>
 							</div>
 							<div class="tab-item-content">
@@ -89,23 +89,23 @@
 											<table class="table">
 												<tbody>
 													<tr>
-														<td class="pt-name">룸이름</td>
+														<td class="pt-name">이름</td>
 														<td class="p-value">${roomDTO.roname }</td>
 													</tr>
 													<tr>
-														<td class="pt-name">최소인원 수</td>
+														<td class="pt-name">최소 인원 수</td>
 														<td class="p-value">${roomDTO.rominper }명</td>
 													</tr>
 													<tr>
-														<td class="pt-name">최대인원 수</td>
+														<td class="pt-name">최대 인원 수</td>
 														<td class="p-value">${roomDTO.romaxper }명</td>
 													</tr>
 													<tr>
-														<td class="pt-name">룸 가격</td>
+														<td class="pt-name">가격</td>
 														<td class="p-value">${roomDTO.roprice }원</td>
 													</tr>
 													<tr>
-														<td class="pt-name">룸정보</td>
+														<td class="pt-name">세부사항</td>
 														<td class="p-value">${roomDTO.rodetail }</td>
 													</tr>
 													<tr>

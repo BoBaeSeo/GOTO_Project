@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -70,6 +71,42 @@ public interface CompanyMapper {
 	// 업체 로그인 아이디 비밀번호
 	@Select("SELECT CMPASSWORD FROM COMPANY WHERE CMID = #{ALoginId}")
 	public String getloginPw(String aLoginId);
+
+	// history 삭제
+	@Delete("DELETE FROM HISTORY WHERE HI_VCODE IN (SELECT VCODE FROM REVIEW, HOTEL WHERE HOCODE = V_HOCODE AND HO_CID = #{cmid})")
+	public void deleteHistory(String cmid);
+
+	// 리뷰 삭제
+	@Delete("DELETE FROM REVIEW WHERE V_HOCODE IN (SELECT HOCODE FROM HOTEL WHERE HO_CID = #{cmid})")
+	public void deleteReview(String cmid);
+
+	// 찜 삭제
+	@Delete("DELETE FROM HEART WHERE HT_HOCODE IN (SELECT HOCODE FROM HOTEL WHERE HO_CID = #{cmid})")
+	public void deleteHeartHotel(String cmid);
+
+	// 호텔정보 삭제
+	@Delete("DELETE FROM H_INFO WHERE IN_HOCODE IN (SELECT HOCODE FROM HOTEL WHERE HO_CID = #{cmid})")
+	public void deleteH_Info(String cmid);
+
+	// 예약 삭제
+	@Delete("DELETE FROM BOOKING WHERE B_HOCODE IN (SELECT HOCODE FROM HOTEL WHERE HO_CID = #{cmid})")
+	public void deleteBooking(String cmid);
+
+	// 룸 사진 select
+	@Select("SELECT ROFILENAME FROM ROOM, HOTEL WHERE HOCODE = RO_HOCODE AND HO_CID = #{cmid}")
+	public String[] getRoomFilename(String cmid);
+
+	// 호텔 사진 select
+	@Select("SELECT HOFILENAME FROM HOTEL WHERE HO_CID = #{cmid}")
+	public String[] getHotelFilename(String cmid);
+
+	// 룸 삭제
+	@Delete("DELETE FROM ROOM WHERE RO_HOCODE IN (SELECT HOCODE FROM HOTEL WHERE HO_CID = #{cmid})")
+	public void deleteRoom(String cmid);
+
+	// 호텔 삭제
+	@Delete("DELETE FROM HOTEL WHERE HO_CID = #{cmid}")
+	public void deleteHotel(String cmid);
 
 
 }

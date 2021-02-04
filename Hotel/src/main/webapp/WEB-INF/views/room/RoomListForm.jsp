@@ -9,9 +9,9 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="breadcrumb-text">
-					<h2>룸리스트</h2>
+					<h2>룸 관리</h2>
 					<div class="breadcrumb-option">
-						<span>RoomListForm(jsp이름)</span>
+						<span>RoomListForm</span>
 					</div>
 				</div>
 			</div>
@@ -32,8 +32,8 @@
 												<table class="table table-bordered" cellspacing="0">
 													<thead>
 														<tr>
-															<td>업체Code</td>
-															<td>룸Code</td>
+															<td>업체코드</td>
+															<td>룸코드</td>
 															<td>호텔이름</td>
 															<td>룸이름</td>
 															<td>방갯수</td>
@@ -50,9 +50,9 @@
 																	<td>${rList.ro_hocode }</td>
 																	<td>${rList.rocode }</td>
 																	<td>${rList.honame }</td>
-																	<td><a href="a_roomDetail?rocode=${rList.rocode }">${rList.roname }<a></a></td>
+																	<td><a href="a_roomDetail?rocode=${rList.rocode }" style="color: black; text-decoration: underline;">${rList.roname }<a></a></td>
 																	<td>${rList.ronum }</td>
-																	<td><button type="button" class="btn"
+																	<td><button type="button" class="site-btn btn"
 																			onclick="roomListDel('${rList.rocode}')">삭제</button></td>
 																</tr>
 														</c:forEach>

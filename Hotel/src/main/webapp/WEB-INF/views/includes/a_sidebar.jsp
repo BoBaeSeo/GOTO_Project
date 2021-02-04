@@ -119,25 +119,25 @@ h5 {
 			</div>
 			<c:choose>
 				<c:when test="${sessionScope.ALoginId == 'ADMIN' }">
-					<a href="a_memberList">회원리스트</a> 
-					<a href="a_companyList">업체리스트</a> 
-					<a href="a_approveJoin">업체 회원가입 승인</a> 
-					<a href="a_reviewList">고객 후기리스트</a> 
-					<a href="restaurantForm">맛집등록</a> 
-					<a href="adminRestaurantList">맛집리스트</a> 
-					<a href="LandmarkInsertForm">관광지등록</a> 
-					<a href="adminLandmarkList">관광지리스트</a> 
-					<a href="a_questionList">1대1문의 리스트</a> 
-					<a href="a_faqWriteForm">자주묻는 질문 작성 폼</a>
-					<a href="FaqList">자주묻는질문 리스트</a>
+					<a href="a_memberList">회원 관리</a> 
+					<a href="a_companyList">업체 관리</a> 
+					<a href="a_approveJoin">업체 가입 승인</a> 
+					<a href="a_reviewList">고객 후기 관리</a> 
+					<a href="restaurantForm">맛집 등록</a> 
+					<a href="adminRestaurantList">맛집 관리</a> 
+					<a href="LandmarkInsertForm">관광지 등록</a> 
+					<a href="adminLandmarkList">관광지 관리</a> 
+					<a href="a_questionList">1대1 문의 관리</a> 
+					<a href="a_faqWriteForm">자주 묻는 질문 작성</a>
+					<a href="FaqList">자주 묻는 질문 관리</a>
 				</c:when>
 				<c:otherwise>
-					<a href="a_hotelInfoForm" id="hotelInsert">호텔등록</a> 
-					<a href="a_hotelList">호텔리스트</a>
-					<a href="RoomWriteForm">룸등록</a> 
-					<a href="RoomList">룸리스트</a> 
-					<a href="cpInfoView">업체정보수정</a>
-					<a href="companySales">호텔매출현황</a>
+					<a href="a_hotelInfoForm" id="hotelInsert">호텔 등록</a> 
+					<a href="a_hotelList">호텔 관리</a>
+					<a href="RoomWriteForm">룸 등록</a> 
+					<a href="RoomList">룸 관리</a> 
+					<a href="cpInfoView">업체 정보 수정</a>
+					<a href="companySales">호텔 매출현황</a>
 				</c:otherwise> 
 			</c:choose>
 		</div>

@@ -8,9 +8,9 @@
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="breadcrumb-text">
-							<h2>레스토랑 수정 페이지</h2>
+							<h2>맛집 수정</h2>
 							<div class="breadcrumb-option">
-								<span>${rList.recode} 유명 맛집 관리</span>
+								<span>${rList.recode} 맛집 관리</span>
 							</div>
 						</div>
 					</div>
@@ -31,11 +31,12 @@
 													<table class="table table-bordered" cellspacing="0">
 														<thead>
 															<tr>
-																<th>유명 맛집 코드</th>
-																<th>도시 코드</th>
-																<th>유명 맛집 이름</th>
+																<th>맛집코드</th>
+																<th>도시코드</th>
+																<th>맛집 이름</th>
 																<th>주소</th>
-																<th>수정과 삭제</th>
+																<th>수정</th>
+																<th>삭제</th>
 															</tr>
 														</thead>
 														<tbody>
@@ -44,16 +45,16 @@
 																	<td><input type="text" name="re_ctcode" readonly="readonly" value="${rList.re_ctcode}"></td>
 																	<td><input type="text" name="rename" value="${rList.rename}"></td>
 																	<td><input type="text" name="readdr" value="${rList.readdr}"></td>
-																	<td><button class="btn" type="button" onclick="submitForm()">수정</button>
-                                									    <button class="btn" onclick="deleteRes('${rList.recode}')">삭제</button></td>
+																	<td><button class="site-btn btn" type="button" onclick="submitForm()">수정</button></td>
+                                									<td><button class="site-btn btn" onclick="deleteRes('${rList.recode}')">삭제</button></td>
 																</tr>
 														</tbody>
 														<tfoot>
 														<tr>
-														<td colspan="5"><textarea cols="100" rows="10" name="reintro">${rList.reintro}</textarea></td>
+														<td colspan="6"><textarea cols="100" rows="10" name="reintro">${rList.reintro}</textarea></td>
 														</tr>
 														<tr>
-														<td colspan="5"><input type="file" name="rephoto">${rList.refilename}</td>
+														<td colspan="6"><input type="file" name="rephoto">${rList.refilename}</td>
 														</tr>
 														</tfoot>
 													</table>

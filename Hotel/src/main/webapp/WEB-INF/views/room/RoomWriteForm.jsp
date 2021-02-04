@@ -8,7 +8,7 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="breadcrumb-text">
-					<h2>룸등록</h2>
+					<h2>룸 등록</h2>
 					<div class="breadcrumb-option">
 						<span>RoomWriteForm</span>
 					</div>
@@ -37,20 +37,20 @@
 									<hr>
 									<!-- 룸 이름 -->
 									<div class="ba-text">
-										<label class="breadcrumb-text">룸이름</label> <input type="text"
-											placeholder="룸 이름" name="roname" id="roname">
+										<label class="breadcrumb-text">룸 이름</label> <input type="text"
+											name="roname" id="roname">
 									</div>
 
 									<!-- 룸사진 -->
 									<div class="ba-text">
-											<label class="breadcrumb-text">룸사진</label> <input type="file"
+											<label class="breadcrumb-text">룸 사진</label> <input type="file"
 												name="rophoto" name="rophoto" id="rophoto"><br>
 									</div>
 
 									<!-- 룸상세정보 -->
 									<div class="ba-text">
 										<label class="breadcrumb-text">룸 상세정보</label> <input
-											type="text" placeholder="룸 상세정보" name="rodetail"
+											type="text" name="rodetail"
 											id="rodetail">
 									</div>
 
@@ -68,19 +68,13 @@
 
 									<!-- 룸가격 -->
 									<div class="ba-text">
-										<label class="breadcrumb-text">룸가격</label> <input type="text"
-											placeholder="룸 가격" name="roprice" id="roprice">
-									</div>
-
-									<!-- 룸가격 -->
-									<div class="ba-text">
-										<label class="breadcrumb-text">룸가격</label> <input type="text"
-											placeholder="룸 가격" name="roprice" id="roprice">
+										<label class="breadcrumb-text">룸 가격</label> <input type="text"
+											name="roprice" id="roprice">
 									</div>
 
 									<!-- 방갯수 -->
 									<div class="ba-text">
-										<label class="breadcrumb-text">방갯수</label> <input
+										<label class="breadcrumb-text">룸 갯수</label> <input
 											type="number" name="ronum" id="ronum">
 									</div>
 
@@ -89,7 +83,7 @@
 									<div class="col-lg-12">
 										<div class="loadmore">
 											<button type="button" onclick="roomFormSubmit()"
-												class="btn site-btn">방등록</button>
+												class="btn site-btn">등록</button>
 										</div>
 									</div>
 								</form>

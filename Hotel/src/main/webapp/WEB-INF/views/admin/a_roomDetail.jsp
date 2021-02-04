@@ -9,22 +9,6 @@
 </style>
 
 <!-- main 시작 -->
-<!-- main top 시작-->
-<div class="main">
-	<section class="breadcrumb-section">
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="breadcrumb-text">
-					<h2>관리페이지</h2>
-					<div class="breadcrumb-option">
-						<span>RoomDetail</span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-	<!-- main top 끝 -->
-
 	<!-- main container 시작 -->
 	<section class="contact-section">
 		<div class="container-fluid">
@@ -34,7 +18,7 @@
 						<div class="col-lg-10 offset-lg-1">
 							<div class="contact-text">
 								<div class="section-title">
-									<h2>룸정보</h2>
+									<h2>룸 정보</h2>
 								</div>
 								<form action="RoomModify" method="post" class="contact-form"
 									enctype="multipart/form-data">
@@ -47,14 +31,14 @@
 
 									<!-- 룸코드 -->
 									<div class="ba-text">
-										<label class="breadcrumb-text">호텔 주소</label> <input
+										<label class="breadcrumb-text">룸 코드</label> <input
 											type="text" value="${roomDTO.rocode }" name="rocode"
 											id="rocode" readonly="readonly">
 									</div>
 
 									<!-- 룸사진 -->
 									<div class="ba-text">
-										<label class="breadcrumb-text">룸사진</label> <img
+										<label class="breadcrumb-text">룸 사진</label> <img
 											src="resources\img\roomFile\${roomDTO.rofilename }"
 											alt="등록된 이미지 없음" id="roimg">
 
@@ -62,45 +46,44 @@
 
 									<!-- 룸 상세정보 -->
 									<div class="ba-text">
-										<label class="breadcrumb-text">룸 상세정보</label>
-										<textarea rows="10" placeholder="룸 상세정보" name="rodetail"
+										<label class="breadcrumb-text">세부사항</label>
+										<textarea rows="10" placeholder="세부사항" name="rodetail"
 											id="rodetail" readonly="readonly">${roomDTO.rodetail }</textarea>
-										</td>
 									</div>
 
 									<!-- 룸최소인원 -->
 									<div class="ba-text">
-										<label class="breadcrumb-text">룸최소인원</label> <input
+										<label class="breadcrumb-text">최소 인원 수</label> <input
 											type="number" name="rominper" id="rominper"
 											value="${roomDTO.rominper }" readonly="readonly">
 									</div>
 
 									<!-- 룸최대인원 -->
 									<div class="ba-text">
-										<label class="breadcrumb-text">룸최대인원</label> <input
+										<label class="breadcrumb-text">최대 인원 수</label> <input
 											type="number" name="romaxper" id="romaxper"
 											value="${roomDTO.romaxper }" readonly="readonly">
 									</div>
 
 									<!-- 룸가격 -->
 									<div class="ba-text">
-										<label class="breadcrumb-text">룸가격</label> <input type="text"
+										<label class="breadcrumb-text">가격</label> <input type="text"
 											placeholder="룸 가격" name="roprice" id="roprice"
 											value="${roomDTO.roprice }" readonly="readonly">
 									</div>
 
 									<!-- 방갯수 -->
 									<div class="ba-text">
-										<label class="breadcrumb-text">방갯수</label> <input
+										<label class="breadcrumb-text">방 갯수</label> <input
 											type="number" name="ronum" id="ronum"
 											value="${roomDTO.ronum }" readonly="readonly">
 									</div>
 									<hr>
 									<div class="col-lg-12">
 										<div class="loadmore">
-											<input type="button" value="방정보 수정" id="btn"
-												onclick="remove_readonly_a()"> <input type="submit"
-												value="방정보 수정" id="sub">
+											<button type="button" class="btn site-btn" id="btn"
+												onclick="remove_readonly_a()">수정하기</button> 
+											<button type="submit" class="btn site-btn" id="sub">수정하기</button>
 										</div>
 									</div>
 								</form>

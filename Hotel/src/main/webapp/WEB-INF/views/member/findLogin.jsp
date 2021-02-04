@@ -2,41 +2,21 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="../includes/header.jsp"%>
-<!-- 상단 지도 부분 -->
-<section class="breadcrumb-section">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="breadcrumb-text">
-					<h2>find Login</h2>
-					<div class="breadcrumb-option">아이디 찾기</div>
+
+
+<section class="property-details-section spad">
+	<div class="container pd-hero-section" style="text-align: center;">
+		<div class="row pd-details-text">
+			<div class="col-lg-6 property-contactus margin_center">
+				<h4 class="table-in">아이디 찾기</h4>
+					<form action="#" class="agent-contact-form section-title">
+						<input type="text" id="findName" placeholder="찾는 이름"><br> 
+						<input type="text" id="findNumber" placeholder="찾는 전화번호">
+						<button onclick="findLogin()" class="site-btn btn">찾기</button>
+					</form>
 				</div>
 			</div>
 		</div>
-	</div>
-</section>
-
-<section class="property-section spad">
-	<div class="container">
-		<div class="row">
-
-			<div class="col-lg-9">
-				<h4 class="property-title">아이디 찾기</h4>
-				<div class="property-list">
-					<div class="col-lg-6">
-						<div class="contact-text">
-							<form action="#" class="contact-form">
-								찾는 이름<input type="text" id="findName"><br> 찾는 전화번호<input
-									type="text" id="findNumber">
-								<button onclick="findLogin()" class="site-btn">찾기</button>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-
-		</div>
-	</div>
 </section>
 
 

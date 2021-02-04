@@ -229,7 +229,17 @@
 		SELECT
 		HOCODE, HONAME, HOHIT, HOTOTALHIT FROM HOTEL WHERE HO_CID = #{loginId}
 	</select>
-
+	
+	<!-- 호텔 사진 이름 select -->
+	<select id="getHotelFilename" parameterType="String" resultType="String">
+		SELECT HOFILENAME FROM HOTEL WHERE HOCODE = #{hocode}
+	</select>
+	
+	<!-- 방 사진 이름 select -->
+	<select id="getRoomFilename" parameterType="String" resultType="String">
+		SELECT ROFILENAME FROM ROOM, HOTEL WHERE HOCODE = RO_HOCODE AND HOCODE = #{hocode}
+	</select>
+	
 	<resultMap type="map" id="searchHotelDTO">
 		<result property="ho_ctcode" column="HO_CTCODE" />
 		<result property="hocode" column="HOCODE" />

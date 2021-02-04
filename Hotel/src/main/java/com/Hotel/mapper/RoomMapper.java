@@ -36,4 +36,7 @@ public interface RoomMapper {
 	// 모든 호텔 이름 select
 	public ArrayList<HotelDTO> getAllHotelName(String loginId);
 
+	// 룸 사진 이름 select
+	public String getRoomname(String rocode);
+
 }

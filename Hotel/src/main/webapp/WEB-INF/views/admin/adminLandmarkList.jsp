@@ -9,7 +9,7 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="breadcrumb-text">
-					<h2>관광지 리스트</h2>
+					<h2>관광지 관리</h2>
 					<div class="breadcrumb-option">
 						<span>LandmarkList</span>
 					</div>
@@ -31,11 +31,12 @@
 									<table class="table table-bordered" cellspacing="0">
 										<thead>
 											<tr>
-												<th>랜드마크 코드</th>
-												<th>도시 코드</th>
-												<th>랜드마크 이름</th>
+												<th>관광지코드</th>
+												<th>도시코드</th>
+												<th>관광지 이름</th>
 												<th>주소</th>
-												<th>수정과 삭제</th>
+												<th>수정</th>
+												<th>삭제</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -47,10 +48,10 @@
 															<td>${lList.la_ctcode}</td>
 															<td>${lList.laname}</td>
 															<td>${lList.laaddr}</td>
-															<td><button class="site-btn"
-																	onclick="deleteBtn('${lList.lacode}')">삭제</button>
-																<button class="site-btn"
+															<td><button class="site-btn btn"
 																	onclick="location.href='landmarkModifyForm?lacode=${lList.lacode}'">수정</button></td>
+															<td><button class="site-btn btn"
+																	onclick="deleteBtn('${lList.lacode}')">삭제</button></td>
 														</tr>
 													</c:forEach>
 												</c:when>

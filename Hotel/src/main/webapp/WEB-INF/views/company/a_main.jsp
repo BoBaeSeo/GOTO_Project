@@ -11,7 +11,7 @@
 						<div class="breadcrumb-text">
 							<h2>관리페이지</h2>
 							<div class="breadcrumb-option">
-								<span>CompanyList(jsp이름)</span>
+								<span>CompanyList</span>
 							</div>
 						</div>
 					</div>

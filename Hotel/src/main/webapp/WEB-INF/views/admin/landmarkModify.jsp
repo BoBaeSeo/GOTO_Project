@@ -8,9 +8,9 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="breadcrumb-text">
-					<h2>랜드마크 수정 페이지</h2>
+					<h2>관광지 수정</h2>
 					<div class="breadcrumb-option">
-						<span>${lList.lacode} 관광 명소 관리</span>
+						<span>${lList.lacode} 관광지 관리</span>
 					</div>
 				</div>
 			</div>
@@ -33,11 +33,12 @@
 										<table class="table table-bordered" cellspacing="0">
 											<thead>
 												<tr>
-													<th>랜드마크 코드</th>
-													<th>도시 코드</th>
-													<th>랜드마크 이름</th>
+													<th>관광지코드</th>
+													<th>도시코드</th>
+													<th>관광지 이름</th>
 													<th>주소</th>
-													<th>수정과 삭제</th>
+													<th>수정</th>
+													<th>삭제</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -50,18 +51,18 @@
 														value="${lList.laname}"></td>
 													<td><input type="text" name="laaddr"
 														value="${lList.laaddr}"></td>
-													<td><button type="button" style="margin: 5px 0;"
-															onclick="modifyBtn()" class="site-btn">수정</button>
-														<button class="site-btn"  style="margin: 5px 0;"
+													<td><button type="button" class="site-btn btn" style="margin: 5px 0;"
+															onclick="modifyBtn()" class="site-btn btn">수정</button></td>
+													<td><button class="site-btn btn"  style="margin: 5px 0;"
 															onclick="deleteBtn('${lList.lacode}')">삭제</button></td>
 												</tr>
 											</tbody>
 											<tfoot>
 												<tr>
-													<td colspan="5"><textarea cols="100" rows="10" name="laintro">${lList.laintro}</textarea></td>
+													<td colspan="6"><textarea cols="100" rows="10" name="laintro">${lList.laintro}</textarea></td>
 												</tr>
 												<tr>
-													<td colspan="5"><input type="file" name="laphoto">${lList.lafilename}</td>
+													<td colspan="6"><input type="file" name="laphoto">${lList.lafilename}</td>
 												</tr>
 											</tfoot>
 										</table>

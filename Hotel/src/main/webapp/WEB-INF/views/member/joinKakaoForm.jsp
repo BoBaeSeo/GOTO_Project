@@ -204,9 +204,9 @@ a:link {
 										</tr>
 										<tr>
 											<td colspan="2"><input type="button"
-												class="input-table-btn" id="modify-1" value="가입하기"
+												class="input-table-btn btn" id="modify-1" value="가입하기"
 												onclick="kakaoJoin()"> <input type="button" onclick="cancelJoin()"
-												class="input-table-btn" id="reset" value="취소"></td>
+												class="input-table-btn btn" id="reset" value="취소"></td>
 										</tr>
 									</table>
 								</form>

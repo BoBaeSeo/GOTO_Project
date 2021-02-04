@@ -13,8 +13,8 @@
 		<div class="container pd-hero-section">
 			<div class="row pd-hero-section">
 				<div class="margin_center">
-					<a href="joinMemberForm" class="site-btn">일반 회원가입</a>
-					<a href="c_joinCompany" class="site-btn">업체 회원가입</a>
+					<a href="joinMemberForm" class="site-btn btn">일반 회원가입</a>
+					<a href="c_joinCompany" class="site-btn btn">업체 회원가입</a>
 				</div>
 			</div>
 		</div>

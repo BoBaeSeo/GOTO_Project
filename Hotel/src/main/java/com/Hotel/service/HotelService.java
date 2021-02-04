@@ -143,6 +143,31 @@ public class HotelService {
 	// 호텔 삭제
 	@Transactional(rollbackFor = { Exception.class })
 	public String deleteHotel(String hocode) {
+		
+		// history 삭제
+		hotelMapper.deleteHistory(hocode);
+		// 리뷰 삭제
+		hotelMapper.deleteReview(hocode);
+		// 찜 삭제
+		hotelMapper.deleteHeartHotel(hocode);
+		// 호텔정보 삭제
+		hotelMapper.deleteH_Info(hocode);
+		// 예약 삭제
+		hotelMapper.deleteBooking(hocode);
+		
+		// 룸 사진 삭제
+		String[] deleteProfile = hotelMapper.getRoomFilename(hocode);
+		String savePath = "C:\\Users\\seeth\\git\\Hotel\\Hotel\\src\\main\\webapp\\resources\\img\\roomFile\\";
+		for(int i = 0; i < deleteProfile.length; i++) {
+			File file = new File(savePath + deleteProfile[i]);
+			file.delete();
+		}
+		
+		// 호텔 사진 삭제
+		String deleteHotelProfile = hotelMapper.getHotelFilename(hocode);
+		String hotelSavePath = "C:\\Users\\seeth\\git\\Hotel\\Hotel\\src\\main\\webapp\\resources\\img\\hotelFile\\";
+		File hotelFile = new File(hotelSavePath + deleteHotelProfile);
+		hotelFile.delete();
 
 		// 룸, 호텔 삭제
 		hotelMapper.deleteRoom(hocode);

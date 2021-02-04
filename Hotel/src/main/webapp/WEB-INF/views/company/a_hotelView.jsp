@@ -2,10 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="../includes/a_sidebar.jsp"%>
-
-
-
-
 <!-- Breadcrumb Section Begin -->
 <!-- Contact Section Begin -->
     <section class="contact-section">
@@ -16,7 +12,7 @@
                         <div class="col-lg-10 offset-lg-1">
                             <div class="contact-text">
                                 <div class="section-title">
-                                    <h2>호텔정보</h2>
+                                    <h2>호텔 정보</h2>
                                 </div>
                                 <form action="hotelModifyForm" class="contact-form" method="post" enctype="multipart/form-data">
                                     <!-- 호텔이름 -->

@@ -291,10 +291,10 @@ public class CompanyController {
 
 	// 관리자 업체 삭제
 	@RequestMapping(value = "companyDelete")
-	public ModelAndView companyDelete(String cmid) {
+	public ModelAndView companyDelete(String cmid, String cmcode) {
 		System.out.println("/companyDelete::" + cmid);
 
-		mav = companyService.companyDelete(cmid);
+		mav = companyService.companyDelete(cmid, cmcode);
 		return mav;
 	}
 

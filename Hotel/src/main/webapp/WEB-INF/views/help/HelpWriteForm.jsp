@@ -57,7 +57,7 @@ color: #2CBDB8;
 							id="he_mid" value="${sessionScope.MLoginId }" readonly="readonly">
 
 						<textarea placeholder="내용" name="hecontent" id="hecontent"></textarea>
-						<button type="button" onclick="submitForm()" class="site-btn">보내기</button>
+						<button type="button" onclick="submitForm()" class="site-btn btn">보내기</button>
 					</form>
 				</div>
 			</div>

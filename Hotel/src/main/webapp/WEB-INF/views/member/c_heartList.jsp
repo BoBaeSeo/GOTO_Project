@@ -15,7 +15,7 @@
 					<div class="breadcrumb-option">
 						<a href="/"><i class="fa fa-home"></i> Home</a> 
 						<a href="c_mypage?mid=${sessionScope.MLoginId }">My Page</a> 
-						<span>HeartList</span>
+						<span>My HeartList</span>
 					</div>
 				</div>
 			</div>

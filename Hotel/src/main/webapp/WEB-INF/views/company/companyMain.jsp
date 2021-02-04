@@ -9,7 +9,7 @@
             <div class="breadcrumb-text">
                <h2>관리페이지</h2>
                <div class="breadcrumb-option">
-                  <span>CompanyList(jsp이름)</span>
+                  <span>Main</span>
                </div>
             </div>
          </div>
@@ -34,21 +34,21 @@
                                           <th>
                                              <div class="col-lg-12">
                                                 <div class="loadmore">
-                                                   <a href="a_memberList" class="primary-btn">회원리스트</a>
+                                                   <a href="a_memberList" class="primary-btn btn" style="width: 230px;">회원 관리</a>
                                                 </div>
                                              </div>
                                           </th>
                                           <th>
                                              <div class="col-lg-12">
                                                 <div class="loadmore">
-                                                   <a href="#" class="primary-btn">업체리스트</a>
+                                                   <a href="a_companyList" class="primary-btn btn" style="width: 230px;">업체 관리</a>
                                                 </div>
                                              </div>
                                           </th>
                                           <th>
                                              <div class="col-lg-12">
                                                 <div class="loadmore">
-                                                   <a href="restaurantForm" class="primary-btn">맛집등록</a><br>
+                                                   <a href="restaurantForm" class="primary-btn btn" style="width: 230px;">맛집 등록</a><br>
                                                 </div>
                                              </div>
                                              </th>
@@ -59,21 +59,21 @@
                                           <th>
                                              <div class="col-lg-12">
                                                 <div class="loadmore">
-                                                   <a href="adminRestaurantList" class="primary-btn">맛집리스트</a>
+                                                   <a href="adminRestaurantList" class="primary-btn btn" style="width: 230px;">맛집 관리</a>
                                                 </div>
                                              </div>
                                           </th>
                                           <th>
                                              <div class="col-lg-12">
                                                 <div class="loadmore">
-                                                   <a href="LandmarkInsertForm" class="primary-btn">관광지등록</a>
+                                                   <a href="LandmarkInsertForm" class="primary-btn btn" style="width: 230px;">관광지 등록</a>
                                                 </div>
                                              </div>
                                           </th>
                                           <th>
                                              <div class="col-lg-12">
                                                 <div class="loadmore">
-                                                   <a href="adminLandmarkList" class="primary-btn">관광지 리스트</a><br>
+                                                   <a href="adminLandmarkList" class="primary-btn btn" style="width: 230px;">관광지 관리</a><br>
                                                 </div>
                                              </div>
                                           </th>
@@ -82,21 +82,21 @@
                                           <th>
                                              <div class="col-lg-12">
                                                 <div class="loadmore">
-                                                   <a href="questionList" class="primary-btn">1대1문의 리스트</a>
+                                                   <a href="questionList" class="primary-btn btn" style="width: 230px;">1대1 문의 관리</a>
                                                 </div>
                                              </div>
                                           </th>
                                           <th>
                                              <div class="col-lg-12">
                                                 <div class="loadmore">
-                                                   <a href="#" class="primary-btn">고객 후기리스트</a>
+                                                   <a href="a_reviewList" class="primary-btn btn" style="width: 230px;">고객 후기 관리</a>
                                                 </div>
                                              </div>
                                           </th>
                                           <th>
                                              <div class="col-lg-12">
                                                 <div class="loadmore">
-                                                   <a href="FaqList" class="primary-btn">자주묻는질문 리스트</a>
+                                                   <a href="FaqList" class="primary-btn btn" >자주 묻는 질문 관리</a>
                                                 </div>
                                              </div>
                                           </th>
@@ -117,46 +117,54 @@
                                  <table class="table table-bordered" cellspacing="0">
                                     <thead>
                                        <tr>
-
                                           <th>
                                              <div class="col-lg-12">
                                                 <div class="loadmore">
-                                                   <a href="a_hotelInfoForm" class="primary-btn">호텔등록</a>
+                                                   <a href="a_hotelInfoForm" class="primary-btn btn" style="width: 200px;">호텔 등록</a>
                                                 </div>
                                              </div>
                                           </th>
                                           <th>
                                              <div class="col-lg-12">
                                                 <div class="loadmore">
-                                                   <a href="a_hotelList" class="primary-btn">호텔리스트</a>
+                                                   <a href="a_hotelList" class="primary-btn btn" style="width: 200px;">호텔 관리</a>
                                                 </div>
                                              </div>
                                           </th>
                                           <th>
                                              <div class="col-lg-12">
                                                 <div class="loadmore">
-                                                   <a href="RoomWriteForm" class="primary-btn">룸등록</a>
+                                                   <a href="RoomWriteForm" class="primary-btn btn" style="width: 200px;">룸 등록</a><br>
+                                                </div>
+                                             </div>
+                                          </th>
+                                          </tr>
+                                          
+                                          <tr>
+                                          <th>
+                                             <div class="col-lg-12">
+                                                <div class="loadmore">
+                                                   <a href="RoomList" class="primary-btn btn" style="width: 200px;">룸 관리</a>
                                                 </div>
                                              </div>
                                           </th>
                                           <th>
                                              <div class="col-lg-12">
                                                 <div class="loadmore">
-                                                   <a href="RoomList" class="primary-btn">룸리스트</a>
+                                                   <a href="cpInfoView" class="primary-btn btn" style="width: 200px;">업체 정보 수정</a>
                                                 </div>
                                              </div>
                                           </th>
                                           <th>
                                              <div class="col-lg-12">
                                                 <div class="loadmore">
-                                                   <a href="#" class="primary-btn">업체정보수정</a>
+                                                   <a href="companySales" class="primary-btn btn" style="width: 200px;">호텔 매출현황</a><br>
                                                 </div>
                                              </div>
                                           </th>
-
                                        </tr>
+                                       
                                     </thead>
-
                                  </table>
                               </div>
                            </div>

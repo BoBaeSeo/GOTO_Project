@@ -132,7 +132,7 @@ a:link {
 							<a href="HelpWriteForm" class="ba-item">
 								<div class="ba-text">
 									<h5>1대1 문의 작성</h5>
-									<span>#</span>
+									<span>1:1 Write</span>
 								</div>
 						</c:if>
 						</a> <a href="/c_FAQList" class="ba-item">
@@ -151,14 +151,14 @@ a:link {
 				<div class="property-list">
 					<form action="questionSelect" class="sidebar-search" method="post">
 						<select id="selectBtn">
-							<option value="직접입력">직접입력</option>
+							<option value="#">직접입력</option>
 							<option value="QC001">예약관련</option>
 							<option value="QC002">취소관련</option>
 							<option value="QC003">할인관련</option>
 							<option value="QC004">회원관련</option>
 							<option value="QC005">기타</option>
 						</select> <input type="hidden" name="he_qccode" id="serchBtn">
-						<button type="submit" class="search-btn">검색</button>
+						<button type="submit" class="btn">검색</button>
 						<br>
 						<br>
 					</form>

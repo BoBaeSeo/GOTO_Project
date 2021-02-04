@@ -16,9 +16,9 @@
 					<div class="breadcrumb-text">
 						<h2>My Page</h2>
 						<div class="breadcrumb-option">
-							<a href="/"><i class="fa fa-home"></i> Home</a>
-							<a href="c_mypage?mid=${sessionScope.MLoginId }">my page</a> 
-								<span>my review</span>
+							<a href="/"><i class="fa fa-home"></i> Home</a> <a
+								href="c_mypage?mid=${sessionScope.MLoginId }">My Page</a> 
+								<span>My review</span>
 						</div>
 					</div>
 				</div>
@@ -73,26 +73,16 @@
 						<c:forEach var="rList" items="${reviewList }">
 							<div class="single-property-item">
 								<div class="row">
-									<div class="col-md-8">
-										<div class="property-text">
-											<h5>
-												<a href="roomList">${rList.honame }<a>
-											</h5>
-											<p>${rList.vcontent }
-											<p>
-											<div class="top-nav" style="background-color: white;">
-												<div class="col-lg-5">
-													<div class="top-right" style="margin: 25px 0;">
-														<button
-															onclick="location.href='reviewDelete?vcode=${rList.vcode}'"
-															class="property-sub" style="margin: 0 10px;">삭제</button>
-													</div>
-												</div>
+									<div class="col-md-12">
+										<div class="property-text s-text">
+											<a href="roomList"><h5>${rList.honame }</h5></a>
+													<p>${rList.vcontent }</p>
+														<button onclick="location.href='reviewDelete?vcode=${rList.vcode}'"
+															class="btn primary-btn s-text" style="float: left;">삭제</button>
 											</div>
 										</div>
 									</div>
 								</div>
-							</div>
 						</c:forEach>
 					</div>
 					<div class="property-pagination">

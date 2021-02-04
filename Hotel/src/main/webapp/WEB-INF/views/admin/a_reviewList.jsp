@@ -9,7 +9,7 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="breadcrumb-text">
-					<h2>관리페이지</h2>
+					<h2>고객 후기 관리</h2>
 					<div class="breadcrumb-option">
 						<span>RivewList</span>
 					</div>
@@ -45,7 +45,7 @@
 													<td>${rList.honame }</td>
 													<td>${rList.vwriter }</td>
 													<td>${rList.vdrawup }</td>
-													<td><a class="site-btn" onclick="reviewDelete('${rList.vcode }')">삭제</a></td>
+													<td><button class="site-btn btn" onclick="reviewDelete('${rList.vcode }')">삭제</button></td>
 												</tr>
 											</c:forEach>
 										</tbody>

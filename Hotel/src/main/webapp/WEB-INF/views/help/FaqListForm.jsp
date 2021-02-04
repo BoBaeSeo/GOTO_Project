@@ -9,9 +9,9 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="breadcrumb-text">
-					<h2>FAQ리스트</h2>
+					<h2>자주 묻는 질문 관리</h2>
 					<div class="breadcrumb-option">
-						<span>FaqListForm(jsp이름)</span>
+						<span>FaqListForm</span>
 					</div>
 				</div>
 			</div>
@@ -47,7 +47,7 @@
 																<td>${fList.faq_qccode }</td>
 																<td>${fList.faqtitle }</td>
 																<td><button type="button" id="FaqDelBtn"
-																		class="site-btn"
+																		class="site-btn btn"
 																		onclick="deleteBtn('${fList.faqcode}')">삭제</button></td>
 															</tr>
 														</c:forEach>

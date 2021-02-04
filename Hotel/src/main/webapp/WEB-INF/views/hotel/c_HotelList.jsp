@@ -101,7 +101,7 @@
                                 <option value="1000000">1000000이하</option>
                                 <option value="10000000">1000000이상</option>
                             </select>
-                            <button type="button" class="search-btn" onclick="searchHotel()" >Search</button>
+                            <button type="button" class="search-btn btn" onclick="searchHotel()" >Search</button>
                             </div>
                         </form>
                     </div>
@@ -122,7 +122,7 @@
                                 </div>
                                 <div class="col-md-8 comment-option">
                                     <div class="property-text single-comment-item">
-                                        <div class="s-text">평점 : ${list.hoscore }</div>
+                                        <div class="s-text btn">평점 : ${list.hoscore }</div>
                                         <h5 class="r-title"><a onclick="updateHit('${list.hocode}')" style="text-decoration: none; color: black;">${list.honame }</a></h5>
                                         <div class="properties-location"><i class="icon_pin"></i>${list.hoaddr }</div>
                                         <p>${list.hopublicize }</p>
@@ -130,7 +130,7 @@
                                             <span>가격: </span>
                                             <h5>${list.roprice } ~</h5>
                                             <c:if test="${sessionScope.MLoginId != null }">
-                                            <a id="heart${list.hocode }" class="comment-btn" onclick="heartProcess('${list.hocode }')">찜 등록</a>
+                                            <a id="heart${list.hocode }" class="comment-btn btn" onclick="heartProcess('${list.hocode }')">찜 등록</a>
                                             </c:if>
                                         </div>
                                     </div>

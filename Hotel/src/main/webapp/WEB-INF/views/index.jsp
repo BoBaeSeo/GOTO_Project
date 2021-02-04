@@ -17,18 +17,17 @@
 	<section class="hero-section">
 		<div class="hero-items owl-carousel">
 			<div class="single-hero-item set-bg"
-				data-setbg="resources/img/seoul1.jpg">
+				data-setbg="resources/img/hero/seoul.jpg">
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-8 offset-lg-2">
 							<div class="hero-text">
 								<p class="room-location">
-									<i class="icon_pin"></i> 9721 Glen Creek Ave. Ballston Spa, NY
+									<i class="icon_pin"></i> 서울 종로구 효자로 12 국립고궁박물관
 								</p>
-								<h2>Villa 9721 Glen Creek</h2>
+								<h2>서울</h2>
 								<div class="room-price">
-									<span>Start Form:</span>
-									<p>$3.000.000</p>
+									<span>광화문</span>
 								</div>
 								<ul class="room-features">
 									<li><i class="fa fa-arrows"></i>
@@ -46,18 +45,18 @@
 				</div>
 			</div>
 			<div class="single-hero-item set-bg"
-				data-setbg="resources/img/yosu.jpg">
+				data-setbg="resources/img/hero/yosu.jpg">
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-8 offset-lg-2">
 							<div class="hero-text">
 								<p class="room-location">
-									<i class="icon_pin"></i> 9721 Glen Creek Ave. Ballston Spa, NY
+									<i class="icon_pin"></i> 여수시 돌산읍 돌산로 3617-7
+
 								</p>
-								<h2>Villa 9721 Glen Creek</h2>
+								<h2>여수</h2>
 								<div class="room-price">
-									<span>Start Form:</span>
-									<p>$3.000.000</p>
+									<span>돌산대교</span>
 								</div>
 								<ul class="room-features">
 									<li><i class="fa fa-arrows"></i>
@@ -75,18 +74,17 @@
 				</div>
 			</div>
 			<div class="single-hero-item set-bg"
-				data-setbg="resources/img/kungju.jpg">
+				data-setbg="resources/img/hero/kungju.jpg">
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-8 offset-lg-2">
 							<div class="hero-text">
 								<p class="room-location">
-									<i class="icon_pin"></i> 9721 Glen Creek Ave. Ballston Spa, NY
+									<i class="icon_pin"></i> 경북 경주시 불국로 385 불국사
 								</p>
-								<h2>Villa 9721 Glen Creek</h2>
+								<h2>경주</h2>
 								<div class="room-price">
-									<span>Start Form:</span>
-									<p>$3.000.000</p>
+									<span>불국사</span>
 								</div>
 								<ul class="room-features">
 									<li><i class="fa fa-arrows"></i>
@@ -107,13 +105,13 @@
 		<div class="thumbnail-pic">
 			<div class="thumbs owl-carousel">
 				<div class="item">
-					<img src="resources/img/seoul.jpg" alt="">
+					<img src="resources/img/hero/seoul-dot1.jpg" alt="">
 				</div>
 				<div class="item">
-					<img src="resources/img/yosu.jpg" alt="">
+					<img src="resources/img/hero/yosu-dot1.jpg" alt="">
 				</div>
 				<div class="item">
-					<img src="resources/img/kungju.jpg" alt="">
+					<img src="resources/img/hero/kungju-dot1.jpg" alt="">
 				</div>
 			</div>
 		</div>
@@ -166,7 +164,7 @@
 							<div class="room-size-range">
 								<div class="price-text"></div>
 							</div>
-							<button type="button" class="search-btn" onclick="c_hotellist()">Search</button>
+							<button type="button" class="search-btn btn" onclick="c_hotellist()">Search</button>
 						</div>
 					</form>
 				</div>
@@ -176,35 +174,29 @@
 	<!-- Search Form Section End -->
 
 	<!-- How It Works Section Begin -->
-	<section class="howit-works spad">
+	<section class="spad">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="section-title">
-						<span>Find Your Dream House</span>
-						<h2>How It Work</h2>
+						<span>Find your entertainment to enjoy</span>
+						<h2>Entertainment</h2>
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-lg-6">
 					<div class="single-howit-works">
-						<img src="resources/img/howit-works/rastaurant.JPG" alt="">
-						<h4>
-							<a href="restaurantList">Restaurant</a>
-						</h4>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-							sed do eiusmod tempor incididunt ut labore.</p>
+						<a href="restaurantList"> <img src="resources/img/howit-works/rastaurant.png" alt="">
+							<h3 style="font-weight: bold;">Restaurant</h3>
+							<p>여행지 주변 여러 맛집들을 찾아보세요</p></a>
 					</div>
 				</div>
 				<div class="col-lg-6">
 					<div class="single-howit-works">
-						<img src="resources/img/howit-works/landmark.JPG" alt="">
-						<h4>
-							<a href="landmarkList">Landmark</a>
-						</h4>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-							sed do eiusmod tempor incididunt ut labore.</p>
+						<a href="landmarkList" class=""> <img src="resources/img/howit-works/landmark.png" alt="">
+							<h3 style="font-weight: bold;">Landmark</h3>
+							<p>여행지 주변 여러 관광지들을 찾아보세요</p></a>
 					</div>
 				</div>
 			</div>

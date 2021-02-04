@@ -7,9 +7,9 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="breadcrumb-text">
-					<h2>1대1문의 리스트</h2>
+					<h2>1대1 문의 관리</h2>
 					<div class="breadcrumb-option">
-						<span>questionList</span>
+						<span>QuestionList</span>
 					</div>
 				</div>
 			</div>
@@ -51,7 +51,7 @@
 														<td colspan="3" style="text-align: center;">
 															<div class="col-lg-12">
 																<div class="loadmore">
-																	<a href="companyMain" class="btn">메인으로</a>
+																	<a href="companyMain" class="site-btn btn">메인으로</a>
 																</div>
 															</div>
 														</td>

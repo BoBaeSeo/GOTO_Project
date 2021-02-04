@@ -204,6 +204,8 @@ public class MemberService {
 		// 방 코드 만들기
 		String getBocode = bookingMapper.getbocode();
 		String bocode;
+		if (getBocode == null)
+			getBocode = "BO000";
 		int bocodeNum = Integer.parseInt(getBocode.substring(2, 5)) + 1; // bocode + 1
 		if (bocodeNum < 10) {
 			bocode = "BO" + "00" + bocodeNum;

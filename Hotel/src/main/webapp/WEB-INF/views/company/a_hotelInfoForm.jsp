@@ -12,9 +12,9 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="breadcrumb-text">
-					<h2>호텔등록</h2>
+					<h2>호텔 등록</h2>
 					<div class="breadcrumb-option">
-						<span>a_hotelInfoForm</span>
+						<span>HotelInfoForm</span>
 					</div>
 				</div>
 			</div>

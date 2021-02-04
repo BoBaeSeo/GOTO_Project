@@ -15,9 +15,9 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="breadcrumb-text">
-					<h2>호텔 매출 현황 페이지</h2>
+					<h2>호텔 매출 현황</h2>
 					<div class="breadcrumb-option">
-						<span>a_companySales</span><br>
+						<span>CompanySales</span><br>
 					</div>
 				</div>
 			</div>
@@ -53,7 +53,7 @@
 													<td><select id="yearSelect">
 													<option value="">선택</option>
 													</select></td>
-													<td><button class="site-btn" onclick="gotoCompanySales()">월별 매출 보기</button></td>
+													<td><button class="site-btn btn" onclick="gotoCompanySales()">월별 매출 보기</button></td>
 												</tr>
 										</tbody>
 									</table>

@@ -8,9 +8,9 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="breadcrumb-text">
-					<h2>룸등록</h2>
+					<h2>업체 정보 수정</h2>
 					<div class="breadcrumb-option">
-						<span>RoomWriteForm</span>
+						<span>CompanyModifyForm</span>
 					</div>
 				</div>
 			</div>
@@ -20,7 +20,7 @@
 
 	<!-- main container 시작 -->
 	<section class="property-section spad">
-		<div class="container">
+		<div class="container" style="text-align: center;">
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="property-list">
@@ -30,42 +30,42 @@
 								<form action="CompanyModifyProcess" method="post" id="modifyForm">
 									<table class="table table-bordered" cellspacing="0">
 										<tr>
-											<td>업체 아이디</td>
+											<td>아이디</td>
 											<td><input type="text" name="cmid"
 												value="${companyDTO.cmid }" readonly="readonly"></td>
 										</tr>
 										<tr>
-											<td>업체 비밀번호</td>
+											<td>비밀번호</td>
 											<td><input type="text" name="cmpassword"
 												value="${companyDTO.cmpassword }" readonly="readonly"></td>
 										</tr>
 										<tr>
-											<td>업체 이름</td>
+											<td>이름</td>
 											<td><input type="text" name="cmname"
 												value="${companyDTO.cmname }"></td>
 										</tr>
 										<tr>
-											<td>업체 코드(번호)</td>
+											<td>업체코드(번호)</td>
 											<td><input type="text" name="cmcode"
 												value="${companyDTO.cmcode }" readonly="readonly"></td>
 										</tr>
 										<tr>
-											<td>업체 이메일</td>
+											<td>이메일</td>
 											<td><input type="email" name="cmemail"
 												value="${companyDTO.cmemail }"></td>
 										</tr>
 										<tr>
-											<td>업체 전화번호</td>
+											<td>전화번호</td>
 											<td><input type="text" name="cmphone"
 												value="${companyDTO.cmphone }"></td>
 										</tr>
 										<tr>
-											<td>업체 주소</td>
+											<td>주소</td>
 											<td><input type="text" name="cmaddress"
 												value="${companyDTO.cmaddress }"></td>
 										</tr>
 									</table>
-									<button type="button" onclick="modifySubmit()" class="site-btn">등록</button>
+									<button type="button" onclick="modifySubmit()" class="site-btn btn">등록</button>
 								</form>
 								</div>
 							</div>

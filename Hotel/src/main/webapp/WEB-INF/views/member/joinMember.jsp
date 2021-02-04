@@ -58,8 +58,12 @@ margin: 10px 0 0;
 									</select>
 								</div>
 							</div>
-							<br>
-							<button type="submit" class="site-btn">회원 가입</button>
+								<hr>
+								<div class="col-lg-12">
+									<div class="loadmore">
+										<button type="submit" class="btn site-btn">가입완료</button>
+									</div>
+								</div>
 						</form>
 					</div>
 				</div>

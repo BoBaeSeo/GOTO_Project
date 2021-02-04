@@ -9,9 +9,9 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="breadcrumb-text">
-					<h2>업체 승인 페이지</h2>
+					<h2>업체 가입 승인</h2>
 					<div class="breadcrumb-option">
-						<span>a_approveJoin</span>
+						<span>ApproveJoin</span>
 					</div>
 				</div>
 			</div>
@@ -31,13 +31,13 @@
 									<table class="table table-bordered" cellspacing="0">
 										<thead>
 											<tr>
-												<th>업체아이디</th>
-												<th>업체이름</th>
-												<th>업체번호</th>
-												<th>업체주소</th>
+												<th>업체 아이디</th>
+												<th>업체 이름</th>
+												<th>업체 번호</th>
+												<th>업체 주소</th>
 												<th>업체이메일</th>
-												<td>승인</td>
-												<td>거절</td>
+												<th>승인</th>
+												<th>거절</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -50,8 +50,8 @@
 															<td>${list.cmphone }</td>
 															<td>${list.cmaddress }</td>
 															<td>${list.cmemail }</td>
-															<td><button class="site-btn" onclick="comApprove('${list.cmcode}')">승인</button></td>
-															<td><button class="site-btn" onclick="comDecline('${list.cmcode}')">거절</button></td>
+															<td><button class="site-btn btn" onclick="comApprove('${list.cmcode}')">승인</button></td>
+															<td><button class="site-btn btn" onclick="comDecline('${list.cmcode}')">거절</button></td>
 														</tr>
 													</c:forEach>
 												</c:when>

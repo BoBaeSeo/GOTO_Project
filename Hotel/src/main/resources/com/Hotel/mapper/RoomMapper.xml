@@ -37,6 +37,11 @@
 		SELECT HOCODE, HONAME FROM HOTEL WHERE HO_CID = #{loginId}
 	</select>
 	
+	<!-- 룸 사진 이름 select -->
+	<select id="getRoomname" parameterType="String" resultType="String">
+		SELECT ROFILENAME FROM ROOM WHERE ROCODE = #{rocode}
+	</select>
+	
 	<resultMap type="map" id="room">
 		<result property="ro_hocode" column="RO_HOCODE" />
 		<result property="rocode" column="ROCODE" />

@@ -7,13 +7,13 @@
 
     <!-- Property Details Section Begin -->
     <section class="property-details-section spad">
-	<div class="container pd-hero-section">
+	<div class="container pd-hero-section" style="text-align: center;">
 		<div class="row pd-details-text">
 			<div class="col-lg-6 property-contactus margin_center">
 				<h4 class="table-in">관리자 로그인</h4>
-				<form action="AdminLogin" class="agent-contact-form section-title" id="adminLogin" method="post" style="text-align: left">
+				<form action="AdminLogin" class="agent-contact-form section-title" id="adminLogin" method="post">
 					<input type="text" name="cmid" id="cmid" placeholder="아이디"> <input type="text" name="cmpassword" id="cmpassword" placeholder="비밀번호">
-					<button type="button" onclick="ALoginBtn()" class="site-btn">로그인</button>
+					<button type="button" onclick="ALoginBtn()" class="site-btn btn">로그인</button>
 				</form>
 			</div>
 		</div>

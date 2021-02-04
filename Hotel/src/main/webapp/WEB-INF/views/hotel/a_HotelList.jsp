@@ -10,7 +10,7 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="breadcrumb-text">
-					<h2>호텔리스트</h2>
+					<h2>호텔 관리</h2>
 					<div class="breadcrumb-option">
 						<span>HotelList</span>
 					</div>
@@ -48,9 +48,9 @@
 															<td>${list.ho_ctcode }</td>
 															<td>${list.ho_cid }</td>
 															<td>${list.hocode }</td>
-															<td> <a href="a_hotelView?hocode=${list.hocode }" style="border-bottom-style: solid;">${list.honame }</a></td>
+															<td> <a href="a_hotelView?hocode=${list.hocode }" style="color: black; text-decoration: underline;">${list.honame }</a></td>
 															<td>${list.hoscore }</td>
-															<td><button class="btn" onclick="hotelDelete('${list.hocode}')" >삭제</button></td>
+															<td><button class="site-btn btn" onclick="hotelDelete('${list.hocode}')" >삭제</button></td>
 														</tr>
 													</c:forEach>
 												</c:when>

@@ -40,7 +40,6 @@
 </head>
 
 <body>
-
 	<!-- Header Section Begin -->
 	<header class="header-section">
 		<div class="top-nav" style="background-color: white;">
@@ -62,14 +61,14 @@
 							<!-- 로그인이 되면 보여줄 메뉴 -->
 							<c:choose>
 								<c:when test="${sessionScope.MLoginId eq null }">
-									<a href="joinSelect" class="property-sub">회원가입</a>
-									<a href="MemberLoginForm" class="property-sub">회원 로그인</a>
-									<a href="AdminLoginForm" class="property-sub">업체 로그인</a>
+									<a href="joinSelect" class="property-sub btn">회원가입</a>
+									<a href="MemberLoginForm" class="property-sub btn">회원 로그인</a>
+									<a href="AdminLoginForm" class="property-sub btn">업체 로그인</a>
 								</c:when>
 								<c:otherwise>
-									<a href="Logout" onclick="LogOut()" class="property-sub">로그아웃</a>
+									<a href="Logout" onclick="LogOut()" class="property-sub btn">로그아웃</a>
 									<a href="c_mypage?mid=${sessionScope.MLoginId }"
-										class="property-sub">마이페이지</a>
+										class="property-sub btn">마이페이지</a>
 								</c:otherwise>
 							</c:choose>
 						</div>
@@ -78,7 +77,6 @@
 			</div>
 		</div>
 	</header>
-
 	<script type="text/javascript">
 		function LogOut() {
 			alert("로그아웃 되었습니다!");

@@ -12,7 +12,8 @@
 					<h2>My Page</h2>
 					<div class="breadcrumb-option">
 						<a href="/"><i class="fa fa-home"></i> Home</a> 
-						<span>MyBookingList</span>
+						<a href="c_mypage?mid=${sessionScope.MLoginId }">My Page</a> 
+						<span>My BookingList</span>
 					</div>
 				</div>
 			</div>
@@ -82,8 +83,8 @@
                                 </div>
                                 <div class="col-md-8">
                                     <div class="property-text">
-                                        <div class="s-text" style="display: none;" id="complete${list.bcode }">이용완료</div>
-                                    	<div class="f-text" style="display: none;" id="cancel${list.bcode }" onclick="cancelBooking('${list.bcode }')">예약취소</div>
+                                        <div class="s-text btn" style="display: none;" id="complete${list.bcode }">이용완료</div>
+                                    	<div class="f-text btn" style="display: none;" id="cancel${list.bcode }" onclick="cancelBooking('${list.bcode }')">예약취소</div>
                                         <h5 class="r-title"><a href="c_RoomList?hocode=${list.b_hocode }" style="text-decoration: none; color: black;">${list.honame }</a>
                                         <span class="t_title">&nbsp; -&nbsp; ${list.roname }</span></h5>
                                         <div class="properties-location"><i class="icon_pin"></i>${list.hoaddr }</div>
@@ -107,7 +108,7 @@
 		                        <a href="#" class="active">${pageNum }</a>
                     		</c:when>
                     		<c:otherwise>
-		                        <a href="c_HotelList?page=${pageNum }">${pageNum }</a>
+		                        <a href="c_myBookingList?page=${pageNum }">${pageNum }</a>
                     		</c:otherwise>
                     	</c:choose>
                     </c:forEach>

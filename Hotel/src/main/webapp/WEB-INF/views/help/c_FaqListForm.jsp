@@ -52,7 +52,7 @@
 								<span>FAQ</span>
 							</div>
 						</a>
-							
+
 					</div>
 				</div>
 			</div>
@@ -61,20 +61,20 @@
 			<div class="col-lg-9">
 				<h4 class="property-title">자주 묻는 질문</h4>
 				<div class="property-list">
-				<form action="searchingFAQList" class="sidebar-search">
-								<select name="faq_qccode">
-									<option value="#">직접입력</option>
-									<option value="QC001">예약관련</option>
-									<option value="QC002">취소관련</option>
-									<option value="QC003">할인관련</option>
-									<option value="QC004">회원관련</option>
-									<option value="QC005">기타</option>
-								</select>
-								<button type="submit" class="search-btn">검색</button>
-							</form><br><br>
+					<form action="searchingFAQList" class="sidebar-search">
+						<select name="faq_qccode">
+							<option value="#">직접입력</option>
+							<option value="QC001">예약관련</option>
+							<option value="QC002">취소관련</option>
+							<option value="QC003">할인관련</option>
+							<option value="QC004">회원관련</option>
+							<option value="QC005">기타</option>
+						</select>
+						<button type="submit" class="btn">검색</button>
+					</form><br><br>
 					<div class="single-property-item">
 						<div class="row">
-							<div class="col-lg-10 accordion_one">
+							<div class="col-lg-12 accordion_one">
 								<div class="panel-group" id="accordion_oneRight">
 									<c:forEach var="fList" items="${FaqList }" varStatus="num">
 										<div class="panel panel-default">
@@ -83,8 +83,8 @@
 													<a class="collapsed" data-toggle="collapse"
 														data-parent="#accordion_oneRight"
 														href="#collapseFiveRightone${fList.qccode }${num.index }"
-														aria-expanded="false" style="font-weight: bold;">
-														Q. ${fList.faqtitle } </a>
+														aria-expanded="false" style="font-weight: bold;"> Q.
+														${fList.faqtitle } </a>
 												</h4>
 											</div>
 											<div id="collapseFiveRightone${fList.qccode }${num.index }"
@@ -104,6 +104,8 @@
 							</div>
 						</div>
 					</div>
+				</div>
+			</div>
 </section>
 <!-- Property Section End -->
 

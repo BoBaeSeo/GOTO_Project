@@ -9,7 +9,7 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="breadcrumb-text">
-					<h2>관리페이지</h2>
+					<h2>1대1 문의 답변</h2>
 					<div class="breadcrumb-option">
 						<span>AnswerForm</span>
 					</div>
@@ -25,9 +25,9 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="property-list">
-						<div class="card shadow">
-							<div class="card-body">
-								<div class="table-responsive">
+						<div class="card shadow property-list">
+							<div class="card-body single-property-item">
+								<div class="table-responsive accordion_one">
 									<table class="table table-bordered" cellspacing="0">
 											<tr>
 												<th>카테고리</th>
@@ -55,7 +55,7 @@
 											</tr>
 
 											<tr>
-												<td colspan="2"><input type="button"  class="primary-btn" value="답변하기" onclick="answerSubmit()"></td>
+												<td colspan="2"><input type="button"  class="site-btn btn" value="답변하기" onclick="answerSubmit()"></td>
 											</tr>
 									</table>
 								</div>
@@ -108,7 +108,7 @@ function answerSubmit(){
 			}
 		})
 	}else{
-		alert("답변 작성 필요");
+		alert("답변을 작성해 주세요.");
 	}
 }
 

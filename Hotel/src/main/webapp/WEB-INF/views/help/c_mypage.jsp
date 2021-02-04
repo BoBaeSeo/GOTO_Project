@@ -13,7 +13,8 @@
 					<h2>MyPage</h2>
 					<div class="breadcrumb-option">
 						<a href="/"><i class="fa fa-home"></i> Home</a>
-						<span>내 정보</span>
+						<a href="c_mypage?mid=${sessionScope.MLoginId }">My Page</a>
+						<span>My Information</span>
 					</div>
 				</div>
 			</div>
@@ -99,9 +100,9 @@
 												<td><input type="password" class="input-table" id="check_password"></td>
 											</tr>
 											<tr>
-												<td colspan="2"><input type="button" class="site-btn" id="modify-1" value="수정하기" onclick="remove_readonly()">
-													<input type="button" class="site-btn" id="modify-2" value="수정하기" onclick="myInfo_modify()">
-													<input type="reset" class="site-btn" id="reset" value="취소"></td>
+												<td colspan="2"><input type="button" class="site-btn btn" id="modify-1" value="수정하기" onclick="remove_readonly()">
+													<input type="button" class="site-btn btn" id="modify-2" value="수정하기" onclick="myInfo_modify()">
+													<input type="reset" class="site-btn btn" style="width: 115px" id="reset" value="취소"></td>
 											</tr>
 										</table>
 									</form>

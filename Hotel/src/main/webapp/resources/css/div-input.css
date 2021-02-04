@@ -43,7 +43,7 @@
 
 #home, #hotel, #help {
 	color: #2C2C2C;
-	font-size: medium;
+	font-size: large;
 }
 
 #modify-2, #reset, #password-text {
@@ -88,7 +88,7 @@ h4 {
 	color: #999999;
 	display: block;
 	padding: 12px 30px;
-	border-top: 0px
+	border-top: 0px;
 }
 
 .accordion_one .panel .panel-heading a {
@@ -226,6 +226,6 @@ p:cl {
 	}
 }
 
-.margin_center{
+.margin_center {
 	margin: 0 auto;
 }

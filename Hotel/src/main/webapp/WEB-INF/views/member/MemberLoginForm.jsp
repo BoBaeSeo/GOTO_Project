@@ -27,23 +27,23 @@
 <!-- Property Details Section Begin -->
 <section class="property-details-section spad">
 	<div class="container pd-hero-section">
-		<div class="row pd-details-text">
+		<div class="row pd-details-text" style="text-align: center;">
 			<div class="col-lg-6 property-contactus margin_center">
 				<h4 class="table-in">회원 로그인</h4>
 				<form action="MemberLogin" class="agent-contact-form section-title"
-					id="memberLogin" method="post" style="text-align: left">
-					<input type="text" name="mid" id="mid" placeholder="아이디"> <input
-						type="text" name="mpassword" id="mpassword" placeholder="비밀번호">
-					<button type="button" onclick="MLoginBtn()" class="site-btn">로그인</button>
-					<div class="margin_center" style="padding: 10px 0;">
-						<a href="findLoginForm"><span>아이디 </span></a> <a
-							href="findPasswordForm"><span>• 비밀번호 찾기</span></a>
+					id="memberLogin" method="post">
+					<input type="text" name="mid" id="mid" placeholder="아이디"> 
+					<input type="text" name="mpassword" id="mpassword" placeholder="비밀번호">
+					<div class="margin_center" style="padding: 10px 0; text-align: right; margin: 0 auto;">
+						<a href="findLoginForm"><span>아이디 </span></a> 
+						<a href="findPasswordForm"><span>• 비밀번호 찾기</span></a>
 					</div>
+					<button type="button" onclick="MLoginBtn()" class="site-btn btn">로그인</button>
 				</form>
 				<form action="kakaoLogin">
-					<a id="kakao-login-btn" href="javascript:loginWithKakao()"><img
-						src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg"
-						width="222" /></a>
+					<a id="kakao-login-btn" href="javascript:loginWithKakao()">
+					<img src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg" width="222" />
+					</a>
 				</form>
 			</div>
 		</div>
