@@ -72,6 +72,9 @@ public class CompanyService {
 			if (cmcheck == 0) {// 승인안됨
 				mav.setViewName("company/a_LoginForm");
 				result = "WAIT";
+			} else if (cmcheck == 2) {
+				mav.setViewName("company/a_LoginForm");
+				result = "DECLINE";
 			} else {// 승인됨
 				session.setAttribute("ALoginId", ALoginId);
 				mav.setViewName("company/companyMain");
@@ -428,17 +431,15 @@ public class CompanyService {
 		// 레스토랑 코드
 		String getRecode = companyMapper.getRecode();
 		String recode;
-		if (getRecode == null) {
-			recode = "RE" + "001";
+		if (getRecode == null)
+			getRecode = "RE000";
+		int recodeNum = Integer.parseInt(getRecode.substring(2, 5)) + 1;
+		if (recodeNum < 10) {
+			recode = "RE" + "00" + recodeNum;
+		} else if (recodeNum < 100) {
+			recode = "RE" + "0" + recodeNum;
 		} else {
-			int recodeNum = Integer.parseInt(getRecode.substring(2, 5)) + 1;
-			if (recodeNum < 10) {
-				recode = "RE" + "00" + recodeNum;
-			} else if (recodeNum < 100) {
-				recode = "RE" + "0" + recodeNum;
-			} else {
-				recode = "RE" + recodeNum;
-			}
+			recode = "RE" + recodeNum;
 		}
 
 		// 레스토랑 전체 주소
@@ -540,7 +541,7 @@ public class CompanyService {
 	}
 
 	// 업체삭제
-	@Transactional(rollbackFor= {Exception.class})
+	@Transactional(rollbackFor = { Exception.class })
 	public ModelAndView companyDelete(String cmid, String cmcode) {
 		mav = new ModelAndView();
 
@@ -575,12 +576,13 @@ public class CompanyService {
 		// 룸, 호텔 삭제
 		companyMapper.deleteRoom(cmid);
 		companyMapper.deleteHotel(cmid);
-		
+
 		// 업체 삭제
 		int companyDelete = companyMapper.companyDelete(cmid);
 		System.out.println("companyDelete::" + companyDelete);
 
-		if(cmcode == null) mav.setViewName("redirect:/a_companyList");
+		if (cmcode == null)
+			mav.setViewName("redirect:/a_companyList");
 		else {
 			session.invalidate();
 			mav.setViewName("redirect:/");

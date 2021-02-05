@@ -66,7 +66,7 @@
                     <div class="property-sidebar">
                         <h4>예약하기</h4>
                         <form action="c_HotelList" class="sidebar-search" method="post" id="hotelListForm">
-                            <div class="first-row" id="ctnameDiv">
+                        	<input type="hidden" id="page" name="page">
                             <div id="ctnameDiv">
                             <select name="ctname" id="ctname">
                                 <option value="지역">지역</option>
@@ -91,7 +91,6 @@
                                 <option value="3">4명 이상</option>
                             </select>
                             </div>
-                       	 	</div>
                         	<div id="bpriceDiv">
                             <select name="bprice" id="bprice">
                                 <option value="">가격</option>
@@ -272,16 +271,12 @@
 		var url = "";
 		if($("#checkin").val() == ""){	/* checkin input에 값이 비어 있다면 파라미터 값으로 page만 넘김 */
 			url = "c_HotelList?page="+page;
+			location.href= url;
 		} else {
-			var checkin = $("#checkin").val();
-			var checkout = $("#checkout").val();
-			var ctname = '${ctname}'
-			var bperson = '${searchData.bperson}';
-			var bprice = '${searchData.bprice}';
-			/* checkin input에 값이 존재한다면 파라미터로 모든 값을 넘김 */
-			url = "c_HotelList?page="+page+"&bcheckin="+checkin+"&bcheckout="+checkout+"&ctname="+ctname+"&bperson="+bperson+"&bprice="+bprice
+			$("#page").val(page);
+			/* checkin input에 값이 존재한다면 form submit*/
+			hotelListForm.submit();
 		}
-		location.href= url;
 		}
 
 	/* 호텔 조회수 1 올리기 */

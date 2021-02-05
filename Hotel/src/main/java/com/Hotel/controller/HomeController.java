@@ -29,4 +29,10 @@ public class HomeController {
 		return "index";
 	}
 	
+	@RequestMapping(value="/bridge")
+	public String bridge() {
+		return "redirect:https://booking.naver.com/booking/6/bizes/474104";
+		
+	}
+	
 }

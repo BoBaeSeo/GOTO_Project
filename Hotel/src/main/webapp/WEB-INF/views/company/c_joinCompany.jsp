@@ -24,7 +24,7 @@ margin: 10px 0 0;
 								<span>company</span>
 								<h2>회원가입</h2>
 							</div>
-							<form action="companyJoin" class="contact-form" method="post">
+							<form action="companyJoin" class="contact-form" method="post" id="joinForm">
 								<!-- 아이디 -->
 								<div class="ba-text">
 									<span>아이디<span
@@ -110,7 +110,7 @@ margin: 10px 0 0;
 								<hr>
 								<div class="col-lg-12">
 									<div class="loadmore">
-										<button type="submit" class="btn site-btn">가입완료</button>
+										<button type="button" onclick="companyJoin()" class="btn site-btn">가입완료</button>
 									</div>
 								</div>
 							</form>
@@ -188,6 +188,10 @@ margin: 10px 0 0;
 						});
 
 			});
+	function companyJoin(){
+		alert('회원가입 되었습니다. 승인을 기다려주세요');
+		joinForm.submit();
+		}
 </script>
 
 

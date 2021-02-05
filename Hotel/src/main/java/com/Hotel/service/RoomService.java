@@ -44,8 +44,8 @@ public class RoomService {
 		String getRocode = roomMapper.getrocode(); // 가장 큰 rocode 가져오기
 		String rocode;
 		int rocodeNum = 0;
-		if (getRocode == null) rocode = "RO001";
-		else rocodeNum = Integer.parseInt(getRocode.substring(2, 5)) + 1; // rocode에서 숫자부분만 따로 뽑아서 1을 더해준다.
+		if (getRocode == null) getRocode = "RO000";
+		rocodeNum = Integer.parseInt(getRocode.substring(2, 5)) + 1; // rocode에서 숫자부분만 따로 뽑아서 1을 더해준다.
 		if (rocodeNum < 10) {
 			rocode = "RO" + "00" + rocodeNum; // 더한 rocodeNum이 한자리 숫자면
 		} else if (rocodeNum < 100) { // 더한 rocodeNum이 두자리 숫자면

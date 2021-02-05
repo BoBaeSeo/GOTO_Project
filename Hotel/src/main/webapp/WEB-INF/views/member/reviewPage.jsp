@@ -75,7 +75,7 @@
 								<div class="row">
 									<div class="col-md-12">
 										<div class="property-text s-text">
-											<a href="roomList"><h5>${rList.honame }</h5></a>
+											<a href="c_RoomList?hocode=${rList.v_hocode }"><h5>${rList.honame }</h5></a>
 													<p>${rList.vcontent }</p>
 														<button onclick="location.href='reviewDelete?vcode=${rList.vcode}'"
 															class="btn primary-btn s-text" style="float: left;">삭제</button>

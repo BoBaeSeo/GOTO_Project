@@ -72,6 +72,7 @@ input{
                            </table>
                            <button type="button" class="site-btn btn"
                               onclick="location.href='CompanyModify?cmid=${companyDTO.cmid }'">업체정보수정</button>
+                              <button type="button" class="site-btn btn" onclick="companyDelete()">업체 탈퇴</button>
                         </div>
                      </div>
                   </div>
@@ -83,7 +84,18 @@ input{
    <!-- main container 끝 -->
 </div>
 <!-- main 끝 -->
-
+<script type="text/javascript">
+	function companyDelete(){
+		var cmcode = '${companyDTO.cmcode }';
+		var cmid = '${companyDTO.cmid}';
+		var inputPw = prompt('비밀번호를 입력하세요');
+		var loginPw = '${companyDTO.cmpassword}';
+		if(inputPw == loginPw){
+			alert('탈퇴되었습니다.')
+			location.href="companyDelete?cmid="+cmid+"&cmcode="+cmcode;
+			}
+		}
+</script>
 
 
 <!-- Js Plugins -->

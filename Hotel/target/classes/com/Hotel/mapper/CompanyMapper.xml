@@ -19,7 +19,7 @@
 	<!-- 거절을 누르면 cmcheck를 0로 update -->
 	<update id="comDecline" parameterType="String">
 		UPDATE COMPANY SET CMCHECK
-		= 0 WHERE CMCODE = #{cmcode}
+		= 2 WHERE CMCODE = #{cmcode}
 	</update>
 
 	<!-- 승인을 누르면 cmcheck를 1로 update -->

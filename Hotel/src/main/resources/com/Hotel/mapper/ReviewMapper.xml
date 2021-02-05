@@ -5,13 +5,13 @@
 
 <mapper namespace="com.Hotel.mapper.ReviewMapper">
 
-	<!-- 리뷰 등록 -->
+	<!-- 리뷰 리스트 select -->
 	<select id="getReviewList" parameterType="String"
 		resultMap="selectReview">
 		SELECT * FROM REVIEW WHERE V_HOCODE = #{hocode}
 	</select>
 
-	<!-- 리뷰 리스트 select -->
+	<!-- 리뷰 등록 -->
 	<insert id="insertReview"
 		parameterType="com.Hotel.dto.ReviewDTO">
 		INSERT INTO REVIEW(VCODE, V_HOCODE, VWRITER, VCONTENT, VSCORE, VDRAWUP, V_BCODE)

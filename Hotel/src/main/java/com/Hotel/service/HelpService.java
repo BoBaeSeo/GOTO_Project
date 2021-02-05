@@ -38,7 +38,7 @@ public class HelpService {
 		String hecode;
 		int hecodeNum = 0;
 		if (gethecode == null)
-			hecode = "HE001";
+			gethecode = "HE000";
 		else
 			hecodeNum = Integer.parseInt(gethecode.substring(2, 5)) + 1; // hecode에서 숫자부분만 따로 뽑아서 1을 더해준다.
 		if (hecodeNum < 10) {
@@ -162,6 +162,7 @@ public class HelpService {
 		// 최대코드수
 		String maxFaqNum = helpMapper.maxFaqNum();
 		// faqcodeNum에 뒤숫자 3자리를 가져와 +1를 한다
+		if(maxFaqNum == null) maxFaqNum = "FA000";
 		int faqcodeNum = Integer.parseInt(maxFaqNum.substring(2, 5)) + 1;
 
 		if (faqcodeNum < 10) {

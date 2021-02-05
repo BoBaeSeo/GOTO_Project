@@ -185,6 +185,7 @@ public class HotelService {
 		// htcode 만들기
 		String htcode = null;
 		String getHtcode = hotelMapper.getHtcode(); // 가장 큰 htcode 가져오기
+		if(getHtcode == null) getHtcode = "HT000";
 		int htcodeNum = Integer.parseInt(getHtcode.substring(2, 5)) + 1; // htcode에서 숫자부분만 따로 뽑아서 1을 더해준다.
 		if (htcodeNum < 10) {
 			htcode = "HT00" + htcodeNum; // 더한 htcodeNum이 한자리 숫자면

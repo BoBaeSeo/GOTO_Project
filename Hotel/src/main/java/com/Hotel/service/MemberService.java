@@ -272,18 +272,17 @@ public class MemberService {
 		// M코드 만들기
 		String getMcode = memberMapper.getMcode();
 		String mcode;
-		if (getMcode == null) {
-			mcode = "ME" + "001";
+		if (getMcode == null)
+			getMcode = "ME000";
+		int mcodeNum = Integer.parseInt(getMcode.substring(2, 5)) + 1;
+		if (mcodeNum < 10) {
+			mcode = "ME" + "00" + mcodeNum;
+		} else if (mcodeNum < 100) {
+			mcode = "ME" + "0" + mcodeNum;
 		} else {
-			int mcodeNum = Integer.parseInt(getMcode.substring(2, 5)) + 1;
-			if (mcodeNum < 10) {
-				mcode = "ME" + "00" + mcodeNum;
-			} else if (mcodeNum < 100) {
-				mcode = "ME" + "0" + mcodeNum;
-			} else {
-				mcode = "ME" + mcodeNum;
-			}
+			mcode = "ME" + mcodeNum;
 		}
+
 		System.out.println("code");
 
 		memberDTO.setMcode(mcode);
@@ -431,7 +430,7 @@ public class MemberService {
 
 		memberDTO.setMname(findname);
 		memberDTO.setMphone(findnumber);
-		
+
 		// 아이디 찾기
 		String result = memberMapper.findLogin(memberDTO);
 		String findresult = null;
@@ -465,7 +464,7 @@ public class MemberService {
 
 	// 로그인 api 가입확인
 	public String checkKakaoJoin(String userId) {
-		
+
 		// 카카오 아이디가 존재하는지 확인
 		String mid = memberMapper.checkKakaoJoin(userId);
 		String result = "NO";
@@ -488,17 +487,15 @@ public class MemberService {
 		// Mcode 생성
 		String getMcode = memberMapper.getMcode();
 		String mcode;
-		if (getMcode == null) {
-			mcode = "ME" + "001";
+		if (getMcode == null)
+			getMcode = "ME000";
+		int mcodeNum = Integer.parseInt(getMcode.substring(2, 5)) + 1;
+		if (mcodeNum < 10) {
+			mcode = "ME" + "00" + mcodeNum;
+		} else if (mcodeNum < 100) {
+			mcode = "ME" + "0" + mcodeNum;
 		} else {
-			int mcodeNum = Integer.parseInt(getMcode.substring(2, 5)) + 1;
-			if (mcodeNum < 10) {
-				mcode = "ME" + "00" + mcodeNum;
-			} else if (mcodeNum < 100) {
-				mcode = "ME" + "0" + mcodeNum;
-			} else {
-				mcode = "ME" + mcodeNum;
-			}
+			mcode = "ME" + mcodeNum;
 		}
 
 		memberDTO.setMcode(mcode);
