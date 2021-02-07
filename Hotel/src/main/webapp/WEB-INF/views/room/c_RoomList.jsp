@@ -96,7 +96,7 @@ color: #2CBDB8;
                 <div class="col-lg-10 offset-lg-1">
                     <h4 id="reviewTitle">${reviewCnt } Review (${hotelDTO.hoscore })</h4>
                     <div class="comment-option" id="reviewArea" style="height:500px; overflow: auto;">
-				<c:forEach var="vlist" items="${reviewList}">
+						<c:forEach var="vlist" items="${reviewList}">
                         <div class="single-comment-item" style="border-bottom: 1px solid gray; padding: 15px; margin: 0">
                             <div class="sc-text" style="width: 330px" >
                                 <span>작성날짜: ${vlist.vdrawup }</span> <span style="float: right;" id="likeCnt${vlist.vcode }"></span>
@@ -118,7 +118,7 @@ color: #2CBDB8;
                             	</div>
                             </div>
                         </div>
-           		</c:forEach>
+           				</c:forEach>
                     </div>
                 </div>
            		</div>
