@@ -14,8 +14,10 @@
 	<!-- 리뷰 등록 -->
 	<insert id="insertReview"
 		parameterType="com.Hotel.dto.ReviewDTO">
-		INSERT INTO REVIEW(VCODE, V_HOCODE, VWRITER, VCONTENT, VSCORE, VDRAWUP, V_BCODE)
-		VALUES(#{vcode}, #{v_hocode}, #{vwriter}, #{vcontent}, #{vscore}, SYSDATE, #{v_bcode})
+		INSERT INTO REVIEW(VCODE, V_HOCODE, VWRITER, VCONTENT,
+		VSCORE, VDRAWUP, V_BCODE)
+		VALUES(#{vcode}, #{v_hocode}, #{vwriter},
+		#{vcontent}, #{vscore}, SYSDATE, #{v_bcode})
 	</insert>
 
 	<!-- MAX RV코드 select -->
@@ -38,7 +40,8 @@
 	<!-- 리뷰 수정 -->
 	<update id="modifyReview"
 		parameterType="com.Hotel.dto.ReviewDTO">
-		UPDATE REVIEW SET VCONTENT = #{vcontent}, VSCORE = #{vscore} WHERE VCODE =
+		UPDATE REVIEW SET VCONTENT = #{vcontent}, VSCORE =
+		#{vscore} WHERE VCODE =
 		#{vcode}
 	</update>
 
@@ -51,14 +54,16 @@
 	<!-- 리뷰 좋아요 -->
 	<insert id="likeProcess"
 		parameterType="com.Hotel.dto.HistoryDTO">
-		INSERT INTO HISTORY(HI_VCODE, HIID, HICHECKLIKE) VALUES(#{hi_vcode},
+		INSERT INTO HISTORY(HI_VCODE, HIID, HICHECKLIKE)
+		VALUES(#{hi_vcode},
 		#{hiid}, 1)
 	</insert>
 
 	<!-- 리뷰 좋아요 취소 -->
 	<delete id="unlikeProcess"
 		parameterType="com.Hotel.dto.HistoryDTO">
-		DELETE FROM HISTORY WHERE HI_VCODE = #{hi_vcode} AND HIID = #{hiid}
+		DELETE FROM HISTORY WHERE HI_VCODE = #{hi_vcode} AND
+		HIID = #{hiid}
 	</delete>
 
 
@@ -72,28 +77,40 @@
 
 	<!-- 리뷰 history 삭제 -->
 	<delete id="historyDelete" parameterType="String">
-		DELETE FROM HISTORY WHERE HI_VCODE= #{VCODE}
+		DELETE FROM HISTORY
+		WHERE HI_VCODE= #{VCODE}
 	</delete>
 
 	<!-- 리뷰 리스트 select -->
 	<select resultMap="review" id="reviewPage">
 		SELECT *
-		FROM (SELECT ROWNUM RN, REVIEW.* , HOTEL.HONAME
+		FROM (SELECT ROWNUM RN,
+		REVIEW.* , HOTEL.HONAME
 		FROM REVIEW, HOTEL
-		WHERE REVIEW.V_HOCODE = HOTEL.HOCODE AND VWRITER = #{MloginId})
-		WHERE RN BETWEEN #{startRow} AND #{endRow}
+		WHERE REVIEW.V_HOCODE =
+		HOTEL.HOCODE AND VWRITER = #{MloginId})
+		WHERE RN BETWEEN #{startRow}
+		AND #{endRow}
 	</select>
 
 	<!-- 리뷰 개수 select -->
 	<select id="getReviewListCnt" resultType="int">
-		SELECT COUNT(*) FROM REVIEW 
+		SELECT COUNT(*) FROM
+		REVIEW
 	</select>
 
 	<!-- 리뷰 리스트 select -->
 	<select id="selectReviewList" resultMap="review">
-		SELECT VCODE, HONAME, VWRITER, TO_CHAR(VDRAWUP, 'YYYY-MM-DD') AS VDRAWUP FROM REVIEW INNER JOIN HOTEL ON V_HOCODE = HOCODE
+		SELECT VCODE, HONAME,
+		VWRITER, TO_CHAR(VDRAWUP, 'YYYY-MM-DD') AS VDRAWUP FROM REVIEW INNER
+		JOIN HOTEL ON V_HOCODE = HOCODE
 	</select>
 
+	<!-- 리뷰 내용 가져오기 -->
+	<select id="getVcontent" parameterType="String"
+		resultType="String">
+		SELECT VCONTENT FROM REVIEW WHERE VCODE = #{vcode}
+	</select>
 
 	<resultMap type="com.Hotel.dto.ReviewDTO" id="selectReview">
 		<result property="vcode" column="VCODE" />

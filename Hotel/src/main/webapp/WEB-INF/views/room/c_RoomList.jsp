@@ -96,7 +96,7 @@ color: #2CBDB8;
                 <div class="col-lg-10 offset-lg-1">
                     <h4 id="reviewTitle">${reviewCnt } Review (${hotelDTO.hoscore })</h4>
                     <div class="comment-option" id="reviewArea" style="height:500px; overflow: auto;">
-						<c:forEach var="vlist" items="${reviewList}">
+				<c:forEach var="vlist" items="${reviewList}">
                         <div class="single-comment-item" style="border-bottom: 1px solid gray; padding: 15px; margin: 0">
                             <div class="sc-text" style="width: 330px" >
                                 <span>작성날짜: ${vlist.vdrawup }</span> <span style="float: right;" id="likeCnt${vlist.vcode }"></span>
@@ -107,7 +107,8 @@ color: #2CBDB8;
                                 		<c:when test="${sessionScope.MLoginId != vlist.vwriter }">
                                 			<a id="like${vlist.vcode }" class="comment-btn" onclick="likeProcess('${vlist.vcode}')">Like</a>
                                 		</c:when>
-                                		<c:otherwise><a id="modiBtn${vlist.vcode }" class="comment-btn" onclick="modifyReview('${vlist.vcode}', '${vlist.vcontent }')">수정</a> 
+                                		<c:otherwise>
+                                		<a id="modiBtn${vlist.vcode }" class="comment-btn" onclick="modifyReview('${vlist.vcode }')">수정</a> 
                                 		<a class="comment-btn" onclick="deleteReview('${vlist.vcode}')">삭제</a></c:otherwise>
                                 	</c:choose>
                                 </c:if> 
@@ -118,7 +119,7 @@ color: #2CBDB8;
                             	</div>
                             </div>
                         </div>
-           				</c:forEach>
+           		</c:forEach>
                     </div>
                 </div>
            		</div>
@@ -269,47 +270,49 @@ color: #2CBDB8;
 		$("#reviewTitle").text(reviewCnt + " Review (" + hoscore + ")");
 	}
 	/* 수정 버튼을 눌렀을 경우 */
-	function modifyReview(vcode, vcontent){
-		if($("#modiBtn"+vcode).html() == '수정'){	/* 수정 버튼을 눌렀다면 리뷰 수정이 가능하도록 html변경*/
-			$("#modiContent"+vcode).html('<textarea placeholder="Content" id="vcontent'+vcode+'" required="required">'+vcontent+'</textarea>');
-			$("#modiScore"+vcode).empty();
-			var option = '<select id="vscore'+vcode+'" style="display:none;"><option value="">별점</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>';
-			option += '<div class="nice-select" tabindex="0"><span class="current">별점</span><ul class="list"><li data-value="" class="option selected">별점</li><li data-value="1" class="option">1</li>';
-			option += '<li data-value="2" class="option">2</li><li data-value="3" class="option">3</li><li data-value="4" class="option">4</li><li data-value="5" class="option">5</li></ul></div>';
-			$("#modiScore"+vcode).append(option);
-			$("#modiBtn"+vcode).html('수정하기')	/* 버튼을 수정하기로 바꿈 */
-		} else {	/* 수정하기 버튼을 눌렀을 경우 review수정 */
-			var hocode = '${hotelDTO.hocode}';
-			var newVcontent = $("#vcontent"+vcode).val();
-			var newVscore = $("#vscore"+vcode+" option:selected").val();
-			if(newVcontent == ''){/* 리뷰 내용과 별점이 존재하는지 판별 */
-				alert('리뷰 내용을 작성해주세요');
-				$("#vcontent").focus();
-				return;
-			}
-			if(newVscore == ''){
-				alert('별점을 등록해주세요');
-				return;
-			}
-			$.ajax({
-				type: "post",
-				url: "modifyReview",
-				data: {
-					"hocode" : hocode,
-					"vcode" : vcode,
-					"vcontent" : newVcontent,
-					"vscore" : newVscore
-				},
-				dataType: "json",
-				success: function(data){
-					printReview(data);
-				},
-				error: function(){
-					console.log('reviewModify 연결실패');
-				}
-			})
-		}
-	}
+  function modifyReview(vcode){
+      var vcontent = getVcontent(vcode);
+      if($("#modiBtn"+vcode).html() == '수정'){   /* 수정 버튼을 눌렀다면 리뷰 수정이 가능하도록 html변경*/
+         $("#modiContent"+vcode).html('<textarea rows="8" class="card-body form-control" placeholder="Content" id="vcontent'+vcode+'" required="required">'+vcontent+'</textarea>');
+         $("#modiScore"+vcode).empty();
+         var option = '<select id="vscore'+vcode+'" style="display:none;"><option value="">별점</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>';
+         option += '<div class="nice-select" tabindex="0"><span class="current">별점</span><ul class="list"><li data-value="" class="option selected">별점</li><li data-value="1" class="option">1</li>';
+         option += '<li data-value="2" class="option">2</li><li data-value="3" class="option">3</li><li data-value="4" class="option">4</li><li data-value="5" class="option">5</li></ul></div>';
+         $("#modiScore"+vcode).append(option);
+         $("#modiBtn"+vcode).html('수정하기')   /* 버튼을 수정하기로 바꿈 */
+      } else {   /* 수정하기 버튼을 눌렀을 경우 review수정 */
+         var hocode = '${hotelDTO.hocode}';
+         var newVcontent = $("#vcontent"+vcode).val();
+         var newVscore = $("#vscore"+vcode+" option:selected").val();
+         if(newVcontent == ''){/* 리뷰 내용과 별점이 존재하는지 판별 */
+            alert('리뷰 내용을 작성해주세요');
+            $("#vcontent").focus();
+            return;
+         }
+         if(newVscore == ''){
+            alert('별점을 등록해주세요');
+            return;
+         }
+         $.ajax({
+            type: "post",
+            url: "modifyReview",
+            data: {
+               "hocode" : hocode,
+               "vcode" : vcode,
+               "vcontent" : newVcontent,
+               "vscore" : newVscore
+            },
+            dataType: "json",
+            success: function(data){
+               printReview(data);
+            },
+            error: function(){
+               console.log('reviewModify 연결실패');
+            }
+         })
+      }
+   }
+
 	/* like 버튼을 눌렀을 경우 */
 	function likeProcess(vcode){
 		var loginId = '${sessionScope.MLoginId}';
@@ -364,6 +367,29 @@ color: #2CBDB8;
 			})
 		}
 	}
+
+	   function getVcontent(vcode){
+		      var vcontent = "";
+		      $.ajax({
+		         type : 'post',
+		         url : 'getVcontent',
+		         data : {
+		            'vcode' : vcode
+		         },
+		         dataType : 'text',
+		         async: false,
+		         success : function(result) {
+		            vcontent = result;
+		            
+		         },
+		         error : function() {
+		            console.log('리뷰내용 가져오기 연결 실패')
+		         }
+		         
+		      })
+		      return vcontent;
+		      }
+			
 
 	</script>
 <%@ include file="../includes/footer.jsp"%>

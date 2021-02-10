@@ -102,4 +102,13 @@ public class ReviewController {
 		mav = reviewService.reviewListDel(vcode);
 		return mav;
 	}
+
+	// 리뷰 내용 가져오기
+	@RequestMapping(value = "getVcontent", produces = "application/text; charset=utf-8")
+	public @ResponseBody String getVcontent(String vcode) {
+		System.out.println("getVcontent");
+		String data = reviewService.getVcontent(vcode);
+		return data;
+	}
+
 }

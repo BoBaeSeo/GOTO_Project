@@ -106,7 +106,7 @@
 
 									<div class="form-row">
 										<div class="form-group col-md-6">
-											<label class="small mb-1">관광지 사진</label> <input type="file"
+											<label class="small mb-1">맛집 사진</label> <input type="file"
 												class="form-control" id="rephoto" name="rephoto"><br>
 										</div>
 									</div>

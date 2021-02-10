@@ -70,13 +70,14 @@
 				<h4 class="property-title">HeartList</h4>
 				<div class="property-list">
 				
-				<form action="heartList" method="post" enctype="multipart/form-data">
+				<form action="heartList" method="post">
 					<c:forEach var="heartList" items="${heartList }">
 						<div class="single-property-item" id="heartList${heartList.htcode }">
 							<div class="row">
 								<div class="col-md-4">
 									<div class="property-pic">
-										<img src="/resouses/img/${heartList.hofilename }" alt="호텔사진">
+									<img src="/resources/img/hotelFile/${heartList.hofilename}" alt="">
+									
 									</div>
 								</div>
 								<div class="col-md-8">

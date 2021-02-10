@@ -40,17 +40,21 @@ public interface ReviewMapper {
 
 	// 리뷰 리스트 select
 	public ArrayList<ReviewDTO> reviewList(String MloginId);
-	
+
 	// 리뷰 history 삭제
 	public int historyDelete(String vcode);
 
 	// 리뷰 리스트 select
-	public ArrayList<ReviewDTO> reviewPage( @Param("startRow") int startRow,  @Param("endRow") int endRow, @Param("MloginId") String MloginId);
+	public ArrayList<ReviewDTO> reviewPage(@Param("startRow") int startRow, @Param("endRow") int endRow,
+			@Param("MloginId") String MloginId);
 
 	// 리뷰 개수 select
 	public int getReviewListCnt();
 
 	// 리뷰 리스트 select
-	List<Map<String,Object>> selectReviewList();
-	
+	List<Map<String, Object>> selectReviewList();
+
+	// 리뷰 내용 가져오기
+	String getVcontent(String vcode);
+
 }

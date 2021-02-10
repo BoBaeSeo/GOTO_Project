@@ -154,9 +154,11 @@
 								<option value="6">6인 이상</option>
 							</select> <select name="bprice">
 								<option value="">가격</option>
-								<option value="50000">50,000원 이하</option>
-								<option value="100000">100,000원 이하</option>
-								<option value="150000">150,000원 이하</option>
+								<option value="150000">150000이하</option>
+                                <option value="300000">300000이하</option>
+                                <option value="500000">500000이하</option>
+                                <option value="1000000">1000000이하</option>
+                                <option value="10000000">1000000이상</option>
 							</select>
 							<div class="price-range-wrap">
 								<div class="price-text"></div>

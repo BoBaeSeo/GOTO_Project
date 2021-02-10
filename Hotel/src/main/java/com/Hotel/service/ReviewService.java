@@ -198,7 +198,7 @@ public class ReviewService {
 	// 관리자 후기리스트
 	public ModelAndView a_selectReviewList() {
 		mav = new ModelAndView();
-		
+
 		// 리뷰 리스트 select
 		List<Map<String, Object>> reviewList = reviewMapper.selectReviewList();
 		mav.addObject("reviewList", reviewList);
@@ -210,16 +210,23 @@ public class ReviewService {
 	@Transactional(rollbackFor = Exception.class)
 	public ModelAndView reviewListDel(String vcode) {
 		mav = new ModelAndView();
-		
+
 		// 후기 history 삭제
 		int HistoryDel = reviewMapper.historyDelete(vcode);
-		
+
 		// 후기 삭제
 		int ReviewDel = reviewMapper.deleteReview(vcode);
 		System.out.println("HistoryDel::" + HistoryDel);
 		System.out.println("ReviewDel::" + ReviewDel);
 		mav.setViewName("redirect:/a_reviewList");
 		return mav;
+	}
+
+	// 리뷰 내용 가져오기
+	public String getVcontent(String vcode) {
+		String vcontent = reviewMapper.getVcontent(vcode);
+		System.out.println(vcontent);
+		return vcontent;
 	}
 
 }

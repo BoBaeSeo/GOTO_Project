@@ -43,6 +43,7 @@
 			async : false,
 			success : function(result) {
 				alert(result);
+				location.href = "MemberLoginForm.jsp";
 			},
 			error : function() {
 				alert(" 연결 실패 ");

@@ -28,7 +28,7 @@
                     <div class="row">
                         <div class="col-lg-10 offset-lg-1">
                             <div class="contact-text">
-                                <form action="LandmarkInsertForm" class="contact-form" method="post" enctype="multipart/form-data" id="insertId">
+                                <form action="landmarkInsert" class="contact-form" method="post" enctype="multipart/form-data" id="insertId">
                                 	
                                 	<!-- 지역 카테고리 코드 선택 -->
                                 	<div class="row">
@@ -74,6 +74,7 @@
                                 	<div class="ba-text">
                                         <label class="breadcrumb-text">관광지 이름</label>
                                         <input type="text" id="inputLaname" name="laname" placeholder="관광지 이름">
+                                        <input type="hidden" name="lacode" value="${lacode}">
                                     </div>
 												
 									<!-- 주소 -->
@@ -100,7 +101,7 @@
                                     <!-- 관광지 홍보 문구 -->
                                 	<div class="ba-text">
                                         <label class="breadcrumb-text">소개글</label>
-                                        <textarea rows="8" class="card-body form-control" name="hopublicize" id="hopublicize" placeholder="관광지 홍보 문구"></textarea>
+                                        <textarea rows="8" class="card-body form-control" name="laintro" id="lapublicize" placeholder="관광지 홍보 문구"></textarea>
                                     </div>
                                     
                                     <!-- 관광지 사진 -->
