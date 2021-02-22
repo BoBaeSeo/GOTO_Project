@@ -4,7 +4,7 @@
     <!-- Footer Section Begin -->
     <footer class="footer-section set-bg" data-setbg="resources/img/footer-bg.jpg">
         <div class="container">
-            <div class="footer-text">
+            <div class="footer-text" style="margin-left: 100px;">
                 <div class="row">
                     <div class="col-lg-3">
                         <div class="footer-logo">

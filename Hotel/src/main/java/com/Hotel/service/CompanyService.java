@@ -135,7 +135,7 @@ public class CompanyService {
 
 		// 업체리스트 select
 		ArrayList<CompanyDTO> companyList = companyMapper.a_approveJoin();
-		System.out.println(companyList);
+
 		mav.addObject("companyList", companyList);
 		mav.setViewName("admin/a_approveJoin");
 

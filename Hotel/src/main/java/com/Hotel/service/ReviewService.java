@@ -67,8 +67,12 @@ public class ReviewService {
 	}
 
 	// 리뷰 삭제
+	@Transactional(rollbackFor = {Exception.class})
 	public Map<String, Object> deleteReview(String vcode, String hocode) {
 
+		// 리뷰에 연결된 좋아요 삭제
+		int deleteHistory = reviewMapper.historyDelete(vcode);
+		
 		// 리뷰 삭제
 		int deleteResult = reviewMapper.deleteReview(vcode);
 		// hotel 별점 update
@@ -81,7 +85,7 @@ public class ReviewService {
 		int reviewCnt = reviewMapper.getReviewCnt(hocode);
 
 		// hotel 별점 가져오기
-		float hoscore = hotelMapper.getHoscroe(hocode);
+		float hoscore = hotelMapper.getHoscore(hocode);
 
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("reviewList", reviewList);
@@ -91,6 +95,7 @@ public class ReviewService {
 	}
 
 	// 리뷰 수정
+	@Transactional(rollbackFor = {Exception.class})
 	public Map<String, Object> modifyReview(ReviewDTO reviewDTO, String hocode) {
 		// 리뷰 수정
 		int updateRVResult = reviewMapper.modifyReview(reviewDTO);
@@ -104,7 +109,7 @@ public class ReviewService {
 		int reviewCnt = reviewMapper.getReviewCnt(hocode);
 
 		// hotel 별점 가져오기
-		float hoscore = hotelMapper.getHoscroe(hocode);
+		float hoscore = hotelMapper.getHoscore(hocode);
 		Map<String, Object> data = new HashMap<String, Object>();
 		data.put("reviewList", reviewList);
 		data.put("reviewCnt", reviewCnt);
@@ -176,7 +181,7 @@ public class ReviewService {
 		System.out.println(page);
 
 		// 페이징 처리
-		int reviewListCnt = reviewMapper.getReviewListCnt();
+		int reviewListCnt = reviewMapper.getReviewListCnt(MloginId);
 		int maxPage = (int) (Math.ceil((double) reviewListCnt / pageLimit));
 		int startPage = ((int) (Math.ceil((double) page / pageNumLimit)) - 1) * pageNumLimit + 1;
 		int endPage = startPage + pageNumLimit - 1;

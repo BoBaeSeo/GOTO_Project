@@ -93,7 +93,7 @@
                                         <div class="room-price">
                                             <span>결제 가격: </span>
                                             <h5>${list.bprice } </h5>
-                                        <button type="button" style="display: none;" id="review${list.bcode }" class="site-btn review" onclick="writeReview('${list.b_hocode}', '${list.bcode }')">리뷰 등록</button>
+                                        <button type="button" id="review${list.bcode }" class="site-btn review" onclick="writeReview('${list.b_hocode}', '${list.bcode }')">리뷰 등록</button>
                                         </div>
                                     </div>
                                 </div>
@@ -127,8 +127,9 @@
 	})
 	/* 예약날짜를 현재시간과 비교하여 버튼 다르게 뜨게하기 */
 	function checkDate(){
+		var bcode = "${list.bcode}"
 		<c:forEach var="list" items="${bookingList}">
-		var bcode = "${list.bcode}";
+		bcode = "${list.bcode}";
 		var checkin = new Date("${list.bcheckin}");
 		var checkout = new Date("${list.bcheckout}");
 		var nowDate = new Date();
@@ -136,11 +137,12 @@
 			$("#review" + bcode).removeAttr('style')
 			$("#complete" + bcode).removeAttr('style')
 		} else {	/* 예약날짜가 현재시간과 비교하여 미래일 경우 예약취소 버튼만 존재하도록 */
+			$("#review" + bcode).hide();
 			$("#cancel" + bcode).removeAttr('style')
 		}
 		</c:forEach>
 		<c:forEach var="vlist" items="${bcodeList}">
-			if("${list.bcode == vlist}"){
+			if(bcode != "${vlist}"){
 				$("#review${vlist}").hide();
 			}
 		</c:forEach>

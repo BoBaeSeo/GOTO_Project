@@ -368,6 +368,7 @@ color: #2CBDB8;
 		}
 	}
 
+	/* 리뷰 수정 버튼을 눌렀을 때 리뷰 내용 가져오기 */
 	   function getVcontent(vcode){
 		      var vcontent = "";
 		      $.ajax({

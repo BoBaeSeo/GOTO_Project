@@ -33,7 +33,7 @@ public interface HotelMapper {
 	int updateScore(String hocode);
 
 	// 호텔 점수 select
-	float getHoscroe(String hocode);
+	float getHoscore(String hocode);
 
 	// 관리자 호텔 리스트 select
 	ArrayList<HotelDTO> a_hotelList(String loginId);

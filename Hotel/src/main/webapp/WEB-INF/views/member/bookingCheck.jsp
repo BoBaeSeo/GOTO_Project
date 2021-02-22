@@ -30,7 +30,7 @@
                     <div class="property-list">
 
 
-				<div class="col-lg-9">
+				<div class="col-lg-9" style="margin: auto;">
 
                             <div class="contact-text">
                                 <form action="bookingCheck" class="contact-form" method="post" id="bookingForm">

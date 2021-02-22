@@ -49,7 +49,7 @@ public interface ReviewMapper {
 			@Param("MloginId") String MloginId);
 
 	// 리뷰 개수 select
-	public int getReviewListCnt();
+	public int getReviewListCnt(String mloginId);
 
 	// 리뷰 리스트 select
 	List<Map<String, Object>> selectReviewList();
