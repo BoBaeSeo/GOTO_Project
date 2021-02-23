@@ -1,6 +1,6 @@
-![logo](https://user-images.githubusercontent.com/69306907/108828170-dc6f5880-7609-11eb-8b28-96e4a1e77d63.png)
+<p align="center"><img src="https://user-images.githubusercontent.com/69306907/108828170-dc6f5880-7609-11eb-8b28-96e4a1e77d63.png" alt="Logo" width="350px"></p>
 
-**GOTO PROJECT**
+<p align="center"><strong>GOTO PROJECT</strong></p>
 
 ## Service
 -----------------------
