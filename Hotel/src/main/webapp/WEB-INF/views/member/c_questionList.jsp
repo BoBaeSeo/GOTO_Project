@@ -158,13 +158,17 @@ color: #2CBDB8;
 
 
 <script type="text/javascript">
-$(document).ready(function(){
-    $(".active").removeClass('active');
-    $("#hotel").addClass('active');
- })
- 
  $("#selectBtn").change(function(){
 		var selectBtn = $("#selectBtn").val();
 		$("#serchBtn").val(selectBtn);
 	});
+
+	$(document).ready(function(){
+		var he_qccode = '${he_qccode}';
+		if(he_qccode != ''){
+			$("#selectBtn").val(he_qccode).prop("selected", true);
+			var heName = $("#selectBtn option:selected").text();
+			$(".current").text(heName);
+			}
+		})
 </script>

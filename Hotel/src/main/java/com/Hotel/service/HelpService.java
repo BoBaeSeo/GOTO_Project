@@ -146,6 +146,7 @@ public class HelpService {
 
 		// 1대1문의 카테고리 별로 select
 		List<Map<String, Object>> questionSelect = helpMapper.questionSelect(he_qccode,loginId);
+		mav.addObject("he_qccode", he_qccode);
 		mav.addObject("questionList", questionSelect);
 		mav.setViewName("member/c_questionList");
 		
@@ -200,6 +201,7 @@ public class HelpService {
 		// 자묻질 카테고리에 따른 리스트 select
 		ArrayList<FaqDTO> FaqList = helpMapper.searchingFAQList(faq_qccode);
 		System.out.println("FaqList:::" + FaqList);
+		mav.addObject("faq_qccode",faq_qccode);
 		mav.addObject("FaqList", FaqList);
 		mav.setViewName("help/c_FaqListForm");
 
