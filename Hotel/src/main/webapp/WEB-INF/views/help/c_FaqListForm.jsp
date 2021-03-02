@@ -62,7 +62,7 @@
 				<h4 class="property-title">자주 묻는 질문</h4>
 				<div class="property-list">
 					<form action="searchingFAQList" class="sidebar-search">
-						<select name="faq_qccode">
+						<select name="faq_qccode" id="faq_qccode">
 							<option value="#">직접입력</option>
 							<option value="QC001">예약관련</option>
 							<option value="QC002">취소관련</option>
@@ -108,6 +108,16 @@
 			</div>
 </section>
 <!-- Property Section End -->
+<script>
+$(document).ready(function(){
+	var faq_qccode = '${faq_qccode}';
+	if(faq_qccode != ''){
+		$("#faq_qccode").val(faq_qccode).prop("selected", true);
+		var faqName = $("#faq_qccode option:selected").text();
+		$(".current").text(faqName);
+		}
+	})
+</script>
 
 
 
