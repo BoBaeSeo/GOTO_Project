@@ -119,12 +119,6 @@
     </section>
 <!-- bookingList End -->
 <script>
-	$(document).ready(function(){
-		$("#home").removeClass('active');
-		$("#hotel").removeClass('active');
-		$("#help").addClass('active');
-		checkDate();
-	})
 	/* 예약날짜를 현재시간과 비교하여 버튼 다르게 뜨게하기 */
 	function checkDate(){
 		var bcode = "${list.bcode}"

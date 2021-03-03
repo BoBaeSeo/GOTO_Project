@@ -197,12 +197,6 @@ color: #2CBDB8;
     <!-- Map End -->
     
 <script>
-	$(document).ready(function(){
-		$("#home").removeClass('active');
-		$("#help").removeClass('active');
-		$("#hotel").addClass('active');
-		checkLike();
-	})
 	/* 리뷰 like 판별 */
 	function checkLike(){
 		<c:forEach var="vlist" items="${reviewList}">
